@@ -1,4 +1,17 @@
 {
-  "updated": "2026-10-06T17:49:03.707Z",
-  "posts": []
+  "updated": "2026-10-06T17:51:13.897Z",
+  "posts": [
+    {
+      "id": "bj10ycqk5hv6",
+      "title": "TEST · Jujutsu Emergency Network",
+      "from": "Sendai Jujutsu High",
+      "body": "THIS IS A TEST. THIS IS ONLY A TEST.\nThe Jujutsu Emergency Network is running a scheduled test of its curse warning system for all registered sorcerers of Sendai Jujutsu High.\nIf this were a real emergency, you would receive the threat grade, the affected area and your evacuation or deployment orders.\nNo action is required. Do not leave the barrier.\n— Sendai Jujutsu High, Office of the Assistant Managers",
+      "tag": "Test",
+      "boost": "none",
+      "date": "2026-10-06T19:45",
+      "until": "",
+      "phone": true,
+      "board": false
+    }
+  ]
 }
