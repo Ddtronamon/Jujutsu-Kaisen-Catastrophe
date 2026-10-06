@@ -1,17 +1,4 @@
 {
-  "updated": "2026-10-06T18:00:00Z",
-  "posts": [
-    {
-      "id": "welcome",
-      "title": "Welcome to Sendai Jujutsu High",
-      "from": "Sendai Jujutsu High",
-      "body": "Your phone is now connected to the Jujutsu Network. Alerts from the school will arrive here.\n\nCheck the Bulletin Board for side stories and notices.",
-      "tag": "Notice",
-      "boost": "none",
-      "date": "2026-10-06T00:00",
-      "until": "",
-      "phone": true,
-      "board": true
-    }
-  ]
+  "updated": "2026-10-06T17:49:03.707Z",
+  "posts": []
 }
