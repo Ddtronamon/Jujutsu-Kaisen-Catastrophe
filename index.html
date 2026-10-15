@@ -255,6 +255,34 @@ main{padding-block:20px 60px}
 .inv-tools{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .inv-tools .tp i{background:var(--rc)}
 .inv-tools .tp[aria-pressed="true"]{border-color:var(--rc);box-shadow:inset 0 0 0 1px var(--rc)}
+.binder{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px}
+.hcard{position:relative;aspect-ratio:5/7;border-radius:10px;border:2px solid var(--rc);background:linear-gradient(165deg,color-mix(in srgb,var(--rc) 24%,var(--surface)),var(--surface) 62%);padding:8px 9px;display:flex;flex-direction:column;gap:3px;overflow:hidden;text-align:left;color:var(--fg);font:inherit;min-width:0}
+button.hcard{cursor:pointer}
+button.hcard:hover{transform:translateY(-2px);transition:transform .15s}
+.hcard .no{font-family:var(--f-mono);font-size:.6rem;color:var(--muted)}
+.hcard .sig{flex:1;display:grid;place-items:center}
+.hcard .sig span{width:58%;aspect-ratio:1;border-radius:50%;border:1.5px solid var(--rc);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--rc);background:color-mix(in srgb,var(--rc) 10%,transparent)}
+.hcard .nm{font-family:var(--f-display);font-weight:800;font-size:.84rem;line-height:1.15}
+.hcard .gr{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rc)}
+.hcard .tc{font-size:.68rem;color:var(--muted);line-height:1.2}
+.hcard .cnt{position:absolute;top:6px;right:6px;background:var(--rc);color:#0b0a10;border-radius:99px;font-size:.64rem;padding:1px 7px;font-family:var(--f-mono);font-weight:500}
+.hcard .cnt.new{background:var(--accent);color:#fff}
+.hcard.missing{border-style:dashed;border-color:var(--line);background:var(--surface-2);opacity:.6}
+.hcard.missing .sig span{border-color:var(--line);color:var(--muted);background:none}
+.hcard.missing .gr{color:var(--muted)}
+.hcard.holo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.2) 44%,rgba(255,170,255,.16) 50%,rgba(150,220,255,.14) 56%,transparent 70%);background-size:260% 100%;animation:holo 3.6s linear infinite;pointer-events:none}
+@keyframes holo{from{background-position:160% 0}to{background-position:-110% 0}}
+.hcard.back{border-color:var(--line);background:repeating-linear-gradient(45deg,var(--surface-2) 0 8px,var(--surface) 8px 16px)}
+.hcard.back .sig span{border-color:var(--danger);color:var(--danger);background:var(--surface)}
+.hcard.pop{animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
+.hcard.glow{box-shadow:0 0 22px color-mix(in srgb,var(--rc) 70%,transparent)}
+.hcard.big{width:min(230px,60vw);flex:none}
+.card-view{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.pack-open{display:grid;gap:10px;justify-items:center;text-align:center}
+.pack-grid{display:grid;grid-template-columns:repeat(5,minmax(0,110px));gap:10px;justify-content:center;width:100%}
+@media (max-width:620px){.pack-grid{grid-template-columns:repeat(3,minmax(0,110px))}}
+.pack-grid .hcard .tc,.pack-grid .hcard .of{display:none}
+@media (prefers-reduced-motion:reduce){.hcard.holo::after,.hcard.pop{animation:none}}
 .inv{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
 .item{border:1px solid var(--line);border-top:3px solid var(--rc);border-radius:8px;background:var(--surface);padding:12px 14px;display:grid;gap:5px;align-content:start;min-width:0}
 .item .rar{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rc);font-weight:500}
@@ -358,6 +386,47 @@ main{padding-block:20px 60px}
 .ph-app .ico svg,.ico.a-chat svg{width:28px;height:28px}
 .a-alerts{background:linear-gradient(160deg,#ff6b6b,#c42a3f);color:#fff}
 .a-chat{background:linear-gradient(160deg,#4be38b,#13955a);color:#fff}
+.a-zon{background:linear-gradient(160deg,#232f3e,#131921);color:#fff}
+.zon{flex:1;display:flex;flex-direction:column;min-height:0;background:#eaeded;color:#0f1111;font-family:var(--f-body)}
+.zon-top{display:flex;align-items:center;gap:8px;background:#131921;color:#fff;padding:10px 14px 8px}
+.zon-back{background:none;border:0;color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;padding:0 4px}
+.zon-logo{display:inline-grid;font-weight:700;font-size:1.25rem;letter-spacing:-.02em;line-height:1}
+.zon-logo svg{width:58px;height:10px;margin-top:-1px}
+.zon-bal{margin-left:auto;font-family:var(--f-mono);font-size:.78rem;background:#232f3e;border-radius:6px;padding:4px 8px;color:#ffd814}
+.zon-deliver{background:#232f3e;color:#ccc;font-size:.74rem;padding:5px 14px}
+.zon-deliver b{color:#fff}
+.zon-tabs{display:flex;background:#fff;border-bottom:1px solid #d5d9d9}
+.zon-tabs button{flex:1;background:none;border:0;padding:9px 4px;font:inherit;font-size:.82rem;color:#565959;cursor:pointer;border-bottom:3px solid transparent}
+.zon-tabs button.on{color:#0f1111;font-weight:700;border-bottom-color:#ff9900}
+.zon-body{flex:1;overflow:auto;padding:10px;display:grid;gap:10px;align-content:start}
+.zon-card{background:#fff;border-radius:8px;padding:12px;display:grid;gap:4px;position:relative;border-top:3px solid var(--rc)}
+.zon-tag{position:absolute;top:10px;right:10px;background:#cc0c39;color:#fff;font-size:.66rem;font-weight:700;padding:2px 6px;border-radius:3px}
+.zon-rar{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--rc);filter:brightness(.8)}
+.zon-name{font-size:.98rem;line-height:1.25;padding-right:60px}
+.zon-meta{font-size:.72rem;color:#565959}
+.zon-desc{font-size:.8rem;color:#333}
+.zon-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:2px}
+.zon-price{font-weight:700;font-size:1.05rem;color:#0f1111;font-variant-numeric:tabular-nums}
+.zon-price.sm{font-size:.86rem}
+.zon-stock{font-size:.72rem;color:#b12704}
+.zon-buy{background:#ffd814;border:1px solid #fcd200;color:#0f1111;border-radius:99px;padding:8px;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer;margin-top:4px}
+.zon-buy.alt{background:#ffa41c;border-color:#ff8f00}
+.zon-buy:disabled{background:#e7e9ec;border-color:#d5d9d9;color:#8a8f94;cursor:not-allowed}
+.zon-ship{font-size:.68rem;color:#007600}
+.zon-empty{display:grid;gap:4px;text-align:center;padding:40px 16px;color:#565959}
+.zon-empty b{color:#0f1111}
+.zon-box{background:#fff;border-radius:8px;padding:12px;display:grid;gap:7px}
+.zon-k{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:#565959;font-weight:700}
+.zon-idrow{display:flex;align-items:center;gap:8px}
+.zon-idrow b{font-family:var(--f-mono);font-size:1.1rem;letter-spacing:.06em}
+.zon-mini{background:#fff;border:1px solid #d5d9d9;border-radius:8px;padding:4px 10px;font:inherit;font-size:.76rem;cursor:pointer;justify-self:start;color:#0f1111}
+.zon-hint{font-size:.72rem;color:#565959}
+.zon-box select,.zon-box input,.zon-box textarea{width:100%;background:#fff;color:#0f1111;border:1px solid #a6a6a6;border-radius:6px;padding:7px 8px;font:inherit;font-size:.8rem}
+.zon-box textarea{font-family:var(--f-mono);font-size:.68rem;resize:vertical}
+.zon-line{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border-radius:8px;padding:9px 12px;font-size:.82rem}
+.zon-box .zon-line{padding:4px 0;border-radius:0;border-bottom:1px solid #eee}
+.zon-line span{display:grid;min-width:0}
+.zon-line small{color:#565959;font-size:.7rem}
 .a-settings{background:linear-gradient(160deg,#9a98a8,#5b5967);color:#fff}
 .ph-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#ff3b30;color:#fff;font-style:normal;font-size:.72rem;font-weight:700;display:grid;place-items:center;border:2px solid rgba(0,0,0,.25)}
 .ph-warn{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:center;text-align:left;background:rgba(24,22,32,.88);color:#fff;border:1px solid rgba(255,200,40,.5);border-radius:16px;padding:10px 12px;cursor:pointer;font:inherit;backdrop-filter:blur(8px)}
@@ -678,6 +747,9 @@ dialog img{display:block;max-width:100%;border-radius:8px;border:1px solid var(-
         <div class="section-h" style="margin-top:36px"><h2>Lore Journal</h2><span class="eyebrow" id="loreCount"></span></div>
         <p class="dhelp" style="margin:-4px 0 14px;color:var(--muted);max-width:70ch">Every Lore Item you read is kept here. Collect them all to piece together what really happened.</p>
         <div class="inv" id="loreList"></div>
+        <div class="section-h" style="margin-top:36px"><h2>Card Binder</h2><span class="eyebrow" id="cardCount"></span></div>
+        <p class="dhelp" style="margin:-4px 0 14px;color:var(--muted);max-width:70ch">Heian Era Sorcerers, a set of 36 cards. A card's rarity is the sorcerer's grade. Get packs on Jujuzon, open them in your inventory, and swap duplicates with other players.</p>
+        <div class="binder" id="binder"></div>
       </div>
     </div>
   </section>
@@ -939,6 +1011,104 @@ const LOOT=[
   I("Chain of a Thousand Miles","Weapon","Combat Proficiency","Its length has no limit.")]
 ];
 const ITEMS={};LOOT.forEach((list,ri)=>list.forEach(it=>{it.id=slug(it.n);it.r=ri;ITEMS[it.id]=it}));
+/* OFF CHANCE ITEMS (edit here): never drop from loot chests. Only the GM can put them in the Jujuzon store (or give them).
+   OC(rarity 0-6, name, type, boost, description, xp). xp is only used by XP talismans. */
+const OC=(r,n,type,boost,d,xp)=>Object.assign(I(n,type,boost,d),{r,off:true},xp?{xp}:{});
+const OFF_CHANCE=[
+  OC(2,"Jujuzon Basics Katana","Weapon","Combat Proficiency","Mass-produced and surprisingly sharp. Arrived in two days."),
+  OC(2,"Collapsible Cursed Baton","Weapon","Combat Proficiency","Snaps open with a flick of the wrist. Holds a little cursed energy."),
+  OC(3,"Talisman-Wrapped Bat","Weapon","Combat Proficiency","A baseball bat with seal paper taped down the grip. Curses hate it."),
+  OC(3,"Night Market Steel Fan","Weapon","Combat Proficiency","Folds into a club. Opens into a blade."),
+  OC(4,"Twin Sickles of Sendai","Weapon","Combat Proficiency","A matched pair. Each one hums when the other is near."),
+  OC(4,"Matsushima Recurve Bow","Weapon","Combat Proficiency","Its arrows carry cursed energy further than they should."),
+  OC(5,"Cursed Chain Whip","Weapon","Combat Proficiency","Thirty links of forged steel, each with a seal stamped into it."),
+  OC(5,"Black Lacquer Nodachi","Weapon","Combat Proficiency","Too long for most people to draw. Worth the practice."),
+  OC(6,"Moonlit Halberd","Weapon","Combat Proficiency","Shipped in a box marked FRAGILE. The box is cursed now too."),
+  OC(1,"Starter Focus Charm","Talisman","Cursed Energy Proficiency","A first-year's charm for keeping cursed energy steady.",15),
+  OC(1,"Pocket Seal Strip","Talisman","Barrier Proficiency","Fits in a wallet. Good for practice veils.",15),
+  OC(1,"Breathing Rhythm Tag","Talisman","Combat Proficiency","Stick it on your wrist and it pulses in time with a good fighting rhythm.",20),
+  OC(2,"Technique Memo Tag","Talisman","Cursed Technique Proficiency","Write one idea on it. It remembers the idea for you.",25),
+  OC(2,"Veil Practice Sheet","Talisman","Barrier Proficiency","A dotted outline of a veil you can trace with cursed energy.",25),
+  OC(3,"Output Tuning Talisman","Talisman","Cursed Energy Proficiency","Helps you feel how much energy you're really putting out.",35),
+  OC(3,"Simple Domain Drill Card","Talisman","Anti-Barrier Proficiency","A pocket card of Simple Domain stances.",35),
+  OC(4,"Sparring Ward","Talisman","Combat Proficiency","Takes the sting out of practice hits so you can train harder.",50),
+  OC(4,"Masterwork Focus Talisman","Talisman","Cursed Technique Proficiency","Written by a Grade 1 teacher. The brushwork alone is worth it.",50),
+  Object.assign(OC(1,"Sorcerer Trading Card Pack","Card Pack","Open for 5 cards","Five random Heian Era sorcerer cards. Three of them might be the same guy."),{pack:{n:5,min:0}}),
+  Object.assign(OC(3,"Heian Booster Pack","Card Pack","Open for 5 cards","Five Heian Era sorcerer cards. At least one is Rare or better."),{pack:{n:5,min:3}}),
+  Object.assign(OC(5,"Heian Collector's Box","Card Pack","Open for 10 cards","Ten Heian Era sorcerer cards in a lacquered box. At least one is Elite or better."),{pack:{n:10,min:4}}),
+  OC(1,"Three Schools Pin Set","Collectible","Collectible","Tokyo, Kyoto and Sendai. The Hiroshima pin is out of production."),
+  OC(1,"Miniature Torii Gate","Collectible","Collectible","Fits on a desk. Nobody knows why it's warm."),
+  OC(2,"Cursed Plushie","Collectible","Collectible","A plush curse. It squeaks when nobody is touching it."),
+  OC(3,"Signed Sendai Exchange Jersey","Collectible","Collectible","Signed by the whole team after the last Goodwill Event."),
+  OC(3,"Kyoto Exchange Poster","Collectible","Collectible","Limited print. The Kyoto students' faces are drawn a bit too smug."),
+  OC(4,"Gold Sorcerer License Replica","Collectible","Collectible","Looks official. Isn't. Still impresses first-years."),
+  OC(4,"1951 Sendai Yearbook","Collectible","Collectible","From the first class ever. Half the pages are stuck together."),
+  OC(5,"Holo King of Curses Card","Collectible","Collectible","Ultra rare. Do not let it near the fingers."),
+  OC(5,"Sealed Mystery Box","Collectible","Collectible","Nobody has ever opened one. Nobody has tried."),
+  OC(1,"Wireless Headphones","RP Item","RP only","Noise cancelling. Doesn't cancel curses."),
+  OC(1,"Bluetooth Speaker","RP Item","RP only","Loud enough for the whole dorm. The whole dorm has complained."),
+  OC(1,"Instant Camera","RP Item","RP only","Prints photos on the spot. Sometimes there's an extra face in them."),
+  OC(1,"Mechanical Keyboard","RP Item","RP only","Clicky. Very clicky."),
+  OC(2,"AirPods Pro","RP Item","RP only","Lose one within a week. It's tradition."),
+  OC(2,"Smartwatch","RP Item","RP only","Counts your steps, your heart rate and, somehow, nearby curses."),
+  OC(2,"Nintendo Switch","RP Item","RP only","For the long train rides between missions."),
+  OC(2,"Mountain Bike","RP Item","RP only","Faster than walking to the next mission. Slower than running from it."),
+  OC(3,"PlayStation 5","RP Item","RP only","The dorm's favorite. Arguments over the controller are frequent."),
+  OC(3,"Xbox Series X","RP Item","RP only","Comes with a headset and a lot of opinions."),
+  OC(3,"Designer Sneakers","RP Item","RP only","Too nice to wear on a mission. You'll wear them anyway."),
+  OC(3,"Electric Scooter","RP Item","RP only","Top speed 25 km/h. Top speed with cursed energy: unknown."),
+  OC(4,"iPhone 16 Pro","RP Item","RP only","The camera is good enough to photograph a curse. Mostly."),
+  OC(4,"Gaming Laptop","RP Item","RP only","RGB lights, a fan like a jet engine, and homework you aren't doing."),
+  OC(5,"Vintage Motorcycle","RP Item","RP only","Restored by hand. It only starts if you say please."),
+  OC(6,"Sports Car","RP Item","RP only","Parking at Sendai Jujutsu High is not included.")
+];
+OFF_CHANCE.forEach(it=>{it.id=slug(it.n);if(ITEMS[it.id])console.warn('duplicate item',it.n);ITEMS[it.id]=it});
+/* HEIAN CARD SET (edit here): 36 collectible cards. Rarity = the sorcerer's grade. Cards never drop from loot chests;
+   players get them from Card Packs (Off Chance items on Jujuzon), swaps, or the GM. */
+const CARDS=[
+  Object.assign(I("Rice Merchant of Kyoto","Card","Heian Card","Sold rice to sorcerers and curses alike. Never asked questions."),{r:0,off:true,card:true,no:1,tech:"Haggling"}),
+  Object.assign(I("Ox-Cart Driver","Card","Heian Card","Could see curses on every road in the capital. Kept driving anyway."),{r:0,off:true,card:true,no:2,tech:"Cursed Sight"}),
+  Object.assign(I("Temple Bell Ringer","Card","Heian Card","Rang the bell at dawn. Small curses scattered every time."),{r:0,off:true,card:true,no:3,tech:"Morning Bell"}),
+  Object.assign(I("Village Purifier","Card","Heian Card","Poured sake for the spirits. Drank most of it himself."),{r:0,off:true,card:true,no:4,tech:"Rice Wine Offerings"}),
+  Object.assign(I("Night Watch Archer","Card","Heian Card","Watched the palace walls all night. Saw more than he reported."),{r:0,off:true,card:true,no:5,tech:"Steady Aim"}),
+  Object.assign(I("Talisman Scribe","Card","Heian Card","Never fought a curse. Wrote the seals for everyone who did."),{r:0,off:true,card:true,no:6,tech:"Calligraphy"}),
+  Object.assign(I("Apprentice Onmy\u014dji","Card","Heian Card","Burned three talismans for every one that worked."),{r:0,off:true,card:true,no:7,tech:"Basic Talismans"}),
+  Object.assign(I("Imperial Veil-Keeper","Card","Heian Card","Raised the veils around the palace every night for thirty years."),{r:1,off:true,card:true,no:8,tech:"Veil Craft"}),
+  Object.assign(I("Toba Lantern Bearer","Card","Heian Card","Walked ahead of the nobles' carts. Curses kept away from the light."),{r:1,off:true,card:true,no:9,tech:"Lantern Ward"}),
+  Object.assign(I("Kurama Mountain Ascetic","Card","Heian Card","Trained under a freezing waterfall until his cursed energy stopped shaking."),{r:1,off:true,card:true,no:10,tech:"Waterfall Discipline"}),
+  Object.assign(I("Rash\u014dmon Gate Guard","Card","Heian Card","Guarded the most haunted gate in Kyoto. Asked for a transfer every year."),{r:1,off:true,card:true,no:11,tech:"Spear Training"}),
+  Object.assign(I("Ise Shrine Maiden Sayo","Card","Heian Card","Her bell made weak curses forget why they came."),{r:1,off:true,card:true,no:12,tech:"Sacred Bell"}),
+  Object.assign(I("Court Exorcist Hatsune","Card","Heian Card","Carried salt in her sleeves. Threw it with alarming accuracy."),{r:1,off:true,card:true,no:13,tech:"Salt Purification"}),
+  Object.assign(I("Kudara no Tomonari","Card","Heian Card","Every mirror he made could hold a curse. Most of them still do."),{r:2,off:true,card:true,no:14,tech:"Mirror Reflection"}),
+  Object.assign(I("Monk J\u014dkai","Card","Heian Card","Chanted for three days straight to hold a barrier. Lost his voice for a month."),{r:2,off:true,card:true,no:15,tech:"Sutra Barrier"}),
+  Object.assign(I("Kotone the Shiraby\u014dshi","Card","Heian Card","Her dances could calm a curse or bait it out. Hard to tell which until the end."),{r:2,off:true,card:true,no:16,tech:"Dance Ritual"}),
+  Object.assign(I("Lady Akahane","Card","Heian Card","Court lady by day, curse hunter by night. Nobody at court suspected."),{r:2,off:true,card:true,no:17,tech:"Crimson Veil"}),
+  Object.assign(I("\u014ce no Mitsune","Card","Heian Card","Tied curses to temple bells so they rang themselves apart."),{r:2,off:true,card:true,no:18,tech:"Thread Binding"}),
+  Object.assign(I("Ki no Haruaki","Card","Heian Card","Painted his shikigami before every fight. Fights started late."),{r:2,off:true,card:true,no:19,tech:"Ink Shikigami"}),
+  Object.assign(I("Ono no Kagetsu","Card","Heian Card","Sealed curses by reciting poems. Very long poems."),{r:3,off:true,card:true,no:20,tech:"Moon Poem Technique"}),
+  Object.assign(I("Usui Sadamitsu","Card","Heian Card","The steady one of Raik\u014d's four retainers. Always held the line."),{r:3,off:true,card:true,no:21,tech:"Spear Barrier"}),
+  Object.assign(I("Urabe no Suetake","Card","Heian Card","Raik\u014d's archer. His arrows found curses through walls."),{r:3,off:true,card:true,no:22,tech:"Bow Infusion"}),
+  Object.assign(I("Sakata no Kintoki","Card","Heian Card","Raised on a mountain, wrestled bears as a child, never learned a single technique. Never needed one."),{r:3,off:true,card:true,no:23,tech:"Heavenly Restriction"}),
+  Object.assign(I("Watanabe no Tsuna","Card","Heian Card","Cut the arm off an oni at Rash\u014dmon gate, then had to guard it for seven days."),{r:3,off:true,card:true,no:24,tech:"Cursed Tool: Higekiri"}),
+  Object.assign(I("Fujiwara no Kager\u014d","Card","Heian Card","The Fujiwara's quiet blade. Nobody saw her coming twice."),{r:4,off:true,card:true,no:25,tech:"Mirage Formation"}),
+  Object.assign(I("Minamoto no Raik\u014d","Card","Heian Card","Hunted the oni of Mount \u014ce with four loyal retainers."),{r:4,off:true,card:true,no:26,tech:"Demon Slaying"}),
+  Object.assign(I("Kamo no Tadayuki","Card","Heian Card","Read curses in the stars and in the blood. Founded a line that never forgot either."),{r:4,off:true,card:true,no:27,tech:"Blood Manipulation"}),
+  Object.assign(I("Kamo no Yasunori","Card","Heian Card","Head of the Kamo onmy\u014dji. Taught the young Seimei everything he knew."),{r:4,off:true,card:true,no:28,tech:"Blood Manipulation"}),
+  Object.assign(I("Ashiya D\u014dman","Card","Heian Card","Seimei's great rival. Lost every duel the stories remember. The stories were written by Seimei's side."),{r:5,off:true,card:true,no:29,tech:"Rival Onmy\u014dd\u014d"}),
+  Object.assign(I("Abe no Seimei","Card","Heian Card","The most famous onmy\u014dji of Kyoto. Legends say his mother was a fox."),{r:5,off:true,card:true,no:30,tech:"Onmy\u014dd\u014d"}),
+  Object.assign(I("Takako Uro","Card","Heian Card","Led the Fujiwara clan's elite troops. Folded the sky like paper."),{r:5,off:true,card:true,no:31,tech:"Sky Manipulation"}),
+  Object.assign(I("Uraume","Card","Heian Card","Sukuna's loyal attendant. The cold follows wherever they walk."),{r:5,off:true,card:true,no:32,tech:"Ice Formation"}),
+  Object.assign(I("Yorozu","Card","Heian Card","Could build anything she imagined, and imagined only one man."),{r:6,off:true,card:true,no:33,tech:"Construction"}),
+  Object.assign(I("Sugawara no Michizane","Card","Heian Card","One of Japan's three great vengeful spirits. Ancestor of the Gojo line."),{r:6,off:true,card:true,no:34,tech:"Vengeful Spirit"}),
+  Object.assign(I("Kenjaku","Card","Heian Card","A mind that moves from body to body. Patient beyond any human measure."),{r:6,off:true,card:true,no:35,tech:"Body Swapping"}),
+  Object.assign(I("Ryomen Sukuna","Card","Heian Card","Four arms, two faces, and every sorcerer of the age beneath him. The King of Curses."),{r:6,off:true,card:true,no:36,tech:"Shrine"})
+];
+CARDS.forEach(it=>{it.id="card-"+slug(it.n);ITEMS[it.id]=it});
+const CARD_TOTAL=CARDS.length,cardNo=it=>"#"+String(it.no).padStart(3,"0");
+const isCard=it=>!!(it&&it.card);
+/* Card packs: n cards each, min = guaranteed rarity for at least one card (index into RARITIES). Per-card odds follow the loot rarity weights. */
+function pullCard(min=0){const w=RARITIES.map((x,i)=>i>=min?x.w:0);const t=w.reduce((a,b)=>a+b,0);let x=rnd()*t,r=min;for(let i=0;i<w.length;i++){x-=w[i];if(x<0&&w[i]){r=i;break}}const pool=CARDS.filter(c=>c.r===r);return pool[Math.floor(rnd()*pool.length)]}
+function openPackCards(p){const out=Array.from({length:p.n},()=>pullCard());if(p.min&&!out.some(c=>c.r>=p.min))out[out.length-1]=pullCard(p.min);return out}
 const rarFull=i=>RARITIES[i].name===RARITIES[i].tag?RARITIES[i].name:`${RARITIES[i].name} · ${RARITIES[i].tag}`;
 const RAR_HEX=["#8b8794","#d9d4e3","#5fd38b","#5b9bff","#b48bff","#ffb347","#ff3b4e"];
 /* ============================================================= */
@@ -1063,7 +1233,7 @@ function cardHTML(c){
   if(pr.length)blocks.push(`<div class="c-block"><h4>Proficiency</h4><div class="c-skills">${pr.map(p=>{const h=PROF_HEX[p.id];const sk=unlockedProfSkills(c,p.id);return`<div class="c-skrow"><span class="c-tree" style="color:${h}">${esc(p.name.replace(" Proficiency",""))} · ${esc(profLabel(profLevel(c,p.id),p.id))}</span>${sk.map(s=>`<span class="chip" style="color:${h};border-color:${rgba(h,.45)};background:${rgba(h,.1)}">${esc(s[2])}</span>`).join("")}</div>`}).join("")}</div></div>`);
   const arm=(c.armory||[]).filter(v=>ITEMS[v.item]).sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);
   if(arm.length)blocks.push(`<div class="c-block"><h4>Armory</h4><div class="c-skrow">${arm.map(v=>{const it=ITEMS[v.item],h=RAR_HEX[it.r];return`<span class="chip" style="color:${h};border-color:${rgba(h,.5)};background:${rgba(h,.12)}">${esc(it.n)}</span>`}).join("")}</div></div>`);
-  const notable=(c.inventory||[]).filter(v=>ITEMS[v.item]&&ITEMS[v.item].r>=3&&ITEMS[v.item].type!=="Lore").sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);
+  const notable=(c.inventory||[]).filter(v=>ITEMS[v.item]&&ITEMS[v.item].r>=3&&ITEMS[v.item].type!=="Lore"&&!isCard(ITEMS[v.item])&&!ITEMS[v.item].pack).sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);
   if(notable.length)blocks.push(`<div class="c-block"><h4>Notable items</h4><div class="c-skrow">${notable.map(v=>{const it=ITEMS[v.item],h=RAR_HEX[it.r];return`<span class="chip" style="color:${h};border-color:${rgba(h,.5)};background:${rgba(h,.12)}">${esc(it.n)}</span>`}).join("")}</div></div>`);
   if(c.bio)blocks.push(`<div class="c-block"><h4>Bio</h4><p>${esc(c.bio)}</p></div>`);
   const initial=esc((c.name||"?").trim().charAt(0).toUpperCase()||"?");
@@ -1102,13 +1272,14 @@ $("#editor").addEventListener("input",e=>{
     if(has){e.target.value=old;toast("Refund the skills in your special roll tree before changing it.");return}
     c.specialRoll=e.target.value;applyRollPerks(c,old,c.specialRoll);actLog("specialRoll",{roll:c.specialRoll?SPECIAL_ROLLS.find(r=>r.id===c.specialRoll).name:"none",from:old?(SPECIAL_ROLLS.find(r=>r.id===old)||{}).name:"none"});touch();fillEditor();renderAll();
     const rp=ROLL_PERKS[c.specialRoll];if(c.specialRoll)toast(`${SPECIAL_ROLLS.find(r=>r.id===c.specialRoll).name} equipped.${rp&&rp.set?" Grade Potential, CE Output and CE Reserve are now Special Grade.":rp&&rp.trait?" Your CE Output comes with Divergent Fist.":""} Its tree is in the Skill Tree tab.`);return}
+  if(f==="grade"&&+e.target.value!==c.grade)actLog("grade",{from:GRADES[c.grade],to:GRADES[+e.target.value]});
   c[f]=f==="grade"?+e.target.value:e.target.value;
   if(c.example&&f==="name"){} touch();renderCard();renderBal();
   if(f==="name")renderChars();
   if(f==="grade"){$("#treeGrade").value=c.grade;renderTree()}
 });
 $("#editor").addEventListener("submit",e=>e.preventDefault());
-$("#treeGrade").addEventListener("change",e=>{C().grade=+e.target.value;$("#f-grade").value=C().grade;touch();renderAll()});
+$("#treeGrade").addEventListener("change",e=>{if(+e.target.value!==C().grade)actLog("grade",{from:GRADES[C().grade],to:GRADES[+e.target.value]});C().grade=+e.target.value;$("#f-grade").value=C().grade;touch();renderAll()});
 $("#portraitIn").addEventListener("change",e=>{
   const f=e.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{const img=new Image();img.onload=()=>{const s=320,cv=document.createElement("canvas");cv.width=cv.height=s;const x=cv.getContext("2d");const m=Math.min(img.width,img.height);x.drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);C().portrait=cv.toDataURL("image/jpeg",.85);touch();fillEditor();renderCard()};img.onerror=()=>toast("That file isn't an image this browser can read.");img.src=r.result};
@@ -1163,7 +1334,7 @@ function renderLedger(){
   const c=C();$("#pBal").textContent=balance(c);$("#pEarn").textContent=earned(c);$("#pSpent").textContent=spent(c);$("#pCount").textContent=Object.keys(c.unlocked).length+PROFS.reduce((a,p)=>a+unlockedProfSkills(c,p.id).length,0);if($("#tBal"))$("#tBal").textContent=balance(c);
   const rows=[...c.ledger].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   if(typeof renderAlertPick==="function")renderAlertPick();
-  $("#ledger").innerHTML=rows.length?rows.map(l=>`<div class="lrow"><div class="who">${esc(l.host||"Points")}<small>${esc(fmtDate(l.date))}${l.chests?` · ${l.chests} chest${l.chests===1?"":"s"}`:""}${l.alert?` · Host event: ${esc(l.alertTitle||"linked")}`:""}${l.note?" · "+esc(l.note):""}</small></div><span class="pts ${l.points<0?"neg":""}">${l.points>0?"+":""}${l.points}</span><button type="button" class="btn sm ghost" data-del-l="${l.id}" aria-label="Delete entry">✕</button></div>`).join(""):`<p class="dhelp" style="margin:0">No points logged yet. Add what you earned after each hosted event.</p>`;
+  $("#ledger").innerHTML=rows.length?rows.map(l=>`<div class="lrow"><div class="who">${esc(l.host||"Points")}<small>${esc(fmtDate(l.date))}${l.chests?` · ${l.chests} chest${l.chests===1?"":"s"}`:""}${l.yen?` · +${fmtYen(l.yen)}`:""}${l.alert?` · Host event: ${esc(l.alertTitle||"linked")}`:""}${l.note?" · "+esc(l.note):""}</small></div><span class="pts ${l.points<0?"neg":""}">${l.points>0?"+":""}${l.points}</span><button type="button" class="btn sm ghost" data-del-l="${l.id}" aria-label="Delete entry">✕</button></div>`).join(""):`<p class="dhelp" style="margin:0">No points logged yet. Add what you earned after each hosted event.</p>`;
 }
 $("#p-date").value=today();
 /* Host event alerts the current character can still link points to */
@@ -1176,14 +1347,15 @@ function renderAlertPick(keep){const c=C();const list=linkableAlerts(c);const se
 function addPoints(){const raw=String($("#p-pts").value).trim();const pts=Math.round(Number(raw));if(!raw||!isFinite(pts)||pts===0){toast("Enter how many points you got, as a whole number.");$("#p-pts").focus();return}
   const c=C();const aid=pts>0?$("#p-alert").value:"";const al=aid?linkableAlerts(c).find(p=>p.id===aid):null;
   const l={id:uid(),host:$("#p-host").value.trim(),points:pts,date:$("#p-date").value||today(),note:$("#p-note").value.trim()};
+  if(pts>0){l.yen=yenFor(c,pts);l.yenGrade=c.grade}
   if(al){l.alert=al.id;l.alertTitle=al.title||"Host event"}
   let ch=null;if(pts>0){const f=gmForce("chests");ch=f?CHEST_ROLL.find(x=>x.n===+f)||wpick(CHEST_ROLL):wpick(CHEST_ROLL);l.chests=ch.n;l.opened=0}
   c.ledger.push(l);touch();
   $("#p-host").value="";$("#p-pts").value="";$("#p-note").value="";
-  actLog("points",{pts,host:l.host||"Points",chests:l.chests,alert:l.alertTitle});renderAll();
+  actLog("points",{pts,host:l.host||"Points",chests:l.chests,alert:l.alertTitle,yen:l.yen?fmtYen(l.yen):"",grade:GRADES[c.grade]});renderAll();
   if(!ch){toast(`${pts} points logged`);return}
   const CH_COL=["--r-2","--r-4","--r-6"];
-  crSpin("Loot chests"+(al?" · Host event":""),CHEST_ROLL.map(x=>({label:`${x.n} chest${x.n===1?"":"s"}`,color:CH_COL[x.n-1]})),{label:`${ch.n} chest${ch.n===1?"":"s"}`,color:CH_COL[ch.n-1],big:ch.n===3,fast:true,sub:`+${pts} points logged. Open your chest${ch.n===1?"":"s"} in the Loot tab.`},
+  crSpin("Loot chests"+(al?" · Host event":""),CHEST_ROLL.map(x=>({label:`${x.n} chest${x.n===1?"":"s"}`,color:CH_COL[x.n-1]})),{label:`${ch.n} chest${ch.n===1?"":"s"}`,color:CH_COL[ch.n-1],big:ch.n===3,fast:true,sub:`+${pts} points logged · +${fmtYen(l.yen)} to spend on Jujuzon. Open your chest${ch.n===1?"":"s"} in the Loot tab.`},
     (al?`<p class="spin-note" style="color:var(--r-3)">Linked to ${esc(al.title||"Host event")}: these chests roll Rare to Special Grade only.</p>`:"")+`<button type="button" class="btn primary" id="goLoot" style="justify-self:center">Go to Loot</button>`,
     ()=>{const g=$("#goLoot");if(g)g.onclick=()=>{$("#dlg").close();setTab("loot")}})}
 $("#p-add").addEventListener("click",addPoints);
@@ -1243,7 +1415,7 @@ function discordText(c){
   const bts=earnedBreakthroughs(c);if(bts.length)L.push(`**Breakthroughs:** ${bts.map(b=>b.text).join(" · ")}`);
   {const pr=PROFS.filter(p=>profLevel(c,p.id)>0);if(pr.length){L.push(`\n## Proficiency`);pr.forEach(p=>{const sk=unlockedProfSkills(c,p.id).map(s=>s[2]);L.push(`> **${p.name.replace(" Proficiency","")}:** ${profLabel(profLevel(c,p.id),p.id)}${sk.length?` · ${sk.join(", ")}`:""}`)})}}
   {const arm=(c.armory||[]).filter(v=>ITEMS[v.item]).sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);if(arm.length)L.push(`**Armory:** ${arm.map(v=>`${ITEMS[v.item].n} (${RARITIES[ITEMS[v.item].r].name})`).join(", ")}`)}
-  {const nt=(c.inventory||[]).filter(v=>ITEMS[v.item]&&ITEMS[v.item].r>=3&&ITEMS[v.item].type!=="Lore").sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);if(nt.length)L.push(`**Notable items:** ${nt.map(v=>`${ITEMS[v.item].n} (${RARITIES[ITEMS[v.item].r].name})`).join(", ")}`)}
+  {const nt=(c.inventory||[]).filter(v=>ITEMS[v.item]&&ITEMS[v.item].r>=3&&ITEMS[v.item].type!=="Lore"&&!isCard(ITEMS[v.item])&&!ITEMS[v.item].pack).sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);if(nt.length)L.push(`**Notable items:** ${nt.map(v=>`${ITEMS[v.item].n} (${RARITIES[ITEMS[v.item].r].name})`).join(", ")}`)}
   if(c.bio)L.push(`\n## Bio\n${c.bio}`);
   L.push(`-# ${earned(c)} pts earned · ${balance(c)} unspent · Catastrophe Codex`);
   return L.join("\n");
@@ -1300,6 +1472,7 @@ const PROF_SHORT=["G3","S-2","G2","S-1","G1","SG"];
 const PROF_LEVELS=4;
 const POINT_XP=15;                              // 1 point = 15 XP
 const ITEM_XP=[10,25,50,100,200,400,1000];      // by rarity: Trash … Special Grade
+const itemXP=it=>it.xp||ITEM_XP[it.r];            // Off Chance talismans set their own XP
 /* XP needed for each level, one row per grade (Lv 1, Lv 2, Lv 3, Lv 4) */
 const PROF_XP_TABLE=[
   [15, 60, 65, 75],    // Grade 3
@@ -1503,7 +1676,7 @@ function useItem(vid){
   if(!profOpen(c,p.id)){toast(`${p.name} is still locked. Learn ${p.requires.skill} first.`);return}
   const room=capXP(c,p.id)-profXP(c,p.id);if(room<=0){toast(capLv(c,p.id)<maxLv(p.id)?`${p.name} has reached the limit of your Grade Potential.`:`${p.name} is already maxed.`);return}
   c.inventory=c.inventory.filter(x=>x.id!==vid);
-  addXP(p.id,Math.min(ITEM_XP[it.r],room),{src:"item",item:v.item,itemData:v});
+  addXP(p.id,Math.min(itemXP(it),room),{src:"item",item:v.item,itemData:v});
 }
 
 /* ===================== LOOT ===================== */
@@ -1537,13 +1710,13 @@ const canXP=it=>!!PROF_BY_NAME[it.boost]&&!(isWeapon(it)&&it.r===6); // no XP fr
 function itemHTML(v){
   const it=ITEMS[v.item];if(!it)return"";
   return`<article class="item r${it.r}" style="--rc:var(--r-${it.r})">
-    <span class="rar">${esc(rarFull(it.r))}</span>
+    <span class="rar">${esc(rarFull(it.r))}${it.off?" · Off Chance":""}</span>
     <h4>${esc(it.n)}</h4>
-    <div class="meta">${it.type==="Lore"?"Lore Item":`${esc(it.type)} · Boost: ${esc(it.boost)}`}</div>
+    <div class="meta">${it.type==="Lore"?"Lore Item":it.type==="Collectible"||it.type==="RP Item"||it.pack?esc(it.type):`${esc(it.type)} · Boost: ${esc(it.boost)}`}</div>
     <p>${esc(it.d)}</p>
-    <div class="eff">${respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${ITEM_XP[it.r]} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
+    <div class="eff">${it.pack?`Open it for <b>${it.pack.n} Heian sorcerer cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
     <div class="meta">Found ${esc(fmtDate(v.date))} · ${esc(v.source)}</div>
-    <div class="acts">${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${ITEM_XP[it.r]} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
+    <div class="acts">${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
   </article>`;
 }
 function armoryHTML(v){
@@ -1578,6 +1751,39 @@ function renderLoreJournal(){
   $("#loreCount").textContent=`${got.length} / ${all.length} found`;
   $("#loreList").innerHTML=got.length?got.map(x=>{const it=ITEMS[x.item];return`<article class="item" style="--rc:var(--r-${it.r})"><span class="rar">${esc(rarFull(it.r))}</span><h4>${esc(it.n)}</h4><p>${esc(it.d)}</p><div class="meta">Read ${esc(fmtDate(x.date))}</div><div class="acts"><button class="btn sm use" data-lread="${x.item}">Read again</button></div></article>`}).join(""):`<div class="empty" style="grid-column:1/-1">No lore found yet. Lore Items drop from loot rolls.</div>`;
 }
+/* ---- Card Binder & pack opening ---- */
+function cardHTML1(it,o={}){const ini=it.n.replace(/^(Lady|Monk|Court|Imperial)\s+/,"").split(/\s+/).filter(w=>!/^(no|of|the)$/i.test(w)).map(w=>w[0]).join("").slice(0,2).toUpperCase();
+  return`<${o.tag||"div"} class="hcard ${it.r>=5?"holo":""} ${o.cls||""}" style="--rc:var(--r-${it.r})" ${o.attr||""}><span class="no">${cardNo(it)}<span class="of"> / ${String(CARD_TOTAL).padStart(3,"0")}</span></span>${o.count>1?`<span class="cnt">×${o.count}</span>`:""}${o.isNew?`<span class="cnt new">NEW</span>`:""}
+    <span class="sig"><span>${esc(ini)}</span></span><b class="nm">${esc(it.n)}</b><span class="gr">${esc(RARITIES[it.r].name)}</span><span class="tc">${esc(it.tech)}</span></${o.tag||"div"}>`}
+function cardCounts(c){const m={};(c.inventory||[]).forEach(v=>{const it=ITEMS[v.item];if(isCard(it))m[it.id]=(m[it.id]||0)+1});return m}
+function renderBinder(){const c=C();const m=cardCounts(c);const own=CARDS.filter(x=>m[x.id]).length,tot=Object.values(m).reduce((a,b)=>a+b,0);
+  $("#cardCount").textContent=`${own} / ${CARD_TOTAL} collected${tot?` · ${tot} card${tot===1?"":"s"}`:""}`;
+  $("#binder").innerHTML=CARDS.map(it=>m[it.id]?cardHTML1(it,{tag:"button",attr:`type="button" data-card="${it.id}"`,count:m[it.id]}):`<div class="hcard missing"><span class="no">${cardNo(it)} / ${String(CARD_TOTAL).padStart(3,"0")}</span><span class="sig"><span>?</span></span><b class="nm">???</b><span class="gr">${esc(RARITIES[it.r].name)}</span></div>`).join("")}
+let cardDelArm=null;
+$("#binder").addEventListener("click",e=>{const b=e.target.closest("[data-card]");if(!b)return;const c=C();const it=ITEMS[b.dataset.card];const n=cardCounts(c)[it.id]||0;
+  openDlg(`<div class="card-view">${cardHTML1(it,{cls:"big",count:n})}<div style="display:grid;gap:8px;align-content:start;min-width:0"><span class="eyebrow" style="color:var(--r-${it.r})">${esc(rarFull(it.r))} · Heian Era Sorcerers</span><h3 style="margin:0">${esc(it.n)}</h3><p style="margin:0"><b>Technique:</b> ${esc(it.tech)}</p><p style="margin:0;color:var(--muted)">${esc(it.d)}</p><p class="dhelp" style="margin:0">You own ${n}. Swap duplicates on Jujuzon (phone → Jujuzon → Swaps).</p></div></div>
+    <div class="drow" style="margin-top:12px"><button class="btn primary" id="cdCopy">Copy for Discord</button><button class="btn ghost danger" id="cdDel">Discard one</button><button class="btn" data-close>Close</button></div>`);
+  $("#cdCopy").onclick=()=>{const v=c.inventory.find(x=>x.item===it.id);if(v)copyText(dropText(c,v))};
+  $("#cdDel").onclick=ev=>{if(cardDelArm!==it.id){cardDelArm=it.id;ev.target.textContent="Tap again to discard";setTimeout(()=>{cardDelArm=null;if(ev.target.isConnected)ev.target.textContent="Discard one"},3000);return}
+    cardDelArm=null;const v=c.inventory.find(x=>x.item===it.id);if(v){c.inventory=c.inventory.filter(x=>x!==v);touch();renderLoot()}$("#dlg").close();toast("Card discarded.")}});
+function openPack(vid){
+  const c=C();const v=c.inventory.find(x=>x.id===vid);const pk=v&&ITEMS[v.item];if(!pk||!pk.pack)return;
+  const before=cardCounts(c);const pulls=openPackCards(pk.pack);
+  c.inventory=c.inventory.filter(x=>x.id!==vid);
+  pulls.forEach(it=>c.inventory.push({id:uid(),item:it.id,date:today(),foundAt:Date.now(),source:pk.n}));
+  touch();actLog("pack",{pack:pk.n,cards:pulls.map(it=>`${it.n} (${RARITIES[it.r].tag})`).join(", ")});
+  const seen={};const flags=pulls.map(it=>{const isNew=!before[it.id]&&!seen[it.id];seen[it.id]=1;return isNew});
+  const best=Math.max(...pulls.map(it=>it.r));
+  openDlg(`<div class="pack-open"><span class="eyebrow">${esc(pk.n)}</span><h3 style="margin:0">Opening…</h3><div class="pack-grid" id="pkGrid">${pulls.map(()=>`<div class="hcard back"><span class="sig"><span>呪</span></span></div>`).join("")}</div></div>
+    <div class="drow" style="justify-content:center;margin-top:12px" id="pkActs" hidden><button class="btn primary" id="pkCopy">Copy pulls for Discord</button><button class="btn" data-close>Close</button></div>`,()=>{renderLoot();renderCard()});
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const order=pulls.map((it,i)=>i).sort((a,b)=>pulls[a].r-pulls[b].r); // reveal the best card last
+  order.forEach((idx,k)=>setTimeout(()=>{const g=$("#pkGrid");if(!g)return;const slot=g.children[idx];if(!slot)return;
+    slot.outerHTML=cardHTML1(pulls[idx],{cls:"pop"+(pulls[idx].r>=5?" glow":""),isNew:flags[idx]});
+    if(k===order.length-1){const h=$(".pack-open h3");if(h)h.textContent=best>=6?"SPECIAL GRADE PULL!":best>=5?"Legendary pull!":`${pulls.length} new cards`;$("#pkActs").hidden=false;
+      $("#pkCopy").onclick=()=>copyText(`**${DISPLAY_NAME(c)} opened a ${pk.n}**\n${pulls.map((it,i)=>`${cardNo(it)} ${it.n} · ${RARITIES[it.r].tag}${flags[i]?" (NEW)":""}`).join("\n")}`)}},
+    reduce?50*k:450+k*(k===order.length-1&&best>=5?900:380)));
+}
 $("#loreList").addEventListener("click",e=>{const b=e.target.closest("[data-lread]");if(b&&ITEMS[b.dataset.lread])showLore(ITEMS[b.dataset.lread])});
 function renderLoot(){
   const c=C();const inv=c.inventory||[];renderArmory();renderLoreJournal();
@@ -1586,7 +1792,8 @@ function renderLoot(){
     :`<p class="dhelp" style="margin:0;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px">No chests left. Log your next host in the Proficiency tab to get more.</p>`;
   const wts=rarityWeights(),fc=findChance(),bo=currentBoost();const total=wts.reduce((a,b)=>a+b,0);
   $("#odds").innerHTML=(bo?`<div class="boost-banner" style="margin:0 0 6px;font-family:var(--f-body)"><b>Boost active</b><span>${esc(bo.labels.join(" · "))}</span></div>`:"")+`<div style="--rc:var(--muted)"><span>Nothing found</span><span>${pct((1-fc)*100)}</span></div>`+RARITIES.map((r,i)=>`<div style="--rc:var(--r-${i})"><span>${esc(rarFull(i))}</span><span>${pct(wts[i]/total*fc*100)}</span></div>`).join("")+`<p class="dhelp" style="margin:6px 0 0;font-size:.78rem;color:var(--muted);font-family:var(--f-body)">From Trash to Legendary, ${Math.round(WEAPON_SHARE*100)}% of finds are weapons and ${Math.round(LORE_SHARE*100)}% are Lore Items.</p>`+(()=>{const hw=wts.map((w,i)=>i>=HOST_EVENT_MIN_RARITY?w:0),ht=hw.reduce((a,b)=>a+b,0);return`<div class="he-odds"><span class="eyebrow" style="color:var(--r-3)">Host event chests</span><p class="dhelp" style="margin:0;font-size:.78rem;color:var(--muted);font-family:var(--f-body)">Always find something.</p>${RARITIES.map((r,i)=>i>=HOST_EVENT_MIN_RARITY?`<div style="--rc:var(--r-${i})"><span>${esc(rarFull(i))}</span><span>${pct(hw[i]/ht*100)}</span></div>`:"").join("")}</div>`})();
-  const valid=inv.filter(v=>ITEMS[v.item]);
+  renderBinder();
+  const valid=inv.filter(v=>ITEMS[v.item]&&!isCard(ITEMS[v.item]));
   $("#invCount").textContent=`${valid.length} item${valid.length===1?"":"s"}`;
   const counts=RARITIES.map((_,i)=>valid.filter(v=>ITEMS[v.item].r===i).length);
   $("#invTools").innerHTML=`<button class="tp" style="--rc:var(--accent)" data-lf="-1" aria-pressed="${lootFilter===-1}"><i></i>All<em>${valid.length}</em></button>`+RARITIES.map((r,i)=>counts[i]?`<button class="tp" style="--rc:var(--r-${i})" data-lf="${i}" aria-pressed="${lootFilter===i}"><i></i>${esc(r.tag)}<em>${counts[i]}</em></button>`:"").join("");
@@ -1595,7 +1802,7 @@ function renderLoot(){
 }
 function renderRollListOnly(){const c=C();const rl=rollable(c).sort((a,b)=>(a.date||"").localeCompare(b.date||""));
   $("#rollList").innerHTML=rl.length?rl.map(rollRowHTML).join(""):`<p class="dhelp" style="margin:0;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px">No chests left. Log your next host in the Proficiency tab to get more.</p>`}
-function dropText(c,v){const it=ITEMS[v.item];return`**${it.n}** · ${rarFull(it.r)}\n-# ${it.type} · Boost: ${it.boost} · found by ${DISPLAY_NAME(c)} after ${v.source}`}
+function dropText(c,v){const it=ITEMS[v.item];if(isCard(it))return`**${cardNo(it)} · ${it.n}** · ${RARITIES[it.r].name} card\n-# Heian Era Sorcerers · ${it.tech} · owned by ${DISPLAY_NAME(c)}`;return`**${it.n}** · ${rarFull(it.r)}\n-# ${it.type} · Boost: ${it.boost} · found by ${DISPLAY_NAME(c)} after ${v.source}`}
 function doRoll(lid){
   const c=C();const l=c.ledger.find(x=>x.id===lid);if(!l||chestsLeft(l)<=0)return;
   const it=l.alert?hostEventLoot():rollLoot();const n=chestsOpened(l)+1;l.opened=n;l.rolled=chestsLeft(l)===0;l.rolledAt=Date.now();let v=null;
@@ -1654,6 +1861,7 @@ let idelArm=null,iuseArm=null;
 $("#inv").addEventListener("click",e=>{const c=C();const b=e.target.closest("button");if(!b)return;
   if(b.dataset.iuse){const id=b.dataset.iuse;if(iuseArm!==id){iuseArm=id;const it=ITEMS[(c.inventory.find(x=>x.id===id)||{}).item];b.textContent=`Use on ${it?it.boost.replace(" Proficiency",""):""}?`;setTimeout(()=>{if(iuseArm===id){iuseArm=null;renderLoot()}},3000);return}iuseArm=null;useItem(id);return}
   if(b.dataset.irespin){useRespin(b.dataset.irespin);return}
+  if(b.dataset.ipack){openPack(b.dataset.ipack);return}
   if(b.dataset.iread){const v=c.inventory.find(x=>x.id===b.dataset.iread);if(!v)return;const it=ITEMS[v.item];if(!Array.isArray(c.lore))c.lore=[];
     const isNew=!c.lore.some(x=>x.item===it.id);if(isNew)c.lore.push({item:it.id,date:today(),source:v.source});
     c.inventory=c.inventory.filter(x=>x.id!==v.id);touch();renderLoot();showLore(it);if(!isNew)setTimeout(()=>toast("You already knew this one."),300);return}
@@ -1799,13 +2007,13 @@ function applyRollPerks(c,oldRoll,newRoll){
   if(p.set){for(const k of CR_KEYS){if(!p.set[k])continue;save.vals[k]=crGet(c,k);save.locked[k]=!!cr.locked[k];
     const cur=crGet(c,k);const v=k==="potential"&&cur&&cur.potential==="sg"?cur:p.set[k]; // keep an SG tier they already rolled
     crApply(c,k,v);cr.locked[k]=true}}
-  if(p.trait){save.trait=cr.trait??null;if(cr.output)cr.trait=p.trait}
+  if(p.trait){save.trait=cr.trait??null;if(cr.output&&!cr.traitRemoved)cr.trait=p.trait}
   cr.perkPrev=save;cr.perk=newRoll;
 }
 const perkNote=(c,k)=>{const cr=c.creation||{};if(!cr.perk)return"";const r=SPECIAL_ROLLS.find(x=>x.id===cr.perk);const p=ROLL_PERKS[cr.perk];if(!r||!p)return"";
   if(p.set&&p.set[k])return`Given by your ${r.name} special roll.`;if(p.trait&&k==="output")return`${r.name}: your CE Output always has ${(crFind(CREATION.traits,p.trait)||{}).label}.`;return""};
 
-function crSlot(c,key,title,val,color,sub){
+function crSlot(c,key,title,val,color,sub,extra=""){
   const cr=c.creation||{},left=spinsLeft(c,key),used=(cr.used||{})[key]||0,locked=crLocked(c,key);
   const bk=(cr.basket||{})[key],guard=(cr.noLow||{})[key]||0;
   let act="",basket="";
@@ -1818,7 +2026,7 @@ function crSlot(c,key,title,val,color,sub){
     act=(btns.length?`<div class="cr-acts">${btns.join("")}</div>`:"")+(!left&&val?`<span class="cr-hint">No spins left. Confirm to lock it in${bk?", or swap with your Basket first":""}.</span>`:"")+(guard&&left?`<span class="cr-hint" style="color:var(--r-6)">Next ${Math.min(guard,left)} spin${Math.min(guard,left)===1?"":"s"}: guaranteed no ${key==="potential"?"Grade 2":"Low"}</span>`:"");
     if(val||bk)basket=`<div class="cr-basket"><span class="eyebrow">Basket</span>${bk?`<b style="color:var(${crColor(key,bk)})">${esc(crLabel(key,bk))}</b>`:`<i>Empty</i>`}<span class="cr-acts">${val?`<button type="button" class="btn sm ghost" data-cbsave="${key}">${bk?"Put current in":"Save current"}</button>`:""}${bk&&val?`<button type="button" class="btn sm ghost" data-cbswap="${key}">Swap</button>`:""}${bk&&!val?`<button type="button" class="btn sm ghost" data-cbswap="${key}">Take out</button>`:""}</span></div>`}
   const pn=perkNote(c,key);
-  return`<div class="cr-slot ${val?"done":""} ${locked?"locked":""}" style="--rc:var(${color||"--line"})"><span class="eyebrow">${esc(title)}</span>${val?`<b>${esc(val)}</b>`:`<b class="cr-none">Not rolled</b>`}${sub?`<small>${esc(sub)}</small>`:""}${pn?`<small style="color:var(--accent)">${esc(pn)}</small>`:""}${act}${basket}</div>`}
+  return`<div class="cr-slot ${val?"done":""} ${locked?"locked":""}" style="--rc:var(${color||"--line"})"><span class="eyebrow">${esc(title)}</span>${val?`<b>${esc(val)}</b>`:`<b class="cr-none">Not rolled</b>`}${sub?`<small>${esc(sub)}</small>`:""}${pn?`<small style="color:var(--accent)">${esc(pn)}</small>`:""}${extra}${act}${basket}</div>`}
 function renderCreation(){
   const c=C();const cr=c.creation||{};
   const pot=crFind(CREATION.potential,cr.potential),out=crFind(CREATION.energy,cr.output),res=crFind(CREATION.energy,cr.reserve),tr=traitOf(c);
@@ -1827,7 +2035,7 @@ function renderCreation(){
     ${cr.finished?`<p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">Each spin replaces the last result. Save a result you like in the <b>Basket</b> (one per roll) so you can go back to it later. Press <b>Confirm</b> when you're happy to lock it in.</p>`:`<p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">Fill in your character below and press <b>Finish</b> at the bottom. Your Fate Roll decides how many spins you get for each roll.</p>`}
     <div class="cr-grid">
       ${crSlot(c,"potential","Grade Potential",pot&&pot.label,pot&&pot.color,tier?`${tier.label}${tier.id!=="normal"?`: ${tier.desc}`:""}`:pot?`You can reach ${pot.label} in RP.`:"")}
-      ${crSlot(c,"output","CE Output",out&&out.label,out&&out.color,tr?`+ CE Trait: ${tr.label}. ${tr.desc}`:"")}
+      ${crSlot(c,"output","CE Output",out&&out.label,out&&out.color,tr?`+ CE Trait: ${tr.label}. ${tr.desc}`:cr.traitRemoved?"CE Trait removed. This character can't get a new one.":"",tr&&cr.finished?`<button type="button" class="btn sm ghost danger" data-traitdel style="justify-self:start">${crArm==="traitdel"?"Sure? This can't be undone":"Remove CE Trait"}</button>`:"")}
       ${crSlot(c,"reserve","CE Reserve",res&&res.label,res&&res.color)}
     </div>`;
   ["f-out","f-res"].forEach(id=>{const el=document.getElementById(id);if(el){const k=id==="f-out"?"output":"reserve";el.readOnly=!!cr[k];el.title=cr[k]?"Set by your Creation Roll":""}});
@@ -1872,17 +2080,21 @@ function rollCreation(kind){
     touch();actLog("spin",{kind:"Grade Potential",result:potLabel(c),n:cr.used[kind],of:crTotal(c,kind)});crSpin("Grade Potential",CREATION.potential,{label:p.label,color:p.color,big:p.id==="sg",sub:p.id==="sg"?"":`You can reach ${p.label} in RP.`},extra+`<p class="spin-note">${esc(note)}</p>`)}
   if(kind==="output"||kind==="reserve"){const fe=gmForce(kind);const e=fe?crFind(CREATION.energy,fe):wpick(guard?CREATION.energy.filter(x=>x.id!=="low"):CREATION.energy);cr[kind]=e.id;c[kind]=e.label;let extra="",big=!!e.secret;
     if(kind==="output"){
-      const perkT=ROLL_PERKS[c.specialRoll]&&ROLL_PERKS[c.specialRoll].trait;if(perkT&&cr.trait!==perkT){cr.trait=perkT;
+      const perkT=!cr.traitRemoved&&ROLL_PERKS[c.specialRoll]&&ROLL_PERKS[c.specialRoll].trait;if(perkT&&cr.trait!==perkT){cr.trait=perkT;
         const pt=crFind(CREATION.traits,perkT);extra=`<div class="trait-pop pop2"><span class="eyebrow" style="color:var(--accent)">+ CE Trait · Vessel</span><b>${esc(pt.label)}</b><p>${esc(pt.desc)}</p></div>`;big=true}
       const kept=cr.trait&&!perkT?crFind(CREATION.traits,cr.trait):null;
       if(perkT){if(!extra){const pt=crFind(CREATION.traits,perkT);extra=`<div class="trait-pop"><span class="eyebrow" style="color:var(--accent)">CE Trait · Vessel</span><b>${esc(pt.label)}</b></div>`}}else
       if(kept){extra=`<div class="trait-pop"><span class="eyebrow" style="color:var(--accent)">CE Trait kept</span><b>${esc(kept.label)}</b></div>`}  // once you have a trait, it stays
+      else if(cr.traitRemoved){cr.trait=null}  // a removed trait never comes back
       else{const ft=gmForce("trait");const t=ft==="none"?null:ft?crFind(CREATION.traits,ft):rnd()<CREATION.traitChance?wpick(CREATION.traits.map(x=>({...x,w:1}))):null;cr.trait=t?t.id:null;
         if(t){big=true;extra=`<div class="trait-pop pop2"><span class="eyebrow" style="color:var(--accent)">+ CE Trait</span><b>${esc(t.label)}</b><p>${esc(t.desc)}</p></div>`}}}
     touch();actLog("spin",{kind:kind==="output"?"CE Output":"CE Reserve",result:e.label+(kind==="output"&&cr.trait?` + trait ${cr.trait}`:""),n:cr.used[kind],of:crTotal(c,kind)});crSpin(kind==="output"?"CE Output":"CE Reserve",CREATION.energy.filter(x=>!x.secret),{label:e.label,color:e.color,big,sub:e.secret?"A hidden result. Almost nobody rolls this.":""},extra+`<p class="spin-note">${esc(note)}</p>`)}
 }
 $("#creation").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const c=C();const cr=c.creation||{};
   if(b.dataset.croll){crArm=null;rollCreation(b.dataset.croll);return}
+  if(b.hasAttribute("data-traitdel")){if(!cr.trait)return;if(crArm!=="traitdel"){crArm="traitdel";renderCreation();setTimeout(()=>{if(crArm==="traitdel"){crArm=null;renderCreation()}},3500);return}
+    crArm=null;const old=crFind(CREATION.traits,cr.trait);cr.trait=null;cr.traitRemoved=true;if(cr.perkPrev&&"trait" in cr.perkPrev)cr.perkPrev.trait=null;
+    touch();actLog("traitRemoved",{trait:old?old.label:"trait"});renderCreation();renderCard();toast(`${old?old.label:"CE Trait"} removed.`);return}
   const k=b.dataset.cconfirm||b.dataset.cbsave||b.dataset.cbswap;if(!k||crLocked(c,k))return;
   if(b.dataset.cconfirm){if(crArm!==k){crArm=k;renderCreation();setTimeout(()=>{if(crArm===k){crArm=null;renderCreation()}},3500);return}
     crArm=null;cr.locked=cr.locked||{};cr.locked[k]=true;cr.used=cr.used||{};cr.used[k]=crTotal(c,k);if(cr.noLow)cr.noLow[k]=0;
@@ -1926,9 +2138,16 @@ const ACT_TEXT={
   loot:e=>`loot roll for "${e.host}" → ${e.result}`,
   confirm:e=>`confirmed ${e.kind} → ${e.result}`,
   specialRoll:e=>`changed special roll: ${e.from} → ${e.roll}`,
+  traitRemoved:e=>`removed their CE Trait (${e.trait})`,
+  grade:e=>`⚠ changed grade: ${e.from} → ${e.to}`,
+  pack:e=>`opened ${e.pack}: ${e.cards}`,
+  buy:e=>`bought ${e.item} on Jujuzon for ${e.price} (${e.left} left)`,
+  swapOut:e=>`sent ${e.item} to ${e.to} (swap code)`,
+  swapIn:e=>`received ${e.item} from ${e.from} (swap code)`,
+  swapBad:e=>`tried to redeem an EDITED swap code`,
   basket:e=>`Basket (${e.kind}): ${e.result}`,
   respin:e=>`used ${e.item} → +${e.n} spin${e.n===1?"":"s"} on ${e.kind}${e.noLow?" (no Low)":""}`,
-  points:e=>`logged ${e.pts>0?"+":""}${e.pts} pts for "${e.host}"${e.chests?` → ${e.chests} loot chest${e.chests===1?"":"s"}`:""}${e.alert?` (linked to Host event "${e.alert}")`:""}`,
+  points:e=>`logged ${e.pts>0?"+":""}${e.pts} pts for "${e.host}"${e.yen?` (+${e.yen} at ${e.grade})`:""}${e.chests?` → ${e.chests} loot chest${e.chests===1?"":"s"}`:""}${e.alert?` (linked to Host event "${e.alert}")`:""}`,
   hostDeleted:e=>`deleted host entry "${e.host}" (${e.pts} pts)${e.rolled?" after already using its loot roll":""}`,
   imported:e=>`loaded a save of ${e.name}${e.existed?" over the existing character":""}`,
   reset:e=>`browser storage was empty; this log started fresh`,
@@ -1997,6 +2216,7 @@ const WALLPAPERS={
 };
 const WALL_NAMES={night:"Night",cursed:"Cursed",dawn:"Sendai Dawn",blood:"Blood Moon"};
 const ICONS={
+  zon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/><path d="M7 15.5c3 1.6 7 1.6 10 0" stroke="#ff9900"/></svg>',
   alerts:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
   chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 21l2.2-5.4A8.4 8.4 0 1 1 21 11.5z"/><circle cx="12" cy="11.5" r="2.2"/></svg>',
   settings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'
@@ -2020,6 +2240,7 @@ function renderPhone(){
       <div class="ph-apps">
         <button type="button" class="ph-app" data-ph="alerts"><span class="ico a-alerts">${ICONS.alerts}${!unacked.length&&unread?`<i class="ph-badge">${unread>9?"9+":unread}</i>`:""}</span><small>Alerts</small></button>
         <button type="button" class="ph-app" data-ph="chat"><span class="ico a-chat">${ICONS.chat}${chatUnread()?`<i class="ph-badge">${chatUnread()>9?"9+":chatUnread()}</i>`:""}</span><small>JujutsuApp</small></button>
+        <button type="button" class="ph-app" data-ph="zon"><span class="ico a-zon">${ICONS.zon}</span><small>Jujuzon</small></button>
         <button type="button" class="ph-app" data-ph="settings"><span class="ico a-settings">${ICONS.settings}</span><small>Settings</small></button>
       </div></div>`;
   }else if(phoneView==="alerts"){
@@ -2037,6 +2258,9 @@ function renderPhone(){
       <label class="ph-btn" for="phWallIn">Upload your own image</label><input type="file" id="phWallIn" accept="image/*" hidden>
       ${w.startsWith("data:")?`<button type="button" class="ph-btn ghost" data-ph-wall="night">Remove custom wallpaper</button>`:""}
       <p class="ph-note">Your wallpaper is saved with this character.</p></div>`;
+  }else if(phoneView==="zon"){inner=zonStoreHTML();
+  }else if(phoneView==="zon-swaps"){inner=zonSwapsHTML();
+  }else if(phoneView==="zon-orders"){inner=zonOrdersHTML();
   }else if(phoneView==="chat"){
     inner=chatLobbyHTML();
   }else if(phoneView.startsWith("room:")){
@@ -2064,6 +2288,96 @@ async function fetchBoard(){
     board=j;boardSource="live";try{localStorage.setItem(LSB,JSON.stringify(j))}catch(e){}afterBoardChange()}catch(e){if(boardSource==="none")renderBoard()}
 }
 $("#phoneBtn").addEventListener("click",()=>openPhone());
+/* ===================== JUJUZON (phone shop + swaps) =====================
+   Yen: every host point pays Yen based on the Grade on the sheet when the points are logged.
+   The 2 starting points and penalties don't pay or cost Yen. Players can't sell items for Yen.
+   Store: stocked by the GM in board.json ("shop"). Stock is a limit per character, since phones can't see each other's purchases.
+   Swaps: players send items to each other with one-time codes tied to the receiver's Sorcerer ID. */
+const YEN_PER_POINT=[200000,200000,700000,1000000,2500000,10000000]; // index matches GRADES
+const SWAP_SALT="jujuzon·swap·v1";
+const fmtYen=n=>"¥"+Math.round(n||0).toLocaleString("en-US");
+const yenFor=(c,pts)=>pts>0?pts*(YEN_PER_POINT[c.grade]??YEN_PER_POINT[0]):0;
+const yenEarned=c=>(c.ledger||[]).reduce((a,l)=>a+(+l.yen||0),0)+(+c.yenBonus||0);
+const yenSpent=c=>(c.orders||[]).reduce((a,o)=>a+(+o.price||0),0);
+const yenBal=c=>yenEarned(c)-yenSpent(c);
+const sorcId=c=>{const h=actHash("sid:"+c.id).toUpperCase().replace(/[^A-Z0-9]/g,"");return"SJH-"+(h+"00000").slice(0,5)};
+function allShop(){return((GM_TOOLS&&state.gmBoard?state.gmBoard.shop:board.shop)||[]).filter(x=>x&&ITEMS[x.item]&&+x.price>=0)}
+const shopLive=x=>(!x.date||started(x))&&(!x.until||tOf(x.until)>nowT());
+const bought=(c,lid)=>(c.orders||[]).filter(o=>o.listing===lid).length;
+const leftFor=(c,x)=>+x.stock>0?Math.max(0,+x.stock-bought(c,x.id)):Infinity;
+let zonArm=null,zonDraft={to:"",item:"",code:"",made:""};
+const ZON_LOGO=`<span class="zon-logo">jujuzon<svg viewBox="0 0 60 12" aria-hidden="true"><path d="M3 3c14 9 36 9 52 1" fill="none" stroke="#ff9900" stroke-width="3" stroke-linecap="round"/><path d="M50 1l6 3-5 5" fill="none" stroke="#ff9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+function zonShell(view,body){
+  const c=C();const tabs=[["zon","Store"],["zon-swaps","Swaps"],["zon-orders","Orders"]];
+  return`<div class="zon">
+    <div class="zon-top"><button type="button" data-ph="home" class="zon-back" aria-label="Home">‹</button>${ZON_LOGO}<span class="zon-bal" title="Your Yen">${fmtYen(yenBal(c))}</span></div>
+    <div class="zon-deliver">Deliver to <b>${esc(DISPLAY_NAME(c))}</b> · Sendai Jujutsu High</div>
+    <div class="zon-tabs">${tabs.map(([v,l])=>`<button type="button" data-ph="${v}" class="${view===v?"on":""}">${l}</button>`).join("")}</div>
+    <div class="zon-body">${body}</div></div>`}
+function zonStoreHTML(){
+  const c=C();const list=allShop().filter(shopLive);
+  if(!list.length)return zonShell("zon",`<div class="zon-empty"><b>The warehouse is empty.</b><span>Check back after the next restock.</span></div>`);
+  return zonShell("zon",list.map(x=>{const it=ITEMS[x.item];const left=leftFor(c,x);const price=+x.price;const can=yenBal(c)>=price;
+    const btn=left<=0?`<button type="button" class="zon-buy" disabled>Sold out for you</button>`:!can?`<button type="button" class="zon-buy" disabled>Not enough Yen</button>`:`<button type="button" class="zon-buy" data-zbuy="${esc(x.id)}">${zonArm===x.id?`Confirm · ${fmtYen(price)}`:"Buy Now"}</button>`;
+    return`<article class="zon-card" style="--rc:${RAR_HEX[it.r]}">
+      ${x.tag?`<span class="zon-tag">${esc(x.tag)}</span>`:""}
+      <span class="zon-rar">${esc(rarFull(it.r))}</span><b class="zon-name">${esc(it.n)}</b>
+      <span class="zon-meta">${it.type==="Lore"?"Lore Item":it.type==="Collectible"||it.type==="RP Item"?esc(it.type):`${esc(it.type)} · ${esc(it.boost)}${it.xp?` · +${it.xp} XP`:""}`}</span>
+      <span class="zon-desc">${esc(it.d)}</span>
+      <div class="zon-row"><span class="zon-price">${fmtYen(price)}</span><span class="zon-stock">${left===Infinity?"In stock":left<=0?"":`Only ${left} left for you`}${x.until?` · ends ${esc(fmtWhen(x.until))}`:""}</span></div>
+      ${btn}<span class="zon-ship">FREE same-day delivery to your inventory</span></article>`}).join(""))}
+function zonSwapsHTML(){
+  const c=C();const inv=(c.inventory||[]).filter(v=>ITEMS[v.item]).sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);
+  const log=(c.swaps||[]).slice(-6).reverse();
+  return zonShell("zon-swaps",`
+    <div class="zon-box"><span class="zon-k">Your Sorcerer ID</span><div class="zon-idrow"><b>${sorcId(c)}</b><button type="button" class="zon-mini" data-zcopy="${sorcId(c)}">Copy</button></div><span class="zon-hint">Give this to someone who wants to send you an item.</span></div>
+    <div class="zon-box"><span class="zon-k">Send an item</span>
+      <select id="zSendItem"><option value="">Pick an item from your inventory</option>${inv.map(v=>`<option value="${v.id}" ${zonDraft.item===v.id?"selected":""}>${esc(ITEMS[v.item].n)} (${esc(RARITIES[ITEMS[v.item].r].tag)})</option>`).join("")}</select>
+      <input id="zSendTo" placeholder="Their Sorcerer ID, like SJH-4F7KQ" maxlength="12" value="${esc(zonDraft.to)}" autocomplete="off">
+      <button type="button" class="zon-buy" data-zsend>${zonArm==="send"?"Sure? The item leaves your inventory":"Create swap code"}</button>
+      ${zonDraft.made?`<textarea readonly rows="3" id="zMade">${esc(zonDraft.made)}</textarea><button type="button" class="zon-mini" data-zcopy="${esc(zonDraft.made)}">Copy code</button><span class="zon-hint">Send this code to them on Discord. It only works once, and only for their character.</span>`:""}
+    </div>
+    <div class="zon-box"><span class="zon-k">Receive an item</span>
+      <textarea id="zCode" rows="2" placeholder="Paste a swap code">${esc(zonDraft.code)}</textarea>
+      <button type="button" class="zon-buy alt" data-zredeem>Redeem</button></div>
+    ${log.length?`<div class="zon-box"><span class="zon-k">Recent swaps</span>${log.map(s=>`<div class="zon-line"><span>${s.dir==="out"?"Sent":"Got"} <b>${esc((ITEMS[s.item]||{}).n||"item")}</b></span><small>${s.dir==="out"?"to":"from"} ${esc(s.who)}</small></div>`).join("")}</div>`:""}`)}
+function zonOrdersHTML(){
+  const c=C();const o=[...(c.orders||[])].reverse();
+  return zonShell("zon-orders",o.length?o.map(x=>`<div class="zon-line"><span><b>${esc((ITEMS[x.item]||{}).n||"Item")}</b><small>${esc(new Date(x.at).toLocaleDateString())} · Delivered</small></span><span class="zon-price sm">${fmtYen(x.price)}</span></div>`).join(""):`<div class="zon-empty"><b>No orders yet.</b><span>Your purchases show up here.</span></div>`)}
+function zonBuy(lid){
+  const c=C();const x=allShop().find(s=>s.id===lid);if(!x||!shopLive(x)){toast("That listing is gone.");zonArm=null;renderPhone();return}
+  const it=ITEMS[x.item];if(leftFor(c,x)<=0){toast("You already bought all you can of this.");return}
+  if(yenBal(c)<+x.price){toast("Not enough Yen.");return}
+  if(zonArm!==lid){zonArm=lid;renderPhone();setTimeout(()=>{if(zonArm===lid){zonArm=null;renderPhone()}},3500);return}
+  zonArm=null;(c.orders=c.orders||[]).push({id:uid(),listing:x.id,item:x.item,price:+x.price,at:Date.now()});
+  c.inventory.push({id:uid(),item:x.item,date:today(),foundAt:Date.now(),source:"Jujuzon"});
+  touch();actLog("buy",{item:it.n,price:fmtYen(+x.price),left:fmtYen(yenBal(c))});renderLoot();renderPhone();toast(`${it.n} delivered to your inventory.`)}
+function swapSign(body){return actHash(SWAP_SALT+body)}
+function zonSend(){
+  const c=C();const vid=$("#zSendItem").value;const to=($("#zSendTo").value||"").trim().toUpperCase();
+  const v=(c.inventory||[]).find(x=>x.id===vid);if(!v){toast("Pick an item to send.");return}
+  if(!/^SJH-[A-Z0-9]{5}$/.test(to)){toast("Enter their Sorcerer ID, like SJH-4F7KQ.");return}
+  if(to===sorcId(c)){toast("That's your own Sorcerer ID.");return}
+  if(zonArm!=="send"){zonArm="send";zonDraft.item=vid;zonDraft.to=to;renderPhone();setTimeout(()=>{if(zonArm==="send"){zonArm=null;renderPhone()}},3500);return}
+  zonArm=null;const body=JSON.stringify({v:1,n:uid()+uid(),t:Date.now(),from:{sid:sorcId(c),name:DISPLAY_NAME(c)},to,item:v.item,date:v.date,source:v.source||""});
+  const code="JZN-"+b64e(JSON.stringify({body,sig:swapSign(body)}));
+  c.inventory=c.inventory.filter(x=>x.id!==vid);(c.swaps=c.swaps||[]).push({dir:"out",item:v.item,who:to,at:Date.now()});
+  touch();actLog("swapOut",{item:ITEMS[v.item].n,to});zonDraft={to:"",item:"",code:zonDraft.code,made:code};renderLoot();renderPhone();copyText(code)}
+function zonRedeem(){
+  const c=C();const raw=($("#zCode").value||"").trim().replace(/^JZN-/,"");if(!raw){toast("Paste a swap code first.");return}
+  let o,d;try{o=JSON.parse(b64d(raw));d=JSON.parse(o.body)}catch(e){toast("That isn't a Jujuzon swap code.");return}
+  if(swapSign(o.body)!==o.sig||!ITEMS[d.item]){toast("This code was changed after it was made. It won't work.");actLog("swapBad",{note:"edited swap code"});return}
+  if(d.to!==sorcId(c)){toast(`This code is for ${d.to}, not ${sorcId(c)}. Switch to that character first.`);return}
+  c.swapsIn=c.swapsIn||[];if(c.swapsIn.includes(d.n)){toast("You already redeemed this code.");return}
+  c.swapsIn.push(d.n);c.inventory.push({id:uid(),item:d.item,date:today(),foundAt:Date.now(),source:`Swap from ${d.from.name}`});
+  (c.swaps=c.swaps||[]).push({dir:"in",item:d.item,who:d.from.name,at:Date.now()});
+  touch();actLog("swapIn",{item:ITEMS[d.item].n,from:`${d.from.name} (${d.from.sid})`});zonDraft.code="";renderLoot();renderPhone();toast(`${ITEMS[d.item].n} added to your inventory.`)}
+$("#phoneDlg").addEventListener("click",e=>{
+  const b=e.target.closest("[data-zbuy],[data-zsend],[data-zredeem],[data-zcopy]");if(!b)return;
+  if(b.dataset.zbuy)zonBuy(b.dataset.zbuy);else if(b.hasAttribute("data-zsend"))zonSend();else if(b.hasAttribute("data-zredeem"))zonRedeem();else if(b.dataset.zcopy)copyText(b.dataset.zcopy)});
+$("#phoneDlg").addEventListener("input",e=>{if(e.target.id==="zSendTo")zonDraft.to=e.target.value;if(e.target.id==="zCode")zonDraft.code=e.target.value;if(e.target.id==="zSendItem")zonDraft.item=e.target.value});
+$("#phoneDlg").addEventListener("change",e=>{if(e.target.id==="zSendItem")zonDraft.item=e.target.value});
+
 $("#phoneDlg").addEventListener("click",e=>{
   if(e.target===$("#phoneDlg")){$("#phoneDlg").close();return}
   const o=e.target.closest("[data-ph-open]");if(o){openPhone(o.dataset.phOpen);return}
@@ -2072,7 +2386,7 @@ $("#phoneDlg").addEventListener("click",e=>{
   const a=e.target.closest("[data-ph]");if(!a)return;const v=a.dataset.ph;
   if(v==="ack"){ackAll();renderPhone();return}
   if(v==="board"){$("#phoneDlg").close();setTab("board");return}
-  if(["home","alerts","settings","chat"].includes(v)){phoneView=v;renderPhone()}
+  if(["home","alerts","settings","chat","zon","zon-swaps","zon-orders"].includes(v)){if(v.startsWith("zon")&&!phoneView.startsWith("zon"))zonDraft.made="";zonArm=null;phoneView=v;renderPhone()}
 });
 $("#phoneDlg").addEventListener("change",e=>{if(e.target.id!=="phWallIn")return;const f=e.target.files[0];if(!f)return;const rd=new FileReader();
   rd.onload=()=>{const img=new Image();img.onload=()=>{const W=540,H=1170,cv=document.createElement("canvas");cv.width=W;cv.height=H;const x=cv.getContext("2d");const sc=Math.max(W/img.width,H/img.height);const w=img.width*sc,h=img.height*sc;x.drawImage(img,(W-w)/2,(H-h)/2,w,h);
@@ -2286,7 +2600,7 @@ const GM_TOOLS=false;
 if(GM_TOOLS){
   const fab=document.createElement("button");fab.className="gm-fab";fab.type="button";fab.textContent="GM";fab.title="GM tools";document.body.appendChild(fab);
   const opt=(arr)=>arr.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("");
-  const itemOpts=LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}">${esc(it.n)}</option>`).join("")}</optgroup>`).join("");
+  const itemOpts=LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}">${esc(it.n)}</option>`).join("")}</optgroup>`).join("")+`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}">${esc(it.n)} · ${esc(it.type)}</option>`).join("")}</optgroup>`+`<optgroup label="Heian cards">${CARDS.map(it=>`<option value="${it.id}">${cardNo(it)} ${esc(it.n)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`;
   const profOpts=opt(PROFS.map(p=>[p.id,p.name]));
   function lvOpts(pid){const out=[[0,"Untrained"]];for(let v=1;v<=maxLv(pid);v++)out.push([v,profLabel(v,pid)]);return opt(out)}
   function gmEntry(pid,xp){const c=C();if(!c.profLog)c.profLog=[];if(xp)c.profLog.push({id:uid(),prof:pid,xp,points:0,src:"gm",date:today(),at:Date.now()})}
@@ -2300,7 +2614,8 @@ if(GM_TOOLS){
   function openGM(){
     openDlg(`<h3>GM tools</h3><p class="dhelp">Testing tools for the current character. Only in your GM copy.</p>
     <div class="gm-grid">
-      <section><h4>Points</h4><div class="gm-row"><input type="number" id="gm-pts" value="50" step="1"><button class="btn sm" id="gm-addpts">Add points</button><button class="btn sm" id="gm-addhost">Add as a host (gives a loot roll)</button></div></section>
+      <section><h4>Points</h4><div class="gm-row"><input type="number" id="gm-pts" value="50" step="1"><button class="btn sm" id="gm-addpts">Add points</button><button class="btn sm" id="gm-addhost">Add as a host (gives a loot roll)</button></div>
+        <div class="gm-row"><input type="number" id="gm-yen" value="1000000" step="100000"><button class="btn sm" id="gm-addyen">Add Yen</button><span class="count" id="gm-yenbal" style="font-family:var(--f-mono);font-size:.8rem;color:var(--muted)"></span></div></section>
       <section><h4>Loot roll</h4><div class="gm-row"><select id="gm-force">${opt([["random","Normal odds"],["nothing","Force nothing"],...RARITIES.map((r,i)=>[i,"Force "+rarFull(i)])])}</select><button class="btn sm primary" id="gm-roll">Roll now</button></div></section>
       <section><h4>Give item</h4><div class="gm-row"><select id="gm-item">${itemOpts}</select><button class="btn sm" id="gm-give">Give</button><button class="btn sm ghost danger" id="gm-clearinv">Empty inventory</button></div></section>
       <section><h4>Proficiency level</h4><div class="gm-row"><select id="gm-prof">${profOpts}</select><select id="gm-lv"></select><button class="btn sm" id="gm-setlv">Set</button></div>
@@ -2327,7 +2642,7 @@ if(GM_TOOLS){
     $("#gm-prof").onchange=()=>{$("#gm-lv").innerHTML=lvOpts($("#gm-prof").value);$("#gm-lv").value=profLevel(C(),$("#gm-prof").value)};
     {const cr=c.creation||{};$("#gm-pot").value=cr.potential==="sg"?"sg:"+(cr.sgTier||"normal"):(cr.potential||"");$("#gm-out").value=cr.output||"";$("#gm-res").value=cr.reserve||"";$("#gm-trait").value=cr.trait===undefined?"u":cr.trait===null?"none":cr.trait}
     $("#gm-setcr").onclick=()=>{const c=C();const cr={};const pv=$("#gm-pot").value;if(pv.startsWith("sg:")){cr.potential="sg";cr.sgTier=pv.slice(3)}else if(pv)cr.potential=pv;
-      const o=$("#gm-out").value,rs=$("#gm-res").value,t=$("#gm-trait").value;if(o){cr.output=o;c.output=crFind(CREATION.energy,o).label}if(rs){cr.reserve=rs;c.reserve=crFind(CREATION.energy,rs).label}if(t!=="u")cr.trait=t==="none"?null:t;
+      const o=$("#gm-out").value,rs=$("#gm-res").value,t=$("#gm-trait").value;if(o){cr.output=o;c.output=crFind(CREATION.energy,o).label}if(rs){cr.reserve=rs;c.reserve=crFind(CREATION.energy,rs).label}if(t!=="u")cr.trait=t==="none"?null:t;if(t!=="u"&&t!=="none")cr.traitRemoved=false;else if((c.creation||{}).traitRemoved)cr.traitRemoved=true;
       const old=c.creation||{};cr.finished=old.finished||true;cr.spins=old.spins||1;cr.used=old.used||{};["basket","locked","bonus","noLow"].forEach(k=>{if(old[k])cr[k]=old[k]});c.creation=cr;done("Creation rolls set")};
     $("#gm-setspins").onclick=()=>{const c=C();const n=+$("#gm-spins").value;c.creation=Object.assign(c.creation||{},{finished:true,spins:n,used:{},locked:{},bonus:{},noLow:{}});done(`Finished with ${n} spin${n===1?"":"s"} per roll`)};
     $("#gm-clearcr").onclick=()=>{C().creation={};done("Creation reset. Finish is needed again.")};
@@ -2342,7 +2657,9 @@ if(GM_TOOLS){
     $("#gm-grade").value=c.grade;$("#gm-roll2").value=c.specialRoll||"";
     const done=m=>{touch();fillEditor();renderAll();toast(m)};
     $("#gm-addpts").onclick=()=>{const n=Math.round(+$("#gm-pts").value||0);if(!n)return;C().ledger.push({id:uid(),host:"GM tools",points:n,date:today(),note:"",rolled:true});done(`${n>0?"+":""}${n} points`)};
-    $("#gm-addhost").onclick=()=>{const n=Math.round(+$("#gm-pts").value||0);if(n<=0){toast("Use a positive number for a host.");return}C().ledger.push({id:uid(),host:"GM test host",points:n,date:today(),note:""});done(`+${n} points and 1 loot roll`)};
+    $("#gm-yenbal").textContent="Balance "+fmtYen(yenBal(C()));
+    $("#gm-addyen").onclick=()=>{const n=Math.round(+$("#gm-yen").value||0);if(!n)return;const c0=C();c0.yenBonus=(+c0.yenBonus||0)+n;touch();$("#gm-yenbal").textContent="Balance "+fmtYen(yenBal(c0));toast(`${n>0?"+":""}${fmtYen(n)}`)};
+    $("#gm-addhost").onclick=()=>{const n=Math.round(+$("#gm-pts").value||0);if(n<=0){toast("Use a positive number for a host.");return}C().ledger.push({id:uid(),host:"GM test host",points:n,date:today(),note:"",yen:yenFor(C(),n),yenGrade:C().grade});done(`+${n} points and 1 loot roll`)};
     $("#gm-roll").onclick=()=>{$("#dlg").close();setTimeout(()=>gmRoll($("#gm-force")?$("#gm-force").value:"random"),50)};
     const force=$("#gm-force");$("#gm-roll").onclick=()=>{const f=force.value;$("#dlg").close();setTimeout(()=>gmRoll(f),50)};
     $("#gm-give").onclick=()=>{const id=$("#gm-item").value;C().inventory.push({id:uid(),item:id,date:today(),foundAt:Date.now(),source:"GM tools"});done(`Gave ${ITEMS[id].n}`)};
@@ -2389,9 +2706,10 @@ if(GM_TOOLS){
 
   /* ---- GM: bulletin board & phone composer ---- */
   if(!state.gmBoard)state.gmBoard={posts:JSON.parse(JSON.stringify(board.posts||[]))};
+  if(!Array.isArray(state.gmBoard.shop))state.gmBoard.shop=JSON.parse(JSON.stringify(board.shop||[]));
   const toLocal=d=>{const z=n=>String(n).padStart(2,"0");return`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`};
   let gmEdit=null;
-  function boardJSON(){return JSON.stringify({updated:new Date().toISOString(),posts:state.gmBoard.posts},null,2)}
+  function boardJSON(){return JSON.stringify({updated:new Date().toISOString(),posts:state.gmBoard.posts,shop:state.gmBoard.shop||[]},null,2)}
   function renderGMBoard(){
     const e=gmEdit?state.gmBoard.posts.find(p=>p.id===gmEdit):null;const d=e||{};
     const posts=[...state.gmBoard.posts].sort((a,b)=>(tOf(b.date)||0)-(tOf(a.date)||0));
@@ -2412,9 +2730,35 @@ if(GM_TOOLS){
       <div class="drow"><button type="button" class="btn" id="gb-copy">Copy board.json</button><button type="button" class="btn" id="gb-file">Save board.json</button><label class="btn" for="gb-load">Load board.json</label><input type="file" id="gb-load" accept=".json,application/json" hidden></div>
       <div class="group-t" style="color:var(--danger)">Your posts (${posts.length})</div>
       <div class="gm-posts">${posts.length?posts.map(p=>`<div class="lrow"><div class="who">${esc(p.title||"Untitled")}<small>${esc(fmtWhen(p.date))}${p.until?` → ${esc(fmtWhen(p.until))}`:""} · ${p.phone?"phone":""}${p.phone&&p.board?" + ":""}${p.board?"board":""}${p.boost&&p.boost!=="none"?` · ${esc(BOOSTS[p.boost].label)}`:""}${p.hostEvent?" · Host event":""}${live(p)?" · live":started(p)?" · ended":" · scheduled"}</small></div><button type="button" class="btn sm" data-gbedit="${esc(p.id)}">Edit</button><button type="button" class="btn sm ghost danger" data-gbdel="${esc(p.id)}">Delete</button></div>`).join(""):`<p class="dhelp" style="margin:0;color:var(--muted)">No posts yet.</p>`}</div>
+      ${zonGMHTML()}
     </div>`;
   }
   function gmSaveBoard(){persist();renderGMBoard();afterBoardChange()}
+  /* ---- GM: Jujuzon store ---- */
+  let zEdit=null;
+  const zItemOpts=sel=>`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)} · ${esc(it.type)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`+`<optgroup label="Heian cards">${CARDS.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${cardNo(it)} ${esc(it.n)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`+LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)}</option>`).join("")}</optgroup>`).join("");
+  function zonGMHTML(){
+    const shop=state.gmBoard.shop||[];const e=zEdit?shop.find(x=>x.id===zEdit):null;const d=e||{};
+    return`<div class="group-t" style="color:var(--danger)">Jujuzon store (${shop.length})</div>
+      <p class="dhelp" style="margin:0;color:var(--muted);font-size:.85rem">Players buy these with Yen in the Jujuzon app on their phone. Stock is how many each character can buy. Leave it empty for no limit. It goes out with board.json like your posts.</p>
+      <div class="fgrid">
+        <div class="field full"><label for="zg-item">Item</label><select id="zg-item">${zItemOpts(d.item)}</select></div>
+        <div class="field"><label for="zg-price">Price (Yen)</label><input id="zg-price" type="number" min="0" step="1000" value="${esc(d.price??"")}" placeholder="2000000"></div>
+        <div class="field"><label for="zg-stock">Stock per character</label><input id="zg-stock" type="number" min="0" step="1" value="${esc(d.stock||"")}" placeholder="No limit"></div>
+        <div class="field"><label for="zg-tag">Label (optional)</label><input id="zg-tag" maxlength="24" value="${esc(d.tag||"")}" placeholder="Limited deal"></div>
+        <div class="field"><label for="zg-until">Ends (optional)</label><input id="zg-until" type="datetime-local" value="${esc(d.until||"")}"></div>
+      </div>
+      <div class="drow"><button type="button" class="btn primary" id="zg-save">${e?"Save listing":"Add to store"}</button>${e?`<button type="button" class="btn ghost" id="zg-cancel">Cancel</button>`:""}</div>
+      <div class="gm-posts">${shop.length?shop.map(x=>{const it=ITEMS[x.item];return`<div class="lrow"><div class="who">${esc(it?it.n:x.item)}<small>${fmtYen(x.price)} · ${+x.stock>0?`${x.stock} per character`:"no limit"}${x.tag?` · ${esc(x.tag)}`:""}${x.until?` · ends ${esc(fmtWhen(x.until))}`:""}${shopLive(x)?"":" · ended"}</small></div><button type="button" class="btn sm" data-zgedit="${esc(x.id)}">Edit</button><button type="button" class="btn sm ghost danger" data-zgdel="${esc(x.id)}">Remove</button></div>`}).join(""):`<p class="dhelp" style="margin:0;color:var(--muted)">Nothing in the store yet.</p>`}</div>`}
+  $("#gmBoard").addEventListener("click",ev=>{const t=ev.target;const shop=state.gmBoard.shop=state.gmBoard.shop||[];
+    if(t.id==="zg-save"){const price=Math.round(+$("#zg-price").value);if(!(price>=0)||$("#zg-price").value===""){toast("Set a price in Yen.");return}
+      const data={item:$("#zg-item").value,price,stock:Math.max(0,Math.round(+$("#zg-stock").value||0)),tag:$("#zg-tag").value.trim(),until:$("#zg-until").value||""};
+      if(zEdit){Object.assign(shop.find(x=>x.id===zEdit),data);toast("Listing saved")}else{shop.push({id:uid(),...data});toast("Added to the store preview. Publish board.json for players.")}
+      zEdit=null;gmSaveBoard()}
+    if(t.id==="zg-cancel"){zEdit=null;renderGMBoard()}
+    if(t.dataset.zgedit){zEdit=t.dataset.zgedit;renderGMBoard();$("#zg-item").scrollIntoView({behavior:"smooth",block:"center"})}
+    if(t.dataset.zgdel){if(t.textContent!=="Sure?"){t.textContent="Sure?";setTimeout(()=>{if(t.isConnected)t.textContent="Remove"},3000);return}state.gmBoard.shop=shop.filter(x=>x.id!==t.dataset.zgdel);gmSaveBoard();toast("Removed from the store")}
+  });
   $("#gmBoard").addEventListener("click",async ev=>{
     const t=ev.target;
     if(t.id==="gb-save"){const title=$("#gb-title").value.trim(),body=$("#gb-body").value.trim();if(!title&&!body){toast("Write a title or a message first.");return}
@@ -2429,7 +2773,7 @@ if(GM_TOOLS){
     if(t.id==="gb-copy")copyText(boardJSON());
     if(t.id==="gb-file"){const ok=await saveFile("board.json",boardJSON());if(!ok)copyText(boardJSON())}
   });
-  $("#gmBoard").addEventListener("change",ev=>{if(ev.target.id!=="gb-load")return;const f=ev.target.files[0];if(!f)return;f.text().then(tx=>{try{const j=JSON.parse(tx);if(!Array.isArray(j.posts))throw 0;state.gmBoard={posts:j.posts};gmSaveBoard();toast(`Loaded ${j.posts.length} posts`)}catch(e){toast("That isn't a board.json file.")}})});
+  $("#gmBoard").addEventListener("change",ev=>{if(ev.target.id!=="gb-load")return;const f=ev.target.files[0];if(!f)return;f.text().then(tx=>{try{const j=JSON.parse(tx);if(!Array.isArray(j.posts))throw 0;state.gmBoard={posts:j.posts,shop:Array.isArray(j.shop)?j.shop:[]};gmSaveBoard();toast(`Loaded ${j.posts.length} posts`)}catch(e){toast("That isn't a board.json file.")}})});
   renderGMBoard();
 }
 
