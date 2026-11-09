@@ -278,6 +278,13 @@ main{padding-block:20px 60px}
 @keyframes pdrop{to{transform:translateY(40px) rotate(25deg) scale(.85);filter:grayscale(1) brightness(.6)}}
 .pirate-ok{position:relative;min-width:140px}
 @media (prefers-reduced-motion:reduce){.pirate-burst,.pirate-coin,.pirate-big,.pirate.troll .pirate-coin{animation:none}}
+.pirate-list{display:grid;gap:8px}
+.pirate-pick{display:grid;gap:2px;text-align:left;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--fg);font:inherit;cursor:pointer}
+.pirate-pick:hover{border-color:#e0a419}
+.pirate-pick.armed{border-color:#ffd75a;box-shadow:0 0 0 1px #ffd75a inset}
+.pirate-pick small{color:var(--muted);font-size:.78rem}
+.pirate-pick.armed small{color:#ffd75a}
+.pirate-pick:disabled{opacity:.5;cursor:not-allowed}
 .binder{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px}
 .hcard{position:relative;aspect-ratio:5/7;border-radius:10px;border:2px solid var(--rc);background:linear-gradient(165deg,color-mix(in srgb,var(--rc) 24%,var(--surface)),var(--surface) 62%);padding:8px 9px;display:flex;flex-direction:column;gap:3px;overflow:hidden;text-align:left;color:var(--fg);font:inherit;min-width:0}
 button.hcard{cursor:pointer}
@@ -1846,9 +1853,9 @@ function itemHTML(v){
     <h4>${esc(it.n)}</h4>
     <div class="meta">${it.type==="Lore"?"Lore Item":it.type==="Collectible"||it.type==="RP Item"||it.pack?esc(it.type):`${esc(it.type)} · Boost: ${esc(it.boost)}`}</div>
     <p>${esc(it.d)}</p>
-    <div class="eff">${it.pirate?`Use it for <b>+${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve</b>. Opens them again even if you already confirmed them.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
+    <div class="eff">${it.pirate?`Use it to give <b>one character of your choice</b> +${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve. Opens them again even if they were confirmed.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
     <div class="meta">Found ${esc(fmtDate(v.date))} · ${esc(v.source)}</div>
-    <div class="acts">${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · +${PIRATE_SPINS} spins on everything</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
+    <div class="acts">${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · pick a character</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
   </article>`;
 }
 function armoryHTML(v){
@@ -2241,12 +2248,22 @@ $("#creation").addEventListener("click",e=>{const b=e.target.closest("button");i
 });
 /* ---- Pirate Token ---- */
 function usePirate(vid){
-  const c=C();const v=c.inventory.find(x=>x.id===vid);if(!v)return;const cr=c.creation||{};
-  if(!cr.finished){toast("Finish your character first. Then the Pirate Token can give you spins.");return}
-  c.inventory=c.inventory.filter(x=>x.id!==vid);cr.bonus=cr.bonus||{};cr.locked=cr.locked||{};
-  for(const k of ["potential","output","reserve"]){cr.bonus[k]=(cr.bonus[k]||0)+PIRATE_SPINS;cr.locked[k]=false}
-  touch();actLog("pirateUsed",{n:PIRATE_SPINS});renderAll();setTab("sheet");toast(`+${PIRATE_SPINS} spins on every Creation Roll!`);
-  setTimeout(()=>{const el=$("#creation");if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},80)}
+  const holder=C();const v=holder.inventory.find(x=>x.id===vid);if(!v)return;
+  const chars=Object.values(state.characters||{}).filter(c=>!c.example);
+  if(!chars.length){toast("Make a character first.");return}
+  const row=c=>{const cr=c.creation||{};const ok=!!cr.finished;
+    return`<button type="button" class="pirate-pick" data-pk="${esc(c.id)}" ${ok?"":"disabled"}><b>${esc(DISPLAY_NAME(c))}</b><small>${esc(GRADES[c.grade]||"")}${ok?` · spins left now: ${["potential","output","reserve"].map(k=>spinsLeft(c,k)).join(" / ")}`:" · finish this character first"}</small></button>`};
+  openDlg(`<h3>Use your Pirate Token</h3><p class="dhelp">Pick the character that gets <b>+${PIRATE_SPINS} spins</b> on Grade Potential, CE Output and CE Reserve. Only that character gets them, and the token is used up.</p>
+    <div class="pirate-list">${chars.map(row).join("")}</div><div class="drow" style="margin-top:12px"><button class="btn ghost" data-close>Cancel</button></div>`);
+  $("#dlg").querySelectorAll("[data-pk]").forEach(btn=>btn.onclick=()=>{
+    const t=state.characters[btn.dataset.pk];if(!t)return;const cr=t.creation||(t.creation={});if(!cr.finished)return;
+    if(btn.dataset.arm!=="1"){$("#dlg").querySelectorAll("[data-pk]").forEach(x=>{x.dataset.arm="";x.classList.remove("armed")});btn.dataset.arm="1";btn.classList.add("armed");btn.querySelector("small").textContent=`Tap again to give ${DISPLAY_NAME(t)} the ${PIRATE_SPINS} spins`;return}
+    holder.inventory=holder.inventory.filter(x=>x.id!==vid);cr.bonus=cr.bonus||{};cr.locked=cr.locked||{};
+    for(const k of ["potential","output","reserve"]){cr.bonus[k]=(cr.bonus[k]||0)+PIRATE_SPINS;cr.locked[k]=false}
+    actLog("pirateUsed",{n:PIRATE_SPINS,on:DISPLAY_NAME(t)});
+    state.activeId=t.id;touch();$("#dlg").close();fillEditor();renderAll();setTab("sheet");toast(`${DISPLAY_NAME(t)}: +${PIRATE_SPINS} spins on every Creation Roll!`);
+    setTimeout(()=>{const el=$("#creation");if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},80)});
+}
 function pirateShow(real,after){
   document.querySelectorAll(".pirate").forEach(x=>x.remove());
   const o=document.createElement("div");o.className="pirate";o.setAttribute("role","dialog");o.setAttribute("aria-label","Pirate Token");
@@ -2303,7 +2320,7 @@ const ACT_TEXT={
   grade:e=>`⚠ changed grade: ${e.from} → ${e.to}`,
   pack:e=>`opened ${e.pack}: ${e.cards}`,
   pirate:e=>`🏴‍☠️ WON A PIRATE TOKEN just by opening the app (1 in a million)`,
-  pirateUsed:e=>`used a Pirate Token → +${e.n} spins on every Creation Roll`,
+  pirateUsed:e=>`used a Pirate Token on ${e.on||"a character"} → +${e.n} spins on every Creation Roll`,
   buy:e=>`bought ${e.item} on Jujuzon for ${e.price} (${e.left} left)`,
   swapOut:e=>`sent ${e.item} to ${e.to} (swap code)`,
   swapIn:e=>`received ${e.item} from ${e.from} (swap code)`,
