@@ -255,6 +255,29 @@ main{padding-block:20px 60px}
 .inv-tools{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .inv-tools .tp i{background:var(--rc)}
 .inv-tools .tp[aria-pressed="true"]{border-color:var(--rc);box-shadow:inset 0 0 0 1px var(--rc)}
+.pirate{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;padding:16px;background:radial-gradient(circle at 50% 42%,rgba(60,40,0,.55),rgba(5,4,10,.92) 70%);animation:pfade .3s ease both;text-align:center}
+.pirate.out{animation:pfade .3s ease reverse both}
+@keyframes pfade{from{opacity:0}to{opacity:1}}
+.pirate-burst{position:absolute;left:50%;top:42%;width:min(560px,120vw);aspect-ratio:1;transform:translate(-50%,-50%);background:repeating-conic-gradient(rgba(255,214,90,.16) 0 10deg,transparent 10deg 20deg);border-radius:50%;animation:pspin 14s linear infinite;pointer-events:none;-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%)}
+@keyframes pspin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.pirate-coin{position:relative;width:min(190px,48vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6c8,#ffd75a 30%,#e0a419 62%,#9a6a07);box-shadow:0 0 0 6px #b98510,0 0 0 10px #ffe9a3,0 0 60px 16px rgba(255,200,60,.55);display:grid;place-items:center;animation:pcoin 1.1s cubic-bezier(.2,1.5,.4,1) both,pflip 3.2s ease-in-out 1.1s infinite}
+@keyframes pcoin{0%{transform:scale(0) rotate(-200deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+@keyframes pflip{0%,100%{transform:rotateY(0)}50%{transform:rotateY(180deg)}}
+.pirate-face{display:grid;place-items:center;width:78%;aspect-ratio:1;border-radius:50%;border:3px dashed rgba(120,80,0,.55);color:#5a3a00}
+.pirate-face span{font-size:clamp(3rem,13vw,5.2rem);line-height:1;text-shadow:0 2px 0 rgba(255,255,255,.4)}
+.pirate-face small{font-family:var(--f-mono);font-weight:500;letter-spacing:.3em;font-size:.72rem;margin-top:-6px}
+.pirate-text{position:relative;display:grid;gap:8px}
+.pirate-big{font-family:var(--f-display);font-weight:800;font-size:clamp(2.2rem,9vw,4.4rem);line-height:1;color:#ffd75a;text-shadow:0 0 24px rgba(255,200,60,.7),0 4px 0 #8a5a00;animation:pcoin .6s cubic-bezier(.2,1.5,.4,1) .5s both}
+.pirate-sub{font-size:clamp(1rem,4vw,1.35rem);color:#fff;opacity:0;transform:translateY(8px);transition:.35s}
+.pirate-sub.in{opacity:1;transform:none}
+.pirate-sub small{color:#d8c79a;font-size:.8em}
+.pirate.troll .pirate-big{color:#ff5468;text-shadow:0 0 24px rgba(255,60,90,.6),0 4px 0 #6a0010;font-size:clamp(1.6rem,7vw,3.4rem);animation:pshake .5s both}
+.pirate.troll .pirate-sub{font-weight:700;font-size:clamp(1.2rem,5vw,1.8rem)}
+.pirate.troll .pirate-coin{animation:pdrop 1s ease-in .1s both}
+@keyframes pshake{0%,100%{transform:none}20%{transform:translateX(-8px) rotate(-2deg)}40%{transform:translateX(8px) rotate(2deg)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pdrop{to{transform:translateY(40px) rotate(25deg) scale(.85);filter:grayscale(1) brightness(.6)}}
+.pirate-ok{position:relative;min-width:140px}
+@media (prefers-reduced-motion:reduce){.pirate-burst,.pirate-coin,.pirate-big,.pirate.troll .pirate-coin{animation:none}}
 .binder{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px}
 .hcard{position:relative;aspect-ratio:5/7;border-radius:10px;border:2px solid var(--rc);background:linear-gradient(165deg,color-mix(in srgb,var(--rc) 24%,var(--surface)),var(--surface) 62%);padding:8px 9px;display:flex;flex-direction:column;gap:3px;overflow:hidden;text-align:left;color:var(--fg);font:inherit;min-width:0}
 button.hcard{cursor:pointer}
@@ -272,6 +295,10 @@ button.hcard:hover{transform:translateY(-2px);transition:transform .15s}
 .hcard.missing .gr{color:var(--muted)}
 .hcard.holo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.2) 44%,rgba(255,170,255,.16) 50%,rgba(150,220,255,.14) 56%,transparent 70%);background-size:260% 100%;animation:holo 3.6s linear infinite;pointer-events:none}
 @keyframes holo{from{background-position:160% 0}to{background-position:-110% 0}}
+.hcard.secret{border-color:transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,conic-gradient(from 0deg,#ff4f5e,#f2b54a,#7ee08a,#6fb3ff,#c78bff,#ff4f5e) border-box;border:2px solid transparent}
+.hcard.secret .sig span{border-color:#f2b54a;color:#f2b54a;background:radial-gradient(circle,rgba(242,181,74,.25),transparent 70%)}
+.hcard.secret .gr{background:linear-gradient(90deg,#ff4f5e,#f2b54a,#6fb3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.binder-sec{grid-column:1/-1;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold,#f2b54a);margin-top:8px}
 .hcard.back{border-color:var(--line);background:repeating-linear-gradient(45deg,var(--surface-2) 0 8px,var(--surface) 8px 16px)}
 .hcard.back .sig span{border-color:var(--danger);color:var(--danger);background:var(--surface)}
 .hcard.pop{animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
@@ -748,7 +775,7 @@ dialog img{display:block;max-width:100%;border-radius:8px;border:1px solid var(-
         <p class="dhelp" style="margin:-4px 0 14px;color:var(--muted);max-width:70ch">Every Lore Item you read is kept here. Collect them all to piece together what really happened.</p>
         <div class="inv" id="loreList"></div>
         <div class="section-h" style="margin-top:36px"><h2>Card Binder</h2><span class="eyebrow" id="cardCount"></span></div>
-        <p class="dhelp" style="margin:-4px 0 14px;color:var(--muted);max-width:70ch">Heian Era Sorcerers, a set of 36 cards. A card's rarity is the sorcerer's grade. Get packs on Jujuzon, open them in your inventory, and swap duplicates with other players.</p>
+        <p class="dhelp" style="margin:-4px 0 14px;color:var(--muted);max-width:70ch">Dragon Ball cards, from the Saiyan Saga to the Tournament of Power, plus GT. Buy packs on Jujuzon, open them in your inventory, and swap duplicates with other players. Some cards are secret and don't show up here until someone pulls one.</p>
         <div class="binder" id="binder"></div>
       </div>
     </div>
@@ -1033,9 +1060,9 @@ const OFF_CHANCE=[
   OC(3,"Simple Domain Drill Card","Talisman","Anti-Barrier Proficiency","A pocket card of Simple Domain stances.",35),
   OC(4,"Sparring Ward","Talisman","Combat Proficiency","Takes the sting out of practice hits so you can train harder.",50),
   OC(4,"Masterwork Focus Talisman","Talisman","Cursed Technique Proficiency","Written by a Grade 1 teacher. The brushwork alone is worth it.",50),
-  Object.assign(OC(1,"Sorcerer Trading Card Pack","Card Pack","Open for 5 cards","Five random Heian Era sorcerer cards. Three of them might be the same guy."),{pack:{n:5,min:0}}),
-  Object.assign(OC(3,"Heian Booster Pack","Card Pack","Open for 5 cards","Five Heian Era sorcerer cards. At least one is Rare or better."),{pack:{n:5,min:3}}),
-  Object.assign(OC(5,"Heian Collector's Box","Card Pack","Open for 10 cards","Ten Heian Era sorcerer cards in a lacquered box. At least one is Elite or better."),{pack:{n:10,min:4}}),
+  Object.assign(OC(1,"Dragon Ball Card Pack","Card Pack","Open for 5 cards","Five random Dragon Ball cards. Three of them might be Yamcha."),{pack:{n:5,min:0}}),
+  Object.assign(OC(3,"Dragon Ball Booster Pack","Card Pack","Open for 5 cards","Five Dragon Ball cards. At least one is Rare or better."),{pack:{n:5,min:3}}),
+  Object.assign(OC(5,"Dragon Ball Collector's Box","Card Pack","Open for 10 cards","Ten Dragon Ball cards in a capsule case. At least one is Elite or better."),{pack:{n:10,min:4}}),
   OC(1,"Three Schools Pin Set","Collectible","Collectible","Tokyo, Kyoto and Sendai. The Hiroshima pin is out of production."),
   OC(1,"Miniature Torii Gate","Collectible","Collectible","Fits on a desk. Nobody knows why it's warm."),
   OC(2,"Cursed Plushie","Collectible","Collectible","A plush curse. It squeaks when nobody is touching it."),
@@ -1063,52 +1090,157 @@ const OFF_CHANCE=[
   OC(6,"Sports Car","RP Item","RP only","Parking at Sendai Jujutsu High is not included.")
 ];
 OFF_CHANCE.forEach(it=>{it.id=slug(it.n);if(ITEMS[it.id])console.warn('duplicate item',it.n);ITEMS[it.id]=it});
-/* HEIAN CARD SET (edit here): 36 collectible cards. Rarity = the sorcerer's grade. Cards never drop from loot chests;
-   players get them from Card Packs (Off Chance items on Jujuzon), swaps, or the GM. */
+/* DRAGON BALL CARD SET (edit here): collectible cards, Saiyan Saga to the Tournament of Power plus some GT.
+   Rarity uses the loot rarities (Trash … Special Grade). Cards only come out of Card Packs (Off Chance items on Jujuzon),
+   or from other players through swaps. Secret cards are hidden in the binder until someone pulls one. */
+const SECRET_CHANCE=0.003; // chance for each card in a pack to be one of the secret cards
+const DBC=(r,n,saga,tech,d,no)=>Object.assign(I(n,"Card","Dragon Ball Card",d),{r,off:true,card:true,no,tech,saga});
 const CARDS=[
-  Object.assign(I("Rice Merchant of Kyoto","Card","Heian Card","Sold rice to sorcerers and curses alike. Never asked questions."),{r:0,off:true,card:true,no:1,tech:"Haggling"}),
-  Object.assign(I("Ox-Cart Driver","Card","Heian Card","Could see curses on every road in the capital. Kept driving anyway."),{r:0,off:true,card:true,no:2,tech:"Cursed Sight"}),
-  Object.assign(I("Temple Bell Ringer","Card","Heian Card","Rang the bell at dawn. Small curses scattered every time."),{r:0,off:true,card:true,no:3,tech:"Morning Bell"}),
-  Object.assign(I("Village Purifier","Card","Heian Card","Poured sake for the spirits. Drank most of it himself."),{r:0,off:true,card:true,no:4,tech:"Rice Wine Offerings"}),
-  Object.assign(I("Night Watch Archer","Card","Heian Card","Watched the palace walls all night. Saw more than he reported."),{r:0,off:true,card:true,no:5,tech:"Steady Aim"}),
-  Object.assign(I("Talisman Scribe","Card","Heian Card","Never fought a curse. Wrote the seals for everyone who did."),{r:0,off:true,card:true,no:6,tech:"Calligraphy"}),
-  Object.assign(I("Apprentice Onmy\u014dji","Card","Heian Card","Burned three talismans for every one that worked."),{r:0,off:true,card:true,no:7,tech:"Basic Talismans"}),
-  Object.assign(I("Imperial Veil-Keeper","Card","Heian Card","Raised the veils around the palace every night for thirty years."),{r:1,off:true,card:true,no:8,tech:"Veil Craft"}),
-  Object.assign(I("Toba Lantern Bearer","Card","Heian Card","Walked ahead of the nobles' carts. Curses kept away from the light."),{r:1,off:true,card:true,no:9,tech:"Lantern Ward"}),
-  Object.assign(I("Kurama Mountain Ascetic","Card","Heian Card","Trained under a freezing waterfall until his cursed energy stopped shaking."),{r:1,off:true,card:true,no:10,tech:"Waterfall Discipline"}),
-  Object.assign(I("Rash\u014dmon Gate Guard","Card","Heian Card","Guarded the most haunted gate in Kyoto. Asked for a transfer every year."),{r:1,off:true,card:true,no:11,tech:"Spear Training"}),
-  Object.assign(I("Ise Shrine Maiden Sayo","Card","Heian Card","Her bell made weak curses forget why they came."),{r:1,off:true,card:true,no:12,tech:"Sacred Bell"}),
-  Object.assign(I("Court Exorcist Hatsune","Card","Heian Card","Carried salt in her sleeves. Threw it with alarming accuracy."),{r:1,off:true,card:true,no:13,tech:"Salt Purification"}),
-  Object.assign(I("Kudara no Tomonari","Card","Heian Card","Every mirror he made could hold a curse. Most of them still do."),{r:2,off:true,card:true,no:14,tech:"Mirror Reflection"}),
-  Object.assign(I("Monk J\u014dkai","Card","Heian Card","Chanted for three days straight to hold a barrier. Lost his voice for a month."),{r:2,off:true,card:true,no:15,tech:"Sutra Barrier"}),
-  Object.assign(I("Kotone the Shiraby\u014dshi","Card","Heian Card","Her dances could calm a curse or bait it out. Hard to tell which until the end."),{r:2,off:true,card:true,no:16,tech:"Dance Ritual"}),
-  Object.assign(I("Lady Akahane","Card","Heian Card","Court lady by day, curse hunter by night. Nobody at court suspected."),{r:2,off:true,card:true,no:17,tech:"Crimson Veil"}),
-  Object.assign(I("\u014ce no Mitsune","Card","Heian Card","Tied curses to temple bells so they rang themselves apart."),{r:2,off:true,card:true,no:18,tech:"Thread Binding"}),
-  Object.assign(I("Ki no Haruaki","Card","Heian Card","Painted his shikigami before every fight. Fights started late."),{r:2,off:true,card:true,no:19,tech:"Ink Shikigami"}),
-  Object.assign(I("Ono no Kagetsu","Card","Heian Card","Sealed curses by reciting poems. Very long poems."),{r:3,off:true,card:true,no:20,tech:"Moon Poem Technique"}),
-  Object.assign(I("Usui Sadamitsu","Card","Heian Card","The steady one of Raik\u014d's four retainers. Always held the line."),{r:3,off:true,card:true,no:21,tech:"Spear Barrier"}),
-  Object.assign(I("Urabe no Suetake","Card","Heian Card","Raik\u014d's archer. His arrows found curses through walls."),{r:3,off:true,card:true,no:22,tech:"Bow Infusion"}),
-  Object.assign(I("Sakata no Kintoki","Card","Heian Card","Raised on a mountain, wrestled bears as a child, never learned a single technique. Never needed one."),{r:3,off:true,card:true,no:23,tech:"Heavenly Restriction"}),
-  Object.assign(I("Watanabe no Tsuna","Card","Heian Card","Cut the arm off an oni at Rash\u014dmon gate, then had to guard it for seven days."),{r:3,off:true,card:true,no:24,tech:"Cursed Tool: Higekiri"}),
-  Object.assign(I("Fujiwara no Kager\u014d","Card","Heian Card","The Fujiwara's quiet blade. Nobody saw her coming twice."),{r:4,off:true,card:true,no:25,tech:"Mirage Formation"}),
-  Object.assign(I("Minamoto no Raik\u014d","Card","Heian Card","Hunted the oni of Mount \u014ce with four loyal retainers."),{r:4,off:true,card:true,no:26,tech:"Demon Slaying"}),
-  Object.assign(I("Kamo no Tadayuki","Card","Heian Card","Read curses in the stars and in the blood. Founded a line that never forgot either."),{r:4,off:true,card:true,no:27,tech:"Blood Manipulation"}),
-  Object.assign(I("Kamo no Yasunori","Card","Heian Card","Head of the Kamo onmy\u014dji. Taught the young Seimei everything he knew."),{r:4,off:true,card:true,no:28,tech:"Blood Manipulation"}),
-  Object.assign(I("Ashiya D\u014dman","Card","Heian Card","Seimei's great rival. Lost every duel the stories remember. The stories were written by Seimei's side."),{r:5,off:true,card:true,no:29,tech:"Rival Onmy\u014dd\u014d"}),
-  Object.assign(I("Abe no Seimei","Card","Heian Card","The most famous onmy\u014dji of Kyoto. Legends say his mother was a fox."),{r:5,off:true,card:true,no:30,tech:"Onmy\u014dd\u014d"}),
-  Object.assign(I("Takako Uro","Card","Heian Card","Led the Fujiwara clan's elite troops. Folded the sky like paper."),{r:5,off:true,card:true,no:31,tech:"Sky Manipulation"}),
-  Object.assign(I("Uraume","Card","Heian Card","Sukuna's loyal attendant. The cold follows wherever they walk."),{r:5,off:true,card:true,no:32,tech:"Ice Formation"}),
-  Object.assign(I("Yorozu","Card","Heian Card","Could build anything she imagined, and imagined only one man."),{r:6,off:true,card:true,no:33,tech:"Construction"}),
-  Object.assign(I("Sugawara no Michizane","Card","Heian Card","One of Japan's three great vengeful spirits. Ancestor of the Gojo line."),{r:6,off:true,card:true,no:34,tech:"Vengeful Spirit"}),
-  Object.assign(I("Kenjaku","Card","Heian Card","A mind that moves from body to body. Patient beyond any human measure."),{r:6,off:true,card:true,no:35,tech:"Body Swapping"}),
-  Object.assign(I("Ryomen Sukuna","Card","Heian Card","Four arms, two faces, and every sorcerer of the age beneath him. The King of Curses."),{r:6,off:true,card:true,no:36,tech:"Shrine"})
+  DBC(0,"Saibaman","Saiyan Saga","Self-Destruct","Grown from a seed in minutes. Explodes in seconds.",1),
+  DBC(0,"Raditz","Saiyan Saga","Double Sunday","Came to Earth looking for his little brother. It did not go well.",2),
+  DBC(0,"Nappa","Saiyan Saga","Bomber DX","Big, bald and very fond of flattening cities.",3),
+  DBC(0,"Yamcha","Saiyan Saga","Wolf Fang Fist","Brave, stylish and always in the wrong fight.",4),
+  DBC(0,"Chiaotzu","Saiyan Saga","Telekinesis","Small, loyal and braver than anyone expected.",5),
+  DBC(0,"Yajirobe","Saiyan Saga","Katana Slash","Cut off a Great Ape's tail, then asked what was for dinner.",6),
+  DBC(0,"Puar","Saiyan Saga","Shapeshift","Can turn into almost anything for five minutes.",7),
+  DBC(0,"Oolong","Saiyan Saga","Shapeshift","Once had a wish granted by the Eternal Dragon. Don't ask what it was.",8),
+  DBC(0,"Bulma","Saiyan Saga","Dragon Radar","Built the Dragon Radar as a teenager. Still the smartest person in the room.",9),
+  DBC(0,"Mr. Popo","Saiyan Saga","Magic Carpet","Keeper of the Lookout. Keeps the garden very tidy.",10),
+  DBC(0,"Korin","Saiyan Saga","Senzu Beans","Grows the beans that saved the world more than once.",11),
+  DBC(0,"Frieza Soldier","Frieza Saga","Scouter Blast","Wore the armor, read the scouter, lost anyway.",12),
+  DBC(0,"Cui","Frieza Saga","Energy Blast","Was sure he could take Vegeta. He was wrong.",13),
+  DBC(0,"Appule","Frieza Saga","Energy Blast","One of Frieza's soldiers. Not one of the famous ones.",14),
+  DBC(0,"Dodoria","Frieza Saga","Mouth Energy Wave","Frieza's pink enforcer. Big in every way except brains.",15),
+  DBC(0,"Guldo","Frieza Saga","Time Freeze","Stops time, but only while he holds his breath.",16),
+  DBC(0,"Android 19","Android Saga","Energy Absorption","Built to drain energy. Picked the wrong Saiyan to drain.",17),
+  DBC(0,"Android 20","Android Saga","Energy Absorption","Dr. Gero in a body of his own design.",18),
+  DBC(0,"Mr. Satan","Cell Saga","Dynamite Kick","World Martial Arts Champion. Saved the world, mostly by accident.",19),
+  DBC(0,"Cell Jr.","Cell Saga","Cell Jr. Barrage","Seven of them, each one meaner than a Z Fighter.",20),
+  DBC(0,"Chi-Chi","Buu Saga","Frying Pan","The scariest fighter in the Son household.",21),
+  DBC(0,"Pui Pui","Buu Saga","Energy Blast","Babidi's first guard. Lasted about a minute.",22),
+  DBC(0,"Yakon","Buu Saga","Light Eater","Ate light for breakfast. Ate too much of Goku's.",23),
+  DBC(0,"Spopovitch","Buu Saga","Majin Power","Powered up by Babidi. Paid for it in full.",24),
+  DBC(0,"Babidi","Buu Saga","Mind Control","Small wizard, big plans, terrible employees.",25),
+  DBC(1,"Krillin","Saiyan Saga","Destructo Disc","The strongest human. Dies a lot, keeps showing up anyway.",26),
+  DBC(1,"Tien Shinhan","Saiyan Saga","Tri-Beam","Three eyes, one Tri-Beam, endless stubbornness.",27),
+  DBC(1,"Master Roshi","Saiyan Saga","Kamehameha","Invented the Kamehameha. Still watches too much TV.",28),
+  DBC(1,"Kid Gohan","Saiyan Saga","Masenko","Hidden power, terrible at sitting still.",29),
+  DBC(1,"Kami","Saiyan Saga","Evil Containment Wave","Earth's guardian, and the other half of Piccolo.",30),
+  DBC(1,"King Kai","Saiyan Saga","Spirit Bomb","Taught Goku the Kaio-ken and the Spirit Bomb. Still waiting for a laugh.",31),
+  DBC(1,"Bardock","Frieza Saga","Riot Javelin","A low-class Saiyan who saw the end coming.",32),
+  DBC(1,"Zarbon","Frieza Saga","Elegant Blaster","Pretty on the outside. Not on the inside.",33),
+  DBC(1,"Recoome","Frieza Saga","Recoome Eraser Gun","Strikes a pose before every punch.",34),
+  DBC(1,"Burter","Frieza Saga","Blue Hurricane","The fastest in the universe. He'll tell you himself.",35),
+  DBC(1,"Jeice","Frieza Saga","Crusher Ball","The Ginyu Force's red magic man.",36),
+  DBC(1,"Captain Ginyu","Frieza Saga","Body Change","Never loses a fight. Just swaps bodies.",37),
+  DBC(1,"Nail","Namek Saga","Energy Blast","The best warrior on Namek. Bought everyone time.",38),
+  DBC(1,"Dende","Namek Saga","Healing","Healed half the Z Fighters, then became Earth's guardian.",39),
+  DBC(1,"Kid Goten","Buu Saga","Kamehameha","Turned Super Saiyan by accident while playing.",40),
+  DBC(1,"Kid Trunks","Buu Saga","Buster Cannon","Rich, cocky and Vegeta's son through and through.",41),
+  DBC(1,"Great Saiyaman","Buu Saga","Justice Pose","Fights crime in a costume. Fools no one.",42),
+  DBC(1,"Videl","Buu Saga","Flight","Learned to fly in a weekend. Learned to fight long before that.",43),
+  DBC(1,"Supreme Kai","Buu Saga","Telekinesis","Universe 7's god of creation. Very nervous about Buu.",44),
+  DBC(1,"Kibito","Buu Saga","Healing","The Supreme Kai's loyal attendant.",45),
+  DBC(1,"Jaco","Resurrection F","Elite Patrol Moves","Galactic Patrol elite. Self-proclaimed.",46),
+  DBC(1,"Sorbet","Resurrection F","Ring Laser","Brought Frieza back to life. Regretted it.",47),
+  DBC(2,"Piccolo","Saiyan Saga","Special Beam Cannon","Trained Gohan, raised Gohan, still pretends he doesn't care.",48),
+  DBC(2,"Vegeta (Saiyan Saga)","Saiyan Saga","Galick Gun","Prince of all Saiyans. Came to Earth to destroy it.",49),
+  DBC(2,"Goku (Kaio-ken)","Saiyan Saga","Kaio-ken x4","Pushed his body four times past its limit to stop Vegeta.",50),
+  DBC(2,"Gohan (Namek)","Namek Saga","Masenko","Got stronger every time a friend was hurt.",51),
+  DBC(2,"Frieza (First Form)","Frieza Saga","Death Beam","Polite, small and the most feared tyrant in the universe.",52),
+  DBC(2,"Future Trunks","Android Saga","Burning Attack","Came back in time with a warning and a sword.",53),
+  DBC(2,"Android 16","Cell Saga","Hell's Flash","A gentle giant who loved birds.",54),
+  DBC(2,"Android 17","Android Saga","Barrier","Free-spirited and never takes anything seriously.",55),
+  DBC(2,"Android 18","Android Saga","Power Blitz","Cool, sharp and later the toughest mom on Earth.",56),
+  DBC(2,"Imperfect Cell","Cell Saga","Absorption","Started as a larva in a sewer. Ended as a nightmare.",57),
+  DBC(2,"Dabura","Buu Saga","Stone Spit","King of the Demon Realm. One spit and you're stone.",58),
+  DBC(2,"Cabba","Universe 6 Saga","Galick Gun","A polite Saiyan from Universe 6. Vegeta's first student.",59),
+  DBC(2,"Frost","Universe 6 Saga","Poison Needle","Universe 6's Frieza. Insists he's the nice one.",60),
+  DBC(2,"Botamo","Universe 6 Saga","Rubber Body","Can't be knocked out of the ring. Can be picked up.",61),
+  DBC(2,"Magetta","Universe 6 Saga","Lava Spit","A metal giant. Very shy.",62),
+  DBC(2,"Goku Black","Future Trunks Saga","Energy Blade","Goku's face. A god's ambition.",63),
+  DBC(2,"Zamasu","Future Trunks Saga","Holy Light","A Supreme Kai apprentice who decided mortals were the problem.",64),
+  DBC(2,"Caulifla","Tournament of Power","Energy Blast","A Universe 6 Saiyan gang leader with nothing to lose.",65),
+  DBC(2,"Kale","Tournament of Power","Energy Blast","Shy until she isn't.",66),
+  DBC(2,"Ribrianne","Tournament of Power","Love Arrow","Universe 2's magical girl, powered by love. A lot of it.",67),
+  DBC(3,"Goku (Super Saiyan)","Frieza Saga","Kamehameha","The legend of the Super Saiyan, awakened on a dying planet.",68),
+  DBC(3,"Frieza (Final Form)","Frieza Saga","Death Ball","Full power. Still not enough.",69),
+  DBC(3,"Vegeta (Super Saiyan)","Android Saga","Big Bang Attack","Finally caught up to Kakarot. For a while.",70),
+  DBC(3,"Future Trunks (Super Saiyan)","Android Saga","Sword Slash","Cut Frieza to pieces before anyone knew his name.",71),
+  DBC(3,"Piccolo (Fused with Kami)","Android Saga","Light Grenade","Two halves made whole. Briefly the strongest on Earth.",72),
+  DBC(3,"Perfect Cell","Cell Saga","Kamehameha","Built from the best fighters in history. Hosted his own tournament.",73),
+  DBC(3,"Majin Vegeta","Buu Saga","Final Explosion","Let Babidi in to get stronger. Gave everything to fix it.",74),
+  DBC(3,"Fat Buu","Buu Saga","Candy Beam","Turns people into candy. Loves his dog.",75),
+  DBC(3,"Super Buu","Buu Saga","Human Extinction Attack","Absorbed his way to the top. Hates waiting.",76),
+  DBC(3,"Gotenks (Super Saiyan 3)","Buu Saga","Super Ghost Kamikaze Attack","Two kids, one fusion, zero caution.",77),
+  DBC(3,"Hit","Universe 6 Saga","Time Skip","The legendary assassin of Universe 6. Never misses.",78),
+  DBC(3,"Android 17 (Ranger)","Tournament of Power","Barrier","Park ranger, father, and the last one standing for Universe 7.",79),
+  DBC(3,"Android 18 (Tournament)","Tournament of Power","Power Blitz","Fought in the Tournament of Power for the prize money. No shame.",80),
+  DBC(3,"Caulifla (Super Saiyan 2)","Tournament of Power","Crush Cannon","Learned Super Saiyan 2 in a single afternoon.",81),
+  DBC(3,"Kale (Berserk)","Tournament of Power","Berserk Rage","A Universe 6 legend with a temper to match.",82),
+  DBC(3,"Dyspo","Tournament of Power","Super Speed","The fastest fighter in Universe 11. Hates being called slow.",83),
+  DBC(3,"Toppo","Tournament of Power","Justice Crush","Leader of the Pride Troopers and next in line to destroy.",84),
+  DBC(3,"Baby","GT: Baby Saga","Revenge Death Ball","The last Tuffle, out for Saiyan blood.",85),
+  DBC(4,"Gohan (Super Saiyan 2)","Cell Saga","Father-Son Kamehameha","Snapped at the Cell Games and ended them.",86),
+  DBC(4,"Super Perfect Cell","Cell Saga","Solar Kamehameha","Blew himself up. Came back stronger.",87),
+  DBC(4,"Goku (Super Saiyan 3)","Buu Saga","Dragon Fist","Long hair, short time limit, huge power.",88),
+  DBC(4,"Kid Buu","Buu Saga","Planet Burst","Pure chaos. The original Majin Buu.",89),
+  DBC(4,"Ultimate Gohan","Buu Saga","Kamehameha","His potential was unlocked by the Old Kai. It took five hours of chanting.",90),
+  DBC(4,"Super Vegito","Buu Saga","Spirit Sword","Goku and Vegeta fused with Potara earrings. Played with Buu like a toy.",91),
+  DBC(4,"Golden Frieza","Resurrection F","Death Beam","Trained for four months. Turned gold.",92),
+  DBC(4,"Goku Black (Super Saiyan Rosé)","Future Trunks Saga","Black Kamehameha","A stolen body with a rose-colored aura.",93),
+  DBC(4,"Fused Zamasu","Future Trunks Saga","Holy Wrath","An immortal god in a fused body. It didn't last.",94),
+  DBC(4,"Kefla","Tournament of Power","Gigantic Ray","Caulifla and Kale fused with Potara earrings.",95),
+  DBC(4,"Toppo (God of Destruction)","Tournament of Power","Hakai","Unleashed the power of destruction in the arena.",96),
+  DBC(4,"Baby Vegeta","GT: Baby Saga","Revenge Death Ball Final","Baby took over the Prince of all Saiyans. Bad idea for everyone.",97),
+  DBC(4,"Super 17","GT: Super 17 Saga","Hell Storm","Two Android 17s merged into one.",98),
+  DBC(4,"Nuova Shenron","GT: Shadow Dragon Saga","Nova Star","The only honorable Shadow Dragon.",99),
+  DBC(4,"Syn Shenron","GT: Shadow Dragon Saga","Minus Energy Power Ball","Born from the One-Star Ball. The worst of them all.",100),
+  DBC(5,"Goku (Super Saiyan God)","Battle of Gods","God Ki","Five Saiyans' power poured into one. Enough to face a god.",101),
+  DBC(5,"Beerus","Battle of Gods","Hakai","God of Destruction of Universe 7. Wakes up hungry.",102),
+  DBC(5,"Goku (Super Saiyan Blue)","Resurrection F","Kamehameha","God ki with Super Saiyan power. Calm, focused, blue.",103),
+  DBC(5,"Vegeta (Super Saiyan Blue)","Resurrection F","Final Flash","Matched Kakarot's god form. Of course he did.",104),
+  DBC(5,"Champa","Universe 6 Saga","Hakai","Beerus's twin brother. Rounder, louder and just as dangerous.",105),
+  DBC(5,"Goku (Blue Kaio-ken x20)","Universe 6 Saga","Kaio-ken x20 Kamehameha","Blue plus Kaio-ken. His body hated it.",106),
+  DBC(5,"Future Trunks (Super Saiyan Rage)","Future Trunks Saga","Spirit Bomb Sword","Gathered the hope of his world into one blade.",107),
+  DBC(5,"Hit (Pure Progress)","Tournament of Power","Time Skip","Pushed his Time Skip past anything Universe 6 had seen.",108),
+  DBC(5,"Vegeta (Blue Evolution)","Tournament of Power","Final Flash","Broke his own limit in the Tournament of Power.",109),
+  DBC(5,"Jiren","Tournament of Power","Power Impact","Universe 11's strongest. Trusts no one but himself.",110),
+  DBC(5,"Goku (Super Saiyan 4)","GT: Baby Saga","10x Kamehameha","Red fur, golden eyes, the legend of GT.",111),
+  DBC(5,"Vegeta (Super Saiyan 4)","GT: Shadow Dragon Saga","Final Shine Attack","Got his tail back, and his pride with it.",112),
+  DBC(6,"Whis","Battle of Gods","Temporal Do-Over","Beerus's attendant and teacher. Stronger than his boss.",113),
+  DBC(6,"Vegito (Super Saiyan Blue)","Future Trunks Saga","Final Kamehameha","Potara fusion at god level. Split apart too soon.",114),
+  DBC(6,"Goku (Ultra Instinct Sign)","Tournament of Power","Kamehameha","His body moved before he could think.",115),
+  DBC(6,"Goku (Mastered Ultra Instinct)","Tournament of Power","Ultra Instinct","Silver hair. Silent. Untouchable.",116),
+  DBC(6,"Jiren (Full Power)","Tournament of Power","Power Impact","Strength forged alone, unleashed at last.",117),
+  DBC(6,"Zeno","Tournament of Power","Erase","King of Everything. Can erase a universe with a smile.",118),
+  DBC(6,"Omega Shenron","GT: Shadow Dragon Saga","Minus Energy Power Ball","All seven Shadow Dragons in one body.",119),
+  DBC(6,"Gogeta (Super Saiyan 4)","GT: Shadow Dragon Saga","Big Bang Kamehameha","The final fusion. Toyed with Omega Shenron.",120)
 ];
-CARDS.forEach(it=>{it.id="card-"+slug(it.n);ITEMS[it.id]=it});
-const CARD_TOTAL=CARDS.length,cardNo=it=>"#"+String(it.no).padStart(3,"0");
+const SECRET_CARDS=[
+  Object.assign(DBC(6,"Daykon","Hidden set","The Hope of the Alternative Universe","A hidden card. Almost nobody has pulled one.",1),{secret:true}),
+  Object.assign(DBC(6,"Ryu","Hidden set","The Primal Beast","A hidden card. Almost nobody has pulled one.",2),{secret:true}),
+  Object.assign(DBC(6,"Kaiyo","Hidden set","One of One","A hidden card. Almost nobody has pulled one.",3),{secret:true}),
+  Object.assign(DBC(6,"Udon","Hidden set","True Saiyan Pride","A hidden card. Almost nobody has pulled one.",4),{secret:true}),
+  Object.assign(DBC(6,"Kal-El","Hidden set","Human Heart, Saiyan Mind","A hidden card. Almost nobody has pulled one.",5),{secret:true}),
+  Object.assign(DBC(6,"Shoji","Hidden set","The Saiyan Warrior","A hidden card. Almost nobody has pulled one.",6),{secret:true}),
+  Object.assign(DBC(6,"Hashimya","Hidden set","Earth's Warrior","A hidden card. Almost nobody has pulled one.",7),{secret:true})
+];
+CARDS.concat(SECRET_CARDS).forEach(it=>{it.id=(it.secret?"dbs-":"db-")+slug(it.n);ITEMS[it.id]=it});
+/* PIRATE TOKEN (edit here): every time the site is opened there's a PIRATE_CHANCE to win one.
+   The very first open on a device always shows a fake token instead ("YOU WON! ... ABSOLUTELY NOTHING"). */
+const PIRATE_CHANCE=1/1000000, PIRATE_SPINS=25;
+const PIRATE_KEY="catastrophe-codex-v1-pirate-prank"; // device-level: the fake token only shows once
+const PIRATE_TOKEN=Object.assign(I("Pirate Token","Token",`+${PIRATE_SPINS} spins on every Creation Roll`,"A heavy gold coin with a grinning skull on it. Nobody knows who minted it. About one in a million people ever see one."),{r:6,off:true,pirate:true});
+PIRATE_TOKEN.id="pirate-token";ITEMS[PIRATE_TOKEN.id]=PIRATE_TOKEN;
+const CARD_TOTAL=CARDS.length,cardNo=it=>it.secret?"★"+it.no:"#"+String(it.no).padStart(3,"0");
 const isCard=it=>!!(it&&it.card);
 /* Card packs: n cards each, min = guaranteed rarity for at least one card (index into RARITIES). Per-card odds follow the loot rarity weights. */
-function pullCard(min=0){const w=RARITIES.map((x,i)=>i>=min?x.w:0);const t=w.reduce((a,b)=>a+b,0);let x=rnd()*t,r=min;for(let i=0;i<w.length;i++){x-=w[i];if(x<0&&w[i]){r=i;break}}const pool=CARDS.filter(c=>c.r===r);return pool[Math.floor(rnd()*pool.length)]}
+function pullCard(min=0){if(rnd()<SECRET_CHANCE)return SECRET_CARDS[Math.floor(rnd()*SECRET_CARDS.length)];const w=RARITIES.map((x,i)=>i>=min?x.w:0);const t=w.reduce((a,b)=>a+b,0);let x=rnd()*t,r=min;for(let i=0;i<w.length;i++){x-=w[i];if(x<0&&w[i]){r=i;break}}const pool=CARDS.filter(c=>c.r===r);return pool[Math.floor(rnd()*pool.length)]}
 function openPackCards(p){const out=Array.from({length:p.n},()=>pullCard());if(p.min&&!out.some(c=>c.r>=p.min))out[out.length-1]=pullCard(p.min);return out}
+/* Cards from the old Heian set turn into a Dragon Ball card of the same rarity */
+const OLD_HEIAN_CARDS={"card-rice-merchant-of-kyoto":0,"card-ox-cart-driver":0,"card-temple-bell-ringer":0,"card-village-purifier":0,"card-night-watch-archer":0,"card-talisman-scribe":0,"card-apprentice-onmy-ji":0,"card-imperial-veil-keeper":1,"card-toba-lantern-bearer":1,"card-kurama-mountain-ascetic":1,"card-rash-mon-gate-guard":1,"card-ise-shrine-maiden-sayo":1,"card-court-exorcist-hatsune":1,"card-kudara-no-tomonari":2,"card-monk-j-kai":2,"card-kotone-the-shiraby-shi":2,"card-lady-akahane":2,"card-e-no-mitsune":2,"card-ki-no-haruaki":2,"card-ono-no-kagetsu":3,"card-usui-sadamitsu":3,"card-urabe-no-suetake":3,"card-sakata-no-kintoki":3,"card-watanabe-no-tsuna":3,"card-fujiwara-no-kager":4,"card-minamoto-no-raik":4,"card-kamo-no-tadayuki":4,"card-kamo-no-yasunori":4,"card-ashiya-d-man":5,"card-abe-no-seimei":5,"card-takako-uro":5,"card-uraume":5,"card-yorozu":6,"card-sugawara-no-michizane":6,"card-kenjaku":6,"card-ryomen-sukuna":6};
+function convertOldCard(id){const r=OLD_HEIAN_CARDS[id];if(r==null)return null;const pool=CARDS.filter(c=>c.r===r);return pool[Math.floor(rnd()*pool.length)].id}
 const rarFull=i=>RARITIES[i].name===RARITIES[i].tag?RARITIES[i].name:`${RARITIES[i].name} · ${RARITIES[i].tag}`;
 const RAR_HEX=["#8b8794","#d9d4e3","#5fd38b","#5b9bff","#b48bff","#ffb347","#ff3b4e"];
 /* ============================================================= */
@@ -1142,10 +1274,10 @@ function load(){
 }
 state=load();
 /* Refund skills that no longer exist in the tree (after tree updates). */
-const ITEM_RENAMES={"expired-healing-salve":"scribbled-extension-ideas","healer-s-field-notes":"technique-sparring-log","positive-energy-primer":"extension-theory-notes","reverse-cursed-technique-codex":"maximum-technique-manuscript"};
+const ITEM_RENAMES={"sorcerer-trading-card-pack":"dragon-ball-card-pack","heian-booster-pack":"dragon-ball-booster-pack","heian-collector-s-box":"dragon-ball-collector-s-box","expired-healing-salve":"scribbled-extension-ideas","healer-s-field-notes":"technique-sparring-log","positive-energy-primer":"extension-theory-notes","reverse-cursed-technique-codex":"maximum-technique-manuscript"};
 function reconcile(){let n=0,pts=0;for(const c of Object.values(state.characters||{}))fixGrade(c);
   for(const c of Object.values(state.characters)){const cr=c.creation;if(cr&&!cr.finished&&(cr.potential||cr.output||cr.reserve)){cr.finished=true;cr.spins=1;cr.used={potential:cr.potential?1:0,output:cr.output?1:0,reserve:cr.reserve?1:0}}}
-  for(const c of Object.values(state.characters)){(c.inventory||[]).forEach(v=>{if(ITEM_RENAMES[v.item])v.item=ITEM_RENAMES[v.item]});(c.ledger||[]).forEach(l=>{if(ITEM_RENAMES[l.loot])l.loot=ITEM_RENAMES[l.loot]})}
+  for(const c of Object.values(state.characters)){(c.inventory||[]).forEach(v=>{if(ITEM_RENAMES[v.item])v.item=ITEM_RENAMES[v.item];if(!ITEMS[v.item]&&OLD_HEIAN_CARDS[v.item]!=null)v.item=convertOldCard(v.item)});(c.ledger||[]).forEach(l=>{if(ITEM_RENAMES[l.loot])l.loot=ITEM_RENAMES[l.loot]})}
   for(const c of Object.values(state.characters)){
     for(const id of Object.keys(c.unlocked||{})){if(!SKILLS[id]||!TREE[SKILLS[id].tree].roll){pts+=+c.unlocked[id].cost||0;delete c.unlocked[id];n++}}
     if(!Array.isArray(c.profLog)){c.profLog=[];for(const pid in (c.prof||{})){const lv=+c.prof[pid]||0;if(lv>0)c.profLog.push({id:uid(),prof:pid,xp:xpToLevel(lv,pid),points:0,src:"earlier",date:today(),at:Date.now()})}}
@@ -1714,9 +1846,9 @@ function itemHTML(v){
     <h4>${esc(it.n)}</h4>
     <div class="meta">${it.type==="Lore"?"Lore Item":it.type==="Collectible"||it.type==="RP Item"||it.pack?esc(it.type):`${esc(it.type)} · Boost: ${esc(it.boost)}`}</div>
     <p>${esc(it.d)}</p>
-    <div class="eff">${it.pack?`Open it for <b>${it.pack.n} Heian sorcerer cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
+    <div class="eff">${it.pirate?`Use it for <b>+${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve</b>. Opens them again even if you already confirmed them.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
     <div class="meta">Found ${esc(fmtDate(v.date))} · ${esc(v.source)}</div>
-    <div class="acts">${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
+    <div class="acts">${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · +${PIRATE_SPINS} spins on everything</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
   </article>`;
 }
 function armoryHTML(v){
@@ -1752,16 +1884,18 @@ function renderLoreJournal(){
   $("#loreList").innerHTML=got.length?got.map(x=>{const it=ITEMS[x.item];return`<article class="item" style="--rc:var(--r-${it.r})"><span class="rar">${esc(rarFull(it.r))}</span><h4>${esc(it.n)}</h4><p>${esc(it.d)}</p><div class="meta">Read ${esc(fmtDate(x.date))}</div><div class="acts"><button class="btn sm use" data-lread="${x.item}">Read again</button></div></article>`}).join(""):`<div class="empty" style="grid-column:1/-1">No lore found yet. Lore Items drop from loot rolls.</div>`;
 }
 /* ---- Card Binder & pack opening ---- */
-function cardHTML1(it,o={}){const ini=it.n.replace(/^(Lady|Monk|Court|Imperial)\s+/,"").split(/\s+/).filter(w=>!/^(no|of|the)$/i.test(w)).map(w=>w[0]).join("").slice(0,2).toUpperCase();
-  return`<${o.tag||"div"} class="hcard ${it.r>=5?"holo":""} ${o.cls||""}" style="--rc:var(--r-${it.r})" ${o.attr||""}><span class="no">${cardNo(it)}<span class="of"> / ${String(CARD_TOTAL).padStart(3,"0")}</span></span>${o.count>1?`<span class="cnt">×${o.count}</span>`:""}${o.isNew?`<span class="cnt new">NEW</span>`:""}
-    <span class="sig"><span>${esc(ini)}</span></span><b class="nm">${esc(it.n)}</b><span class="gr">${esc(RARITIES[it.r].name)}</span><span class="tc">${esc(it.tech)}</span></${o.tag||"div"}>`}
+function cardHTML1(it,o={}){const base=it.n.replace(/\s*\(.*\)$/,"").replace(/^(Mr\.|Kid|Captain|Master|King|Great|Super|Golden|Fused|Ultimate|Imperfect|Perfect|Majin|Fat|Future)\s+/,"");const ws=base.split(/[\s-]+/).filter(Boolean);const ini=(ws.length>1?ws.map(w=>w[0]).join(""):base.slice(0,2)).slice(0,2).toUpperCase();
+  const tier=it.secret?"Secret":RARITIES[it.r].tag;
+  return`<${o.tag||"div"} class="hcard ${it.r>=5?"holo":""} ${it.secret?"secret":""} ${o.cls||""}" style="--rc:var(--r-${it.r})" ${o.attr||""}><span class="no">${cardNo(it)}${it.secret?"":`<span class="of"> / ${String(CARD_TOTAL).padStart(3,"0")}</span>`}</span>${o.count>1?`<span class="cnt">×${o.count}</span>`:""}${o.isNew?`<span class="cnt new">NEW</span>`:""}
+    <span class="sig"><span>${esc(ini)}</span></span><b class="nm">${esc(it.n)}</b><span class="gr">${esc(tier)}</span><span class="tc">${esc(it.tech)}</span></${o.tag||"div"}>`}
 function cardCounts(c){const m={};(c.inventory||[]).forEach(v=>{const it=ITEMS[v.item];if(isCard(it))m[it.id]=(m[it.id]||0)+1});return m}
-function renderBinder(){const c=C();const m=cardCounts(c);const own=CARDS.filter(x=>m[x.id]).length,tot=Object.values(m).reduce((a,b)=>a+b,0);
-  $("#cardCount").textContent=`${own} / ${CARD_TOTAL} collected${tot?` · ${tot} card${tot===1?"":"s"}`:""}`;
-  $("#binder").innerHTML=CARDS.map(it=>m[it.id]?cardHTML1(it,{tag:"button",attr:`type="button" data-card="${it.id}"`,count:m[it.id]}):`<div class="hcard missing"><span class="no">${cardNo(it)} / ${String(CARD_TOTAL).padStart(3,"0")}</span><span class="sig"><span>?</span></span><b class="nm">???</b><span class="gr">${esc(RARITIES[it.r].name)}</span></div>`).join("")}
+function renderBinder(){const c=C();const m=cardCounts(c);const own=CARDS.filter(x=>m[x.id]).length,sec=SECRET_CARDS.filter(x=>m[x.id]),tot=Object.values(m).reduce((a,b)=>a+b,0);
+  $("#cardCount").textContent=`${own} / ${CARD_TOTAL} collected${sec.length?` · ${sec.length} secret`:""}${tot?` · ${tot} card${tot===1?"":"s"}`:""}`;
+  const slot=it=>m[it.id]?cardHTML1(it,{tag:"button",attr:`type="button" data-card="${it.id}"`,count:m[it.id]}):`<div class="hcard missing"><span class="no">${cardNo(it)}<span class="of"> / ${String(CARD_TOTAL).padStart(3,"0")}</span></span><span class="sig"><span>?</span></span><b class="nm">???</b><span class="gr">${esc(RARITIES[it.r].tag)}</span></div>`;
+  $("#binder").innerHTML=CARDS.map(slot).join("")+(sec.length?`<div class="binder-sec">Secret cards</div>`+sec.map(slot).join(""):"")}
 let cardDelArm=null;
 $("#binder").addEventListener("click",e=>{const b=e.target.closest("[data-card]");if(!b)return;const c=C();const it=ITEMS[b.dataset.card];const n=cardCounts(c)[it.id]||0;
-  openDlg(`<div class="card-view">${cardHTML1(it,{cls:"big",count:n})}<div style="display:grid;gap:8px;align-content:start;min-width:0"><span class="eyebrow" style="color:var(--r-${it.r})">${esc(rarFull(it.r))} · Heian Era Sorcerers</span><h3 style="margin:0">${esc(it.n)}</h3><p style="margin:0"><b>Technique:</b> ${esc(it.tech)}</p><p style="margin:0;color:var(--muted)">${esc(it.d)}</p><p class="dhelp" style="margin:0">You own ${n}. Swap duplicates on Jujuzon (phone → Jujuzon → Swaps).</p></div></div>
+  openDlg(`<div class="card-view">${cardHTML1(it,{cls:"big",count:n})}<div style="display:grid;gap:8px;align-content:start;min-width:0"><span class="eyebrow" style="color:var(--r-${it.r})">${it.secret?"Secret card · Hidden set":`${esc(RARITIES[it.r].tag)} · ${esc(it.saga)}`}</span><h3 style="margin:0">${esc(it.n)}</h3><p style="margin:0"><b>${it.secret?"Title":"Signature move"}:</b> ${esc(it.tech)}</p><p style="margin:0;color:var(--muted)">${esc(it.d)}</p><p class="dhelp" style="margin:0">You own ${n}. Swap duplicates on Jujuzon (phone → Jujuzon → Swaps).</p></div></div>
     <div class="drow" style="margin-top:12px"><button class="btn primary" id="cdCopy">Copy for Discord</button><button class="btn ghost danger" id="cdDel">Discard one</button><button class="btn" data-close>Close</button></div>`);
   $("#cdCopy").onclick=()=>{const v=c.inventory.find(x=>x.item===it.id);if(v)copyText(dropText(c,v))};
   $("#cdDel").onclick=ev=>{if(cardDelArm!==it.id){cardDelArm=it.id;ev.target.textContent="Tap again to discard";setTimeout(()=>{cardDelArm=null;if(ev.target.isConnected)ev.target.textContent="Discard one"},3000);return}
@@ -1771,17 +1905,17 @@ function openPack(vid){
   const before=cardCounts(c);const pulls=openPackCards(pk.pack);
   c.inventory=c.inventory.filter(x=>x.id!==vid);
   pulls.forEach(it=>c.inventory.push({id:uid(),item:it.id,date:today(),foundAt:Date.now(),source:pk.n}));
-  touch();actLog("pack",{pack:pk.n,cards:pulls.map(it=>`${it.n} (${RARITIES[it.r].tag})`).join(", ")});
+  touch();actLog("pack",{pack:pk.n,cards:pulls.map(it=>`${it.n} (${it.secret?"SECRET":RARITIES[it.r].tag})`).join(", ")});
   const seen={};const flags=pulls.map(it=>{const isNew=!before[it.id]&&!seen[it.id];seen[it.id]=1;return isNew});
   const best=Math.max(...pulls.map(it=>it.r));
-  openDlg(`<div class="pack-open"><span class="eyebrow">${esc(pk.n)}</span><h3 style="margin:0">Opening…</h3><div class="pack-grid" id="pkGrid">${pulls.map(()=>`<div class="hcard back"><span class="sig"><span>呪</span></span></div>`).join("")}</div></div>
+  openDlg(`<div class="pack-open"><span class="eyebrow">${esc(pk.n)}</span><h3 style="margin:0">Opening…</h3><div class="pack-grid" id="pkGrid">${pulls.map(()=>`<div class="hcard back"><span class="sig"><span>★</span></span></div>`).join("")}</div></div>
     <div class="drow" style="justify-content:center;margin-top:12px" id="pkActs" hidden><button class="btn primary" id="pkCopy">Copy pulls for Discord</button><button class="btn" data-close>Close</button></div>`,()=>{renderLoot();renderCard()});
   const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
   const order=pulls.map((it,i)=>i).sort((a,b)=>pulls[a].r-pulls[b].r); // reveal the best card last
   order.forEach((idx,k)=>setTimeout(()=>{const g=$("#pkGrid");if(!g)return;const slot=g.children[idx];if(!slot)return;
     slot.outerHTML=cardHTML1(pulls[idx],{cls:"pop"+(pulls[idx].r>=5?" glow":""),isNew:flags[idx]});
-    if(k===order.length-1){const h=$(".pack-open h3");if(h)h.textContent=best>=6?"SPECIAL GRADE PULL!":best>=5?"Legendary pull!":`${pulls.length} new cards`;$("#pkActs").hidden=false;
-      $("#pkCopy").onclick=()=>copyText(`**${DISPLAY_NAME(c)} opened a ${pk.n}**\n${pulls.map((it,i)=>`${cardNo(it)} ${it.n} · ${RARITIES[it.r].tag}${flags[i]?" (NEW)":""}`).join("\n")}`)}},
+    if(k===order.length-1){const h=$(".pack-open h3");if(h)h.textContent=pulls.some(x=>x.secret)?"SECRET CARD!":best>=6?"SPECIAL GRADE PULL!":best>=5?"Legendary pull!":`${pulls.length} new cards`;$("#pkActs").hidden=false;
+      $("#pkCopy").onclick=()=>copyText(`**${DISPLAY_NAME(c)} opened a ${pk.n}**\n${pulls.map((it,i)=>`${cardNo(it)} ${it.n} · ${it.secret?"SECRET":RARITIES[it.r].tag}${flags[i]?" (NEW)":""}`).join("\n")}`)}},
     reduce?50*k:450+k*(k===order.length-1&&best>=5?900:380)));
 }
 $("#loreList").addEventListener("click",e=>{const b=e.target.closest("[data-lread]");if(b&&ITEMS[b.dataset.lread])showLore(ITEMS[b.dataset.lread])});
@@ -1802,7 +1936,7 @@ function renderLoot(){
 }
 function renderRollListOnly(){const c=C();const rl=rollable(c).sort((a,b)=>(a.date||"").localeCompare(b.date||""));
   $("#rollList").innerHTML=rl.length?rl.map(rollRowHTML).join(""):`<p class="dhelp" style="margin:0;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px">No chests left. Log your next host in the Proficiency tab to get more.</p>`}
-function dropText(c,v){const it=ITEMS[v.item];if(isCard(it))return`**${cardNo(it)} · ${it.n}** · ${RARITIES[it.r].name} card\n-# Heian Era Sorcerers · ${it.tech} · owned by ${DISPLAY_NAME(c)}`;return`**${it.n}** · ${rarFull(it.r)}\n-# ${it.type} · Boost: ${it.boost} · found by ${DISPLAY_NAME(c)} after ${v.source}`}
+function dropText(c,v){const it=ITEMS[v.item];if(isCard(it))return`**${cardNo(it)} · ${it.n}** · ${it.secret?"SECRET card":RARITIES[it.r].tag+" card"}\n-# Dragon Ball Cards · ${it.saga} · ${it.tech} · owned by ${DISPLAY_NAME(c)}`;return`**${it.n}** · ${rarFull(it.r)}\n-# ${it.type} · Boost: ${it.boost} · found by ${DISPLAY_NAME(c)} after ${v.source}`}
 function doRoll(lid){
   const c=C();const l=c.ledger.find(x=>x.id===lid);if(!l||chestsLeft(l)<=0)return;
   const it=l.alert?hostEventLoot():rollLoot();const n=chestsOpened(l)+1;l.opened=n;l.rolled=chestsLeft(l)===0;l.rolledAt=Date.now();let v=null;
@@ -1861,6 +1995,7 @@ let idelArm=null,iuseArm=null;
 $("#inv").addEventListener("click",e=>{const c=C();const b=e.target.closest("button");if(!b)return;
   if(b.dataset.iuse){const id=b.dataset.iuse;if(iuseArm!==id){iuseArm=id;const it=ITEMS[(c.inventory.find(x=>x.id===id)||{}).item];b.textContent=`Use on ${it?it.boost.replace(" Proficiency",""):""}?`;setTimeout(()=>{if(iuseArm===id){iuseArm=null;renderLoot()}},3000);return}iuseArm=null;useItem(id);return}
   if(b.dataset.irespin){useRespin(b.dataset.irespin);return}
+  if(b.dataset.ipirate){usePirate(b.dataset.ipirate);return}
   if(b.dataset.ipack){openPack(b.dataset.ipack);return}
   if(b.dataset.iread){const v=c.inventory.find(x=>x.id===b.dataset.iread);if(!v)return;const it=ITEMS[v.item];if(!Array.isArray(c.lore))c.lore=[];
     const isNew=!c.lore.some(x=>x.item===it.id);if(isNew)c.lore.push({item:it.id,date:today(),source:v.source});
@@ -2104,6 +2239,32 @@ $("#creation").addEventListener("click",e=>{const b=e.target.closest("button");i
   if(b.dataset.cbswap){const bk=cr.basket[k];if(!bk)return;const cur=crGet(c,k);crApply(c,k,bk);if(cur)cr.basket[k]=cur;else delete cr.basket[k];
     touch();actLog("basket",{kind:CR_NAMES[k],result:`took out ${crLabel(k,bk)}${cur?`, put in ${crLabel(k,cur)}`:""}`});fillEditor();renderCreation();renderCard();toast(`${CR_NAMES[k]} is now ${crLabel(k,bk)}`)}
 });
+/* ---- Pirate Token ---- */
+function usePirate(vid){
+  const c=C();const v=c.inventory.find(x=>x.id===vid);if(!v)return;const cr=c.creation||{};
+  if(!cr.finished){toast("Finish your character first. Then the Pirate Token can give you spins.");return}
+  c.inventory=c.inventory.filter(x=>x.id!==vid);cr.bonus=cr.bonus||{};cr.locked=cr.locked||{};
+  for(const k of ["potential","output","reserve"]){cr.bonus[k]=(cr.bonus[k]||0)+PIRATE_SPINS;cr.locked[k]=false}
+  touch();actLog("pirateUsed",{n:PIRATE_SPINS});renderAll();setTab("sheet");toast(`+${PIRATE_SPINS} spins on every Creation Roll!`);
+  setTimeout(()=>{const el=$("#creation");if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},80)}
+function pirateShow(real,after){
+  document.querySelectorAll(".pirate").forEach(x=>x.remove());
+  const o=document.createElement("div");o.className="pirate";o.setAttribute("role","dialog");o.setAttribute("aria-label","Pirate Token");
+  o.innerHTML=`<div class="pirate-burst"></div><div class="pirate-coin" aria-hidden="true"><div class="pirate-face"><span>☠</span><small>PIRATE</small></div></div>
+    <div class="pirate-text"><b class="pirate-big">YOU WON!</b><span class="pirate-sub"></span></div><button type="button" class="btn primary pirate-ok" hidden>${real?"Claim it":"Fine…"}</button>`;
+  document.body.appendChild(o);
+  const sub=o.querySelector(".pirate-sub"),big=o.querySelector(".pirate-big"),ok=o.querySelector(".pirate-ok");
+  const close=()=>{o.classList.add("out");setTimeout(()=>o.remove(),350);if(after)after()};
+  setTimeout(()=>{if(real){sub.innerHTML=`A <b>PIRATE TOKEN</b>!<br>+${PIRATE_SPINS} spins on every Creation Roll.<br><small>About 1 in a million. Screenshot this.</small>`}
+    else{o.classList.add("troll");big.textContent="ABSOLUTELY NOOOOTHING";sub.textContent="HAHAHA! TRY AGAIN!"}
+    sub.classList.add("in");ok.hidden=false;ok.focus()},real?1600:2200);
+  ok.onclick=close;o.addEventListener("keydown",e=>{if(e.key==="Escape"&&!ok.hidden)close()});
+}
+function pirateCheck(){
+  let first=false;try{first=!localStorage.getItem(PIRATE_KEY);if(first)localStorage.setItem(PIRATE_KEY,String(Date.now()))}catch(e){}
+  if(first){setTimeout(()=>pirateShow(false),1300);return}
+  if(rnd()<PIRATE_CHANCE)setTimeout(()=>pirateWin(),1300)}
+function pirateWin(){const c=C();c.inventory.push({id:uid(),item:PIRATE_TOKEN.id,date:today(),foundAt:Date.now(),source:"Lucky visit"});touch();actLog("pirate",{});pirateShow(true,()=>{renderLoot();setTab("loot")})}
 function useRespin(vid){
   const c=C();const v=c.inventory.find(x=>x.id===vid);if(!v)return;const it=ITEMS[v.item];const rs=respinOf(it);if(!rs)return;
   const cr=c.creation||{};if(!cr.finished){toast("Finish your character first. Then you can use this on a Creation Roll.");return}
@@ -2141,6 +2302,8 @@ const ACT_TEXT={
   traitRemoved:e=>`removed their CE Trait (${e.trait})`,
   grade:e=>`⚠ changed grade: ${e.from} → ${e.to}`,
   pack:e=>`opened ${e.pack}: ${e.cards}`,
+  pirate:e=>`🏴‍☠️ WON A PIRATE TOKEN just by opening the app (1 in a million)`,
+  pirateUsed:e=>`used a Pirate Token → +${e.n} spins on every Creation Roll`,
   buy:e=>`bought ${e.item} on Jujuzon for ${e.price} (${e.left} left)`,
   swapOut:e=>`sent ${e.item} to ${e.to} (swap code)`,
   swapIn:e=>`received ${e.item} from ${e.from} (swap code)`,
@@ -2301,7 +2464,7 @@ const yenEarned=c=>(c.ledger||[]).reduce((a,l)=>a+(+l.yen||0),0)+(+c.yenBonus||0
 const yenSpent=c=>(c.orders||[]).reduce((a,o)=>a+(+o.price||0),0);
 const yenBal=c=>yenEarned(c)-yenSpent(c);
 const sorcId=c=>{const h=actHash("sid:"+c.id).toUpperCase().replace(/[^A-Z0-9]/g,"");return"SJH-"+(h+"00000").slice(0,5)};
-function allShop(){return((GM_TOOLS&&state.gmBoard?state.gmBoard.shop:board.shop)||[]).filter(x=>x&&ITEMS[x.item]&&+x.price>=0)}
+function allShop(){return((GM_TOOLS&&state.gmBoard?state.gmBoard.shop:board.shop)||[]).map(x=>x&&ITEM_RENAMES[x.item]?Object.assign({},x,{item:ITEM_RENAMES[x.item]}):x).filter(x=>x&&ITEMS[x.item]&&!isCard(ITEMS[x.item])&&+x.price>=0)} // cards are packs-only
 const shopLive=x=>(!x.date||started(x))&&(!x.until||tOf(x.until)>nowT());
 const bought=(c,lid)=>(c.orders||[]).filter(o=>o.listing===lid).length;
 const leftFor=(c,x)=>+x.stock>0?Math.max(0,+x.stock-bought(c,x.id)):Infinity;
@@ -2600,7 +2763,7 @@ const GM_TOOLS=false;
 if(GM_TOOLS){
   const fab=document.createElement("button");fab.className="gm-fab";fab.type="button";fab.textContent="GM";fab.title="GM tools";document.body.appendChild(fab);
   const opt=(arr)=>arr.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("");
-  const itemOpts=LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}">${esc(it.n)}</option>`).join("")}</optgroup>`).join("")+`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}">${esc(it.n)} · ${esc(it.type)}</option>`).join("")}</optgroup>`+`<optgroup label="Heian cards">${CARDS.map(it=>`<option value="${it.id}">${cardNo(it)} ${esc(it.n)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`;
+  const itemOpts=LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}">${esc(it.n)}</option>`).join("")}</optgroup>`).join("")+`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}">${esc(it.n)} · ${esc(it.type)}</option>`).join("")}</optgroup><optgroup label="Special"><option value="${PIRATE_TOKEN.id}">Pirate Token</option></optgroup>`;
   const profOpts=opt(PROFS.map(p=>[p.id,p.name]));
   function lvOpts(pid){const out=[[0,"Untrained"]];for(let v=1;v<=maxLv(pid);v++)out.push([v,profLabel(v,pid)]);return opt(out)}
   function gmEntry(pid,xp){const c=C();if(!c.profLog)c.profLog=[];if(xp)c.profLog.push({id:uid(),prof:pid,xp,points:0,src:"gm",date:today(),at:Date.now()})}
@@ -2623,6 +2786,8 @@ if(GM_TOOLS){
       <section><h4>Troll spin</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">The fake Special Grade (Chain of a Thousand Miles), then the 💩, then the real respin. Players get it once on their first loot roll. Status on this device: <b id="gm-prst"></b></p>
         <div class="gm-row"><label style="display:flex;gap:8px;align-items:center;justify-content:flex-start;font-size:.88rem;width:auto"><input type="checkbox" id="gm-prall" style="width:auto;margin:0;flex:none"> Always troll spin (every loot roll)</label></div>
         <div class="gm-row"><button class="btn sm" id="gm-prreset">Reset troll (next roll gets it, like a new player)</button></div></section>
+      <section><h4>Pirate Token</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">1 in a million on every app open: +25 spins on every Creation Roll. The first open on a device always shows the fake one.</p>
+        <div class="gm-row"><button class="btn sm" id="gm-pifake">Show the fake token</button><button class="btn sm" id="gm-pireal">Win a real token</button><button class="btn sm ghost" id="gm-pireset">Reset (next open gets the fake)</button></div></section>
       <section><h4>Check a player</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">Paste a player's activity code (Save / Load → Copy activity code) to see everything they did and any warning signs.</p><textarea id="gm-act" rows="2" placeholder="Paste activity code"></textarea><div class="gm-row"><button class="btn sm primary" id="gm-actgo">Check</button></div></section>
       <section><h4>Rig the next spins</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">Every spin lands on what you pick here, with the full animation, until you set it back to Random. Only works in your GM copy.</p>
         <div class="gm-row"><select id="gf-fate">${opt([["","Fate Roll: Random"],...[1,2,3,4,5,6,7].map(n=>[String(n),`Fate Roll: ${n} spin${n===1?"":"s"}`])])}</select>
@@ -2652,6 +2817,9 @@ if(GM_TOOLS){
     const prSt=()=>{$("#gm-prst").textContent=state.gmAlwaysPrank?"always on":prankPending()?"ready for the next roll":"already used"};
     $("#gm-prall").checked=!!state.gmAlwaysPrank;prSt();
     $("#gm-prall").onchange=e=>{state.gmAlwaysPrank=e.target.checked;persist();prSt();toast(e.target.checked?"Every loot roll is now a troll spin":"Troll spin back to once per device")};
+    $("#gm-pifake").onclick=()=>{$("#dlg").close();pirateShow(false)};
+    $("#gm-pireal").onclick=()=>{$("#dlg").close();pirateWin()};
+    $("#gm-pireset").onclick=()=>{try{localStorage.removeItem(PIRATE_KEY)}catch(e){}toast("Reset. Reload the page to see the fake token.")};
     $("#gm-prreset").onclick=()=>{try{localStorage.removeItem(PRANK_KEY)}catch(e){}prSt();toast("Troll reset. The next loot roll gets it.")};
     $("#gm-actgo").onclick=()=>{const v=$("#gm-act").value;if(!v.trim()){toast("Paste an activity code first.");return}showActivity(v)};
     $("#gm-grade").value=c.grade;$("#gm-roll2").value=c.specialRoll||"";
@@ -2707,6 +2875,7 @@ if(GM_TOOLS){
   /* ---- GM: bulletin board & phone composer ---- */
   if(!state.gmBoard)state.gmBoard={posts:JSON.parse(JSON.stringify(board.posts||[]))};
   if(!Array.isArray(state.gmBoard.shop))state.gmBoard.shop=JSON.parse(JSON.stringify(board.shop||[]));
+  state.gmBoard.shop=state.gmBoard.shop.filter(x=>!(ITEMS[x.item]&&isCard(ITEMS[x.item]))&&!(/^card-/.test(x.item)));state.gmBoard.shop.forEach(x=>{if(ITEM_RENAMES[x.item])x.item=ITEM_RENAMES[x.item]});
   const toLocal=d=>{const z=n=>String(n).padStart(2,"0");return`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`};
   let gmEdit=null;
   function boardJSON(){return JSON.stringify({updated:new Date().toISOString(),posts:state.gmBoard.posts,shop:state.gmBoard.shop||[]},null,2)}
@@ -2736,7 +2905,7 @@ if(GM_TOOLS){
   function gmSaveBoard(){persist();renderGMBoard();afterBoardChange()}
   /* ---- GM: Jujuzon store ---- */
   let zEdit=null;
-  const zItemOpts=sel=>`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)} · ${esc(it.type)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`+`<optgroup label="Heian cards">${CARDS.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${cardNo(it)} ${esc(it.n)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`+LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)}</option>`).join("")}</optgroup>`).join("");
+  const zItemOpts=sel=>`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)} · ${esc(it.type)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`+LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)}</option>`).join("")}</optgroup>`).join("");
   function zonGMHTML(){
     const shop=state.gmBoard.shop||[];const e=zEdit?shop.find(x=>x.id===zEdit):null;const d=e||{};
     return`<div class="group-t" style="color:var(--danger)">Jujuzon store (${shop.length})</div>
@@ -2777,7 +2946,7 @@ if(GM_TOOLS){
   renderGMBoard();
 }
 
-reconcile();fillEditor();renderAll();setTab(state.tab||"sheet");renderBoard();fetchBoard();setTimeout(notify,900);
+reconcile();fillEditor();renderAll();setTab(state.tab||"sheet");renderBoard();fetchBoard();setTimeout(notify,900);pirateCheck();
 if(state._refundNote){const note=state._refundNote;setTimeout(()=>toast(note),600);delete state._refundNote;persist()}
 </script>
 
