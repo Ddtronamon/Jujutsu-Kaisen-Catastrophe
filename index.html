@@ -1238,6 +1238,9 @@ CARDS.concat(SECRET_CARDS).forEach(it=>{it.id=(it.secret?"dbs-":"db-")+slug(it.n
    The very first open on a device always shows a fake token instead ("YOU WON! ... ABSOLUTELY NOTHING"). */
 const PIRATE_CHANCE=1/1000000, PIRATE_SPINS=25;
 const PIRATE_KEY="catastrophe-codex-v1-pirate-prank"; // device-level: the fake token only shows once
+const PIRATE_WON_KEY="catastrophe-codex-v1-pirate-won";      // device-level: a real token can only be won once
+const PIRATE_PENDING_KEY="catastrophe-codex-v1-pirate-pending"; // won but not given to a character yet
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
 const PIRATE_TOKEN=Object.assign(I("Pirate Token","Token",`+${PIRATE_SPINS} spins on every Creation Roll`,"A heavy gold coin with a grinning skull on it. Nobody knows who minted it. About one in a million people ever see one."),{r:6,off:true,pirate:true});
 PIRATE_TOKEN.id="pirate-token";ITEMS[PIRATE_TOKEN.id]=PIRATE_TOKEN;
 const CARD_TOTAL=CARDS.length,cardNo=it=>it.secret?"★"+it.no:"#"+String(it.no).padStart(3,"0");
@@ -2247,28 +2250,28 @@ $("#creation").addEventListener("click",e=>{const b=e.target.closest("button");i
     touch();actLog("basket",{kind:CR_NAMES[k],result:`took out ${crLabel(k,bk)}${cur?`, put in ${crLabel(k,cur)}`:""}`});fillEditor();renderCreation();renderCard();toast(`${CR_NAMES[k]} is now ${crLabel(k,bk)}`)}
 });
 /* ---- Pirate Token ---- */
-function usePirate(vid){
-  const holder=C();const v=holder.inventory.find(x=>x.id===vid);if(!v)return;
-  const chars=Object.values(state.characters||{}).filter(c=>!c.example);
-  if(!chars.length){toast("Make a character first.");return}
-  const row=c=>{const cr=c.creation||{};const ok=!!cr.finished;
-    return`<button type="button" class="pirate-pick" data-pk="${esc(c.id)}" ${ok?"":"disabled"}><b>${esc(DISPLAY_NAME(c))}</b><small>${esc(GRADES[c.grade]||"")}${ok?` · spins left now: ${["potential","output","reserve"].map(k=>spinsLeft(c,k)).join(" / ")}`:" · finish this character first"}</small></button>`};
-  openDlg(`<h3>Use your Pirate Token</h3><p class="dhelp">Pick the character that gets <b>+${PIRATE_SPINS} spins</b> on Grade Potential, CE Output and CE Reserve. Only that character gets them, and the token is used up.</p>
-    <div class="pirate-list">${chars.map(row).join("")}</div><div class="drow" style="margin-top:12px"><button class="btn ghost" data-close>Cancel</button></div>`);
+function usePirate(vid){const c=C();c.inventory=c.inventory.filter(x=>x.id!==vid);lsSet(PIRATE_PENDING_KEY,"1");touch();renderLoot();pirateChoose()} // old saves only
+function pirateChoose(){
+  if(!lsGet(PIRATE_PENDING_KEY))return;
+  const chars=Object.values(state.characters||{}).filter(c=>!c.example&&(c.creation||{}).finished);
+  if(!chars.length){openDlg(`<h3>Your Pirate Token is waiting</h3><p class="dhelp">You don't have a finished character yet. Make one and press <b>Finish</b>. The next time you open the app, it will ask which character gets the <b>+${PIRATE_SPINS} spins</b>.</p><div class="drow" style="margin-top:12px"><button class="btn primary" data-close>OK</button></div>`);return}
+  openDlg(`<h3>Who gets the Pirate Token?</h3><p class="dhelp">Pick one character. They get <b>+${PIRATE_SPINS} spins</b> on Grade Potential, CE Output and CE Reserve. The token is used up right away, and you can only ever win it once.</p>
+    <div class="pirate-list">${chars.map(c=>`<button type="button" class="pirate-pick" data-pk="${esc(c.id)}"><b>${esc(DISPLAY_NAME(c))}</b><small>${esc(GRADES[c.grade]||"")} · spins left now: ${["potential","output","reserve"].map(k=>spinsLeft(c,k)).join(" / ")}</small></button>`).join("")}</div>
+    <p class="dhelp" style="margin:10px 0 0;font-size:.8rem;color:var(--muted)">If you close this, it asks again the next time you open the app.</p>`);
   $("#dlg").querySelectorAll("[data-pk]").forEach(btn=>btn.onclick=()=>{
-    const t=state.characters[btn.dataset.pk];if(!t)return;const cr=t.creation||(t.creation={});if(!cr.finished)return;
+    const t=state.characters[btn.dataset.pk];if(!t||!lsGet(PIRATE_PENDING_KEY))return;const cr=t.creation||(t.creation={});
     if(btn.dataset.arm!=="1"){$("#dlg").querySelectorAll("[data-pk]").forEach(x=>{x.dataset.arm="";x.classList.remove("armed")});btn.dataset.arm="1";btn.classList.add("armed");btn.querySelector("small").textContent=`Tap again to give ${DISPLAY_NAME(t)} the ${PIRATE_SPINS} spins`;return}
-    holder.inventory=holder.inventory.filter(x=>x.id!==vid);cr.bonus=cr.bonus||{};cr.locked=cr.locked||{};
+    lsSet(PIRATE_PENDING_KEY,null);cr.bonus=cr.bonus||{};cr.locked=cr.locked||{};
     for(const k of ["potential","output","reserve"]){cr.bonus[k]=(cr.bonus[k]||0)+PIRATE_SPINS;cr.locked[k]=false}
-    actLog("pirateUsed",{n:PIRATE_SPINS,on:DISPLAY_NAME(t)});
-    state.activeId=t.id;touch();$("#dlg").close();fillEditor();renderAll();setTab("sheet");toast(`${DISPLAY_NAME(t)}: +${PIRATE_SPINS} spins on every Creation Roll!`);
+    state.activeId=t.id;actLog("pirateUsed",{n:PIRATE_SPINS,on:DISPLAY_NAME(t)});touch();$("#dlg").close();fillEditor();renderAll();setTab("sheet");
+    toast(`${DISPLAY_NAME(t)}: +${PIRATE_SPINS} spins on every Creation Roll!`);
     setTimeout(()=>{const el=$("#creation");if(el)el.scrollIntoView({behavior:"smooth",block:"start"})},80)});
 }
 function pirateShow(real,after){
   document.querySelectorAll(".pirate").forEach(x=>x.remove());
   const o=document.createElement("div");o.className="pirate";o.setAttribute("role","dialog");o.setAttribute("aria-label","Pirate Token");
   o.innerHTML=`<div class="pirate-burst"></div><div class="pirate-coin" aria-hidden="true"><div class="pirate-face"><span>☠</span><small>PIRATE</small></div></div>
-    <div class="pirate-text"><b class="pirate-big">YOU WON!</b><span class="pirate-sub"></span></div><button type="button" class="btn primary pirate-ok" hidden>${real?"Claim it":"Fine…"}</button>`;
+    <div class="pirate-text"><b class="pirate-big">YOU WON!</b><span class="pirate-sub"></span></div><button type="button" class="btn primary pirate-ok" hidden>${real?"Choose a character":"Fine…"}</button>`;
   document.body.appendChild(o);
   const sub=o.querySelector(".pirate-sub"),big=o.querySelector(".pirate-big"),ok=o.querySelector(".pirate-ok");
   const close=()=>{o.classList.add("out");setTimeout(()=>o.remove(),350);if(after)after()};
@@ -2278,10 +2281,12 @@ function pirateShow(real,after){
   ok.onclick=close;o.addEventListener("keydown",e=>{if(e.key==="Escape"&&!ok.hidden)close()});
 }
 function pirateCheck(){
-  let first=false;try{first=!localStorage.getItem(PIRATE_KEY);if(first)localStorage.setItem(PIRATE_KEY,String(Date.now()))}catch(e){}
-  if(first){setTimeout(()=>pirateShow(false),1300);return}
-  if(rnd()<PIRATE_CHANCE)setTimeout(()=>pirateWin(),1300)}
-function pirateWin(){const c=C();c.inventory.push({id:uid(),item:PIRATE_TOKEN.id,date:today(),foundAt:Date.now(),source:"Lucky visit"});touch();actLog("pirate",{});pirateShow(true,()=>{renderLoot();setTab("loot")})}
+  if(!lsGet(PIRATE_KEY)){lsSet(PIRATE_KEY,String(Date.now()));setTimeout(()=>pirateShow(false),1300);return}  // first open: the fake one
+  if(lsGet(PIRATE_PENDING_KEY)){setTimeout(pirateChoose,1300);return}  // won earlier, not given to anyone yet
+  if(lsGet(PIRATE_WON_KEY))return;  // one per device, ever
+  if(rnd()<PIRATE_CHANCE)setTimeout(()=>pirateWin(false),1300)}
+function pirateWin(test){if(!test)lsSet(PIRATE_WON_KEY,String(Date.now()));lsSet(PIRATE_PENDING_KEY,"1");
+  if(!test)actLog("pirate",{});pirateShow(true,()=>setTimeout(pirateChoose,380))}
 function useRespin(vid){
   const c=C();const v=c.inventory.find(x=>x.id===vid);if(!v)return;const it=ITEMS[v.item];const rs=respinOf(it);if(!rs)return;
   const cr=c.creation||{};if(!cr.finished){toast("Finish your character first. Then you can use this on a Creation Roll.");return}
@@ -2780,7 +2785,7 @@ const GM_TOOLS=false;
 if(GM_TOOLS){
   const fab=document.createElement("button");fab.className="gm-fab";fab.type="button";fab.textContent="GM";fab.title="GM tools";document.body.appendChild(fab);
   const opt=(arr)=>arr.map(([v,t])=>`<option value="${esc(v)}">${esc(t)}</option>`).join("");
-  const itemOpts=LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}">${esc(it.n)}</option>`).join("")}</optgroup>`).join("")+`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}">${esc(it.n)} · ${esc(it.type)}</option>`).join("")}</optgroup><optgroup label="Special"><option value="${PIRATE_TOKEN.id}">Pirate Token</option></optgroup>`;
+  const itemOpts=LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}">${esc(it.n)}</option>`).join("")}</optgroup>`).join("")+`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}">${esc(it.n)} · ${esc(it.type)}</option>`).join("")}</optgroup>`;
   const profOpts=opt(PROFS.map(p=>[p.id,p.name]));
   function lvOpts(pid){const out=[[0,"Untrained"]];for(let v=1;v<=maxLv(pid);v++)out.push([v,profLabel(v,pid)]);return opt(out)}
   function gmEntry(pid,xp){const c=C();if(!c.profLog)c.profLog=[];if(xp)c.profLog.push({id:uid(),prof:pid,xp,points:0,src:"gm",date:today(),at:Date.now()})}
@@ -2803,7 +2808,7 @@ if(GM_TOOLS){
       <section><h4>Troll spin</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">The fake Special Grade (Chain of a Thousand Miles), then the 💩, then the real respin. Players get it once on their first loot roll. Status on this device: <b id="gm-prst"></b></p>
         <div class="gm-row"><label style="display:flex;gap:8px;align-items:center;justify-content:flex-start;font-size:.88rem;width:auto"><input type="checkbox" id="gm-prall" style="width:auto;margin:0;flex:none"> Always troll spin (every loot roll)</label></div>
         <div class="gm-row"><button class="btn sm" id="gm-prreset">Reset troll (next roll gets it, like a new player)</button></div></section>
-      <section><h4>Pirate Token</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">1 in a million on every app open: +25 spins on every Creation Roll. The first open on a device always shows the fake one.</p>
+      <section><h4>Pirate Token</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">1 in a million on every app open, once per device ever. The winner picks one character for +25 spins on every Creation Roll. The first open on a device always shows the fake one. "Win a real token" here is a test and doesn't use up your one win.</p>
         <div class="gm-row"><button class="btn sm" id="gm-pifake">Show the fake token</button><button class="btn sm" id="gm-pireal">Win a real token</button><button class="btn sm ghost" id="gm-pireset">Reset (next open gets the fake)</button></div></section>
       <section><h4>Check a player</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">Paste a player's activity code (Save / Load → Copy activity code) to see everything they did and any warning signs.</p><textarea id="gm-act" rows="2" placeholder="Paste activity code"></textarea><div class="gm-row"><button class="btn sm primary" id="gm-actgo">Check</button></div></section>
       <section><h4>Rig the next spins</h4><p class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">Every spin lands on what you pick here, with the full animation, until you set it back to Random. Only works in your GM copy.</p>
@@ -2835,8 +2840,8 @@ if(GM_TOOLS){
     $("#gm-prall").checked=!!state.gmAlwaysPrank;prSt();
     $("#gm-prall").onchange=e=>{state.gmAlwaysPrank=e.target.checked;persist();prSt();toast(e.target.checked?"Every loot roll is now a troll spin":"Troll spin back to once per device")};
     $("#gm-pifake").onclick=()=>{$("#dlg").close();pirateShow(false)};
-    $("#gm-pireal").onclick=()=>{$("#dlg").close();pirateWin()};
-    $("#gm-pireset").onclick=()=>{try{localStorage.removeItem(PIRATE_KEY)}catch(e){}toast("Reset. Reload the page to see the fake token.")};
+    $("#gm-pireal").onclick=()=>{$("#dlg").close();pirateWin(true)};
+    $("#gm-pireset").onclick=()=>{[PIRATE_KEY,PIRATE_WON_KEY,PIRATE_PENDING_KEY].forEach(k=>lsSet(k,null));toast("Reset. Reload the page to see the fake token.")};
     $("#gm-prreset").onclick=()=>{try{localStorage.removeItem(PRANK_KEY)}catch(e){}prSt();toast("Troll reset. The next loot roll gets it.")};
     $("#gm-actgo").onclick=()=>{const v=$("#gm-act").value;if(!v.trim()){toast("Paste an activity code first.");return}showActivity(v)};
     $("#gm-grade").value=c.grade;$("#gm-roll2").value=c.specialRoll||"";
