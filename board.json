@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T17:53:17.312Z",
+  "updated": "2026-11-11T22:59:35.969Z",
   "posts": [
     {
       "id": "t0bn945t8llc",
@@ -12,6 +12,20 @@
       "until": "",
       "phone": true,
       "board": true
+    },
+    {
+      "id": "n4v1rgp917bd",
+      "title": "Welcome to Jujutsu High!",
+      "from": "Sendai Jujutsu High",
+      "body": "On Behalf of everyone at the Staff of Sendai Jujutsu High Faculty we welcome you into the Jujutsu High First Years, you might notice that the campus has been empty lately.\nThis is because you are the first new generation of Sorcerers, you have been assigned 3 teachers\n\n1. Sento Gojo - Curse Energy Manipulation and Barrier Proficiency\n2. Todoya Katsu - Curse Technique Manipulation and Combat Sports\n3. Ryo Yoruo - Barrier Knowledge and Tool Combat\n\nThese teachers will accompany you through the next 3 years of School\n\nFaQ:\n- When will I go on missions?\n: First Year students do not go on missions anywhere, the only Missions that will be shown to you are sideline viewed missions supervised by your teachers\n\nHave Fun.. and we wish you the best!!",
+      "tag": "Main Story",
+      "boost": "none",
+      "date": "2018-05-05T08:30",
+      "until": "",
+      "phone": true,
+      "board": true,
+      "hostEvent": false
     }
-  ]
+  ],
+  "shop": []
 }
