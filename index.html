@@ -2207,7 +2207,14 @@ function crSpin(title,opts,final,extra,after){
     $("#rvOut").innerHTML=`<div class="rbig pop">${esc(final.label)}</div>${final.sub?`<p>${esc(final.sub)}</p>`:""}${extra||""}`;$("#rvActs").hidden=false;fillEditor();renderCreation();renderCard();if(after)after()};
   if(reduce)setTimeout(show,400);else tick();
 }
-const gmForce=k=>(typeof GM_TOOLS!=="undefined"&&GM_TOOLS&&state.gmForce&&state.gmForce[k])||"";
+/* Rigging. In the GM copy, "Rig the next spins" applies to everything on that device.
+   The GM can also attach rigging to one character: it travels inside that character's save code,
+   works in the player's app, and each rigged roll is used up after one spin. It's tamper-checked and tied to that character. */
+const RIG_SALT="catastrophe·rig·v1";
+const rigSig=c=>actHash(RIG_SALT+"|"+c.id+"|"+JSON.stringify((c.rig&&c.rig.f)||{}));
+function charRig(c,k){const r=c&&c.rig;if(!r||!r.f||!r.f[k]||(c.rigUsed||{})[k]||r.sig!==rigSig(c))return"";return r.f[k]}
+const gmForce=k=>{if(typeof GM_TOOLS!=="undefined"&&GM_TOOLS&&state.gmForce&&state.gmForce[k])return state.gmForce[k];
+  const c=C();const v=charRig(c,k);if(v){c.rigUsed=c.rigUsed||{};c.rigUsed[k]=true}return v};
 function finishCharacter(){
   const c=C();if(!c.creation)c.creation={};const cr=c.creation;if(cr.finished)return;
   if(missingFields(c).length){toast("Fill in every required field first.");return}
@@ -2818,7 +2825,9 @@ if(GM_TOOLS){
         <select id="gf-trait">${opt([["","Trait on Output: Random"],["none","Trait on Output: None"],...CREATION.traits.map(t=>[t.id,"Trait on Output: "+t.label])])}</select>
         <select id="gf-res">${opt([["","Reserve: Random"],...CREATION.energy.map(e=>[e.id,"Reserve: "+e.label])])}</select>
         <select id="gf-chests">${opt([["","Loot chests: Random"],...CHEST_ROLL.map(x=>[String(x.n),`Loot chests: ${x.n}`])])}</select></div>
-        <div class="gm-row"><button class="btn sm" id="gf-save">Save rigging</button><button class="btn sm ghost" id="gf-clear">All back to Random</button></div></section>
+        <div class="gm-row"><button class="btn sm" id="gf-save">Save rigging</button><button class="btn sm ghost" id="gf-clear">All back to Random</button></div>
+        <p class="dhelp" style="margin:6px 0 0;color:var(--muted);font-size:.82rem"><b>For a player:</b> load their save code here, pick results above, then press <b>Attach to this character</b> and send them a new save code (Save / Load → Copy save code). When they load it in their app, their next spin of each rigged roll lands on it, once. Status: <b id="gf-charst"></b></p>
+        <div class="gm-row"><button class="btn sm primary" id="gf-attach">Attach to this character</button><button class="btn sm ghost" id="gf-detach">Remove from this character</button></div></section>
       <section><h4>Creation rolls</h4><div class="gm-row"><select id="gm-pot">${opt([["","Potential: not rolled"],...CREATION.potential.filter(p=>p.id!=="sg").map(p=>[p.id,p.label]),...CREATION.sgTiers.map(t=>["sg:"+t.id,"Special Grade · "+t.label])])}</select><select id="gm-out">${opt([["","Output: not rolled"],...CREATION.energy.map(e=>[e.id,"Output: "+e.label])])}</select><select id="gm-res">${opt([["","Reserve: not rolled"],...CREATION.energy.map(e=>[e.id,"Reserve: "+e.label])])}</select><select id="gm-trait">${opt([["u","Trait: not rolled"],["none","Trait: none"],...CREATION.traits.map(t=>[t.id,"Trait: "+t.label])])}</select><button class="btn sm" id="gm-setcr">Set</button></div><div class="gm-row"><select id="gm-spins">${opt([1,2,3,4,5,6,7].map(n=>[n,`Fate Roll: ${n} spin${n===1?"":"s"}`]))}</select><button class="btn sm" id="gm-setspins">Finish with these spins (all spins unused)</button><button class="btn sm ghost danger" id="gm-clearcr">Reset creation (un-finish)</button></div></section>
       <section><h4>Character</h4><div class="gm-row"><select id="gm-grade">${opt(GRADES.map((g,i)=>[i,g]))}</select><button class="btn sm" id="gm-setgrade">Set grade</button></div>
         <div class="gm-row"><select id="gm-roll2">${opt([["","No special roll"],...SPECIAL_ROLLS.map(r=>[r.id,r.name])])}</select><button class="btn sm" id="gm-setroll">Set special roll</button></div></section>
@@ -2835,6 +2844,14 @@ if(GM_TOOLS){
     $("#gm-clearcr").onclick=()=>{C().creation={};done("Creation reset. Finish is needed again.")};
     {const f=state.gmForce||{};$("#gf-fate").value=f.fate||"";$("#gf-pot").value=f.potential||"";$("#gf-out").value=f.output||"";$("#gf-trait").value=f.trait||"";$("#gf-res").value=f.reserve||"";$("#gf-chests").value=f.chests||""}
     $("#gf-save").onclick=()=>{state.gmForce={fate:$("#gf-fate").value,potential:$("#gf-pot").value,output:$("#gf-out").value,trait:$("#gf-trait").value,reserve:$("#gf-res").value,chests:$("#gf-chests").value};persist();toast(Object.values(state.gmForce).some(Boolean)?"Rigging saved. Spins will land on your picks.":"All spins are random")};
+    const RIG_NAMES={fate:"Fate Roll",potential:"Potential",output:"Output",trait:"Trait",reserve:"Reserve",chests:"Loot chests"};
+    const rigSt=()=>{const c=C();const r=c.rig&&c.rig.f;if(!r||!Object.keys(r).length){$("#gf-charst").textContent="nothing attached to "+DISPLAY_NAME(c);return}
+      const u=c.rigUsed||{};$("#gf-charst").textContent=Object.keys(r).map(k=>`${RIG_NAMES[k]}: ${$("#gf-"+({potential:"pot",output:"out",reserve:"res"}[k]||k)).querySelector(`option[value="${CSS.escape(r[k])}"]`)?.textContent.replace(/^[^:]+:\s*/,"")||r[k]}${u[k]?" (used)":""}`).join(" · ")};
+    rigSt();
+    $("#gf-attach").onclick=()=>{const c=C();const f={};[["fate","#gf-fate"],["potential","#gf-pot"],["output","#gf-out"],["trait","#gf-trait"],["reserve","#gf-res"],["chests","#gf-chests"]].forEach(([k,id])=>{const v=$(id).value;if(v)f[k]=v});
+      if(!Object.keys(f).length){toast("Pick at least one result above first.");return}
+      c.rig={f,at:Date.now()};c.rig.sig=rigSig(c);c.rigUsed={};touch();rigSt();toast(`Attached to ${DISPLAY_NAME(c)}. Now copy their save code and send it to them.`)};
+    $("#gf-detach").onclick=()=>{const c=C();delete c.rig;delete c.rigUsed;touch();rigSt();toast("Removed from this character")};
     $("#gf-clear").onclick=()=>{state.gmForce={};persist();["#gf-fate","#gf-pot","#gf-out","#gf-trait","#gf-res","#gf-chests"].forEach(id=>$(id).value="");toast("All spins are random")};
     const prSt=()=>{$("#gm-prst").textContent=state.gmAlwaysPrank?"always on":prankPending()?"ready for the next roll":"already used"};
     $("#gm-prall").checked=!!state.gmAlwaysPrank;prSt();
