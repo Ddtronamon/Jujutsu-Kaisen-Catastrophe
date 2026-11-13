@@ -285,6 +285,22 @@ main{padding-block:20px 60px}
 .pirate-pick small{color:var(--muted);font-size:.78rem}
 .pirate-pick.armed small{color:#ffd75a}
 .pirate-pick:disabled{opacity:.5;cursor:not-allowed}
+.vessel-top{display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;border-top:3px solid var(--r-6)}
+.vessel-count{display:flex;align-items:baseline;gap:6px;font-family:var(--f-display)}
+.vessel-count b{font-size:2.6rem;line-height:1;color:var(--r-6)}
+.vessel-count span{color:var(--muted);font-size:1.1rem}
+.vessel-notches{display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:4px}
+.vessel-notches i{height:22px;border-radius:5px 5px 9px 9px;background:var(--surface-2);border:1px solid var(--line)}
+.vessel-notches i.on{background:linear-gradient(180deg,#d9c2a6,#8a3b3b);border-color:var(--r-6);box-shadow:0 0 8px color-mix(in srgb,var(--r-6) 50%,transparent)}
+.vessel-eat{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.92rem}
+.vessel-list{display:grid;gap:10px}
+.vessel-node{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.vessel-node .vfinger{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-weight:500;border:1.5px solid var(--r-6);color:var(--r-6)}
+.vessel-node[data-state="unlocked"] .vfinger{background:var(--r-6);color:#0b0a10}
+.vessel-node h4{margin:0}.vessel-node p{margin:2px 0 0}
+@media (max-width:560px){.vessel-node{grid-template-columns:auto 1fr}.vessel-node .why{grid-column:2}}
+.branch-h{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tc,var(--accent));display:grid;gap:2px;margin-bottom:2px}
+.branch-h small{font-family:var(--f-body);letter-spacing:0;text-transform:none;color:var(--muted);font-size:.74rem}
 .binder{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px}
 .hcard{position:relative;aspect-ratio:5/7;border-radius:10px;border:2px solid var(--rc);background:linear-gradient(165deg,color-mix(in srgb,var(--rc) 24%,var(--surface)),var(--surface) 62%);padding:8px 9px;display:flex;flex-direction:column;gap:3px;overflow:hidden;text-align:left;color:var(--fg);font:inherit;min-width:0}
 button.hcard{cursor:pointer}
@@ -811,7 +827,7 @@ const SSG=99; // no grade above Special Grade
 const GRADE_V=2,oldGrade=g=>g>=6?5:g===5?4:g;
 function fixGrade(c){if(c&&c.gv!==GRADE_V){c.grade=oldGrade(+c.grade||0);c.gv=GRADE_V}return c}
 const START_POINTS=2; // every new character starts at Grade 3 with these points
-const S=(n,d)=>({n,d});
+const S=(n,d,cost)=>({n,d,cost}); // cost is optional: leave it out to use the grade's normal cost, 0 = free
 const TREES=[
  {id:"ce",name:"Cursed Energy",color:"--t-ce",pick:2,start:0,tiers:{},bt:{},ssg:null},
  {id:"ct",name:"Cursed Technique",color:"--t-ct",pick:1,start:0,tiers:{},bt:{},ssg:null},
@@ -824,10 +840,52 @@ const TREES=[
    tiers:{0:{L:[S("Skill name","What it does.")],R:[S("Other skill","What it does.")]}, 1:{...}},
    bt:{1:"Breakthrough text at Semi-Grade 2"}, ssg: not used anymore (there is no grade above Special Grade). */
 const SPECIAL_ROLLS=[
- {id:"copy",name:"Copy",pick:1,start:0,tiers:{},bt:{},ssg:null},
- {id:"ten-shadows",name:"Ten Shadows",pick:1,start:0,tiers:{},bt:{},ssg:null},
+ /* pick:99 = no limit per grade, buy as many as you can afford.
+    Lname/Rname label the two columns. Lseq/Rseq:true = that column is a path, unlocked top to bottom. */
+ {id:"copy",name:"Copy",pick:99,start:0,ssg:null,bt:{},tiers:{
+   0:{Lname:"Path 1 · Cursed Technique",Lseq:true,L:[
+       S("Rika Weapon Infusion","Rika lends her cursed energy to your weapon.",6),
+       S("Partial Copy","If Rika consumes a limb, you can copy that technique and use it 1 time.",10),
+       S("Copy","Copy cursed techniques through Rika.",20)],
+     Rname:"Path 2 · Vengeful Spirit",Rseq:true,R:[
+       S("Rika's Tail","Rika can manifest her tail to strike.",5),
+       S("Rika's Hands","Rika can manifest her hands to grab and strike.",10),
+       S("Rika's Head","Rika can manifest her head.",5),
+       S("Partial Manifestation","Call out part of Rika's body to fight beside you.",12),
+       S("True Love","Rika's strongest attack, fired with everything the two of you have.",30),
+       S("Shikigami","Rika fights at your side as a full shikigami.",15)]}}},
+ {id:"ten-shadows",name:"Ten Shadows",pick:99,start:0,ssg:null,bt:{},tiers:{
+   0:{Lname:"Shikigami",L:[S("Divine Dogs","Your first shikigami. A pair of dogs that track and fight for you.",0)],R:[]},
+   1:{Lname:"Shikigami",L:[
+       S("Nue","A winged shikigami that flies and strikes with electricity.",2),
+       S("Toad","A shikigami that grabs and pulls targets with its long tongue.",3)],
+     Rname:"Shadows",R:[
+       S("Partial Shadow Manipulation","Stick one limb into the shadows and carry one item in them.",5)]},
+   2:{Lname:"Shikigami",L:[
+       S("Great Serpent","A giant snake that bursts out of the ground to bind and crush.",5),
+       S("Max Elephant","A massive elephant shikigami that floods the area with water.",5)],
+     Rname:"Shadows",R:[
+       S("Weapon Storage","Store up to 5 items in your shadows.",6),
+       S("Shadow Manipulation","Fully hide inside the shadows.",10)]},
+   3:{Lname:"Shikigami",L:[S("Rabbit Escape","Floods the area with rabbits to cover your escape.",3)],R:[]},
+   4:{Lname:"Shikigami",L:[
+       S("Round Deer","A shikigami that heals with reverse cursed energy.",7),
+       S("Piercing Ox","Charges in a straight line and hits harder the further it runs.",4),
+       S("Tiger Funeral","A tiger shikigami that strikes with raw force.",5)],R:[]}}},
  {id:"vessel-of-sukuna",name:"Vessel of Sukuna",pick:1,start:0,tiers:{},bt:{},ssg:null},
  {id:"community",name:"Blood Manipulation",pick:1,start:0,tiers:{},bt:{},ssg:null} // id stays "community" so existing characters keep it
+];
+/* VESSEL OF SUKUNA (edit here): no points. Eating Sukuna's Fingers counts up from 1 to 20,
+   and every power at or below that count is unlocked. The count is saved, so each new finger adds 1. */
+const FINGER_MAX=20;
+const VESSEL_STAGES=[{name:"Stage 1",from:1,to:4},{name:"Stage 2",from:5,to:10},{name:"Stage 3",from:11,to:15},{name:"Stage 4",from:16,to:20}];
+const VESSEL_POWERS=[
+  {n:1,name:"Awakening",d:"Pure RP awakening of the Vessel."},
+  {n:2,name:"Superhuman Strength and Speed",d:"Superhuman strength and speed."},
+  {n:3,name:"Extreme Pain Suppression",d:"You can shut out extreme pain."},
+  {n:4,name:"Poison Immunity",d:"Immunity to all poisons."},
+  {n:5,name:"Soul Awareness",d:"You can perceive souls."},
+  {n:6,name:"Me and My Suffering",d:"Immunity to all mental and mind techniques."}
 ];
 for(const r of SPECIAL_ROLLS){TREES.push({id:"roll-"+r.id,roll:r.id,name:r.name==="???"?"??? Technique":r.name+" Technique",color:"--t-roll",pick:r.pick,start:r.start,tiers:r.tiers,bt:r.bt,ssg:r.ssg,rollNote:r.note})}
 /* ============================================================= */
@@ -835,7 +893,7 @@ for(const r of SPECIAL_ROLLS){TREES.push({id:"roll-"+r.id,roll:r.id,name:r.name=
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const SKILLS={}; // id -> {id,name,desc,tree,grade}
 for(const t of TREES){
-  for(const g in t.tiers){for(const side of ["L","R"]){for(const s of (t.tiers[g][side]||[])){const id=t.id+"-"+slug(s.n);s.id=id;SKILLS[id]={id,name:s.n,desc:s.d,tree:t.id,grade:+g,side}}}}
+  for(const g in t.tiers){for(const side of ["L","R"]){let prev=null;for(const s of (t.tiers[g][side]||[])){const id=t.id+"-"+slug(s.n);s.id=id;SKILLS[id]={id,name:s.n,desc:s.d,tree:t.id,grade:+g,side,cost:s.cost,req:t.tiers[g][side+"seq"]?prev:null};prev=id}}}
   if(t.ssg){const id=t.id+"-"+slug(t.ssg.n);t.ssg.id=id;SKILLS[id]={id,name:t.ssg.n,desc:t.ssg.d,tree:t.id,grade:SSG,side:"C"}}
 }
 const TREE=Object.fromEntries(TREES.map(t=>[t.id,t]));
@@ -1077,6 +1135,7 @@ const OFF_CHANCE=[
   OC(3,"Kyoto Exchange Poster","Collectible","Collectible","Limited print. The Kyoto students' faces are drawn a bit too smug."),
   OC(4,"Gold Sorcerer License Replica","Collectible","Collectible","Looks official. Isn't. Still impresses first-years."),
   OC(4,"1951 Sendai Yearbook","Collectible","Collectible","From the first class ever. Half the pages are stuck together."),
+  Object.assign(OC(6,"Sukuna's Finger","Cursed Object","Vessel of Sukuna","One of the twenty fingers of the King of Curses. Only the Vessel can eat it."),{finger:true}),
   OC(5,"Holo King of Curses Card","Collectible","Collectible","Ultra rare. Do not let it near the fingers."),
   OC(5,"Sealed Mystery Box","Collectible","Collectible","Nobody has ever opened one. Nobody has tried."),
   OC(1,"Wireless Headphones","RP Item","RP only","Noise cancelling. Doesn't cancel curses."),
@@ -1313,21 +1372,23 @@ const DISPLAY_NAME=c=>c.name||"Unnamed sorcerer";
 /* ===================== UNLOCK LOGIC ===================== */
 function picksIn(c,treeId,grade){return Object.keys(c.unlocked).filter(id=>SKILLS[id]&&SKILLS[id].tree===treeId&&SKILLS[id].grade===grade).length}
 function skillState(c,id){
-  const s=SKILLS[id],t=TREE[s.tree],cost=COST[s.grade];
+  const s=SKILLS[id],t=TREE[s.tree],cost=s.cost!=null?s.cost:COST[s.grade];
   if(c.unlocked[id])return{state:"unlocked",why:"Unlocked",cost:c.unlocked[id].cost};
   if(t.requires&&!c.unlocked[t.requires])return{state:"blocked",why:"Tree locked",cost};
   if(t.roll&&c.specialRoll!==t.roll)return{state:"blocked",why:"Not your special roll",cost};
   if(c.grade<s.grade)return{state:"locked",why:"Needs "+GRADES[s.grade],cost};
+  if(s.req&&!c.unlocked[s.req])return{state:"blocked",why:`Unlock ${SKILLS[s.req].name} first`,cost};
   if(s.grade<SSG&&picksIn(c,t.id,s.grade)>=t.pick)return{state:"blocked",why:`Only ${t.pick===1?"one":"two"} per grade`,cost};
   const b=balance(c);if(b<cost)return{state:"blocked",why:`Need ${cost-b} more pt${cost-b===1?"":"s"}`,cost};
   return{state:"available",why:"Available",cost};
 }
 function canRefund(c,id){
+  const next=Object.values(SKILLS).find(k=>k.req===id&&c.unlocked[k.id]);if(next)return`Refund ${next.name} first. It comes after this one in the path.`;
   const dep=TREES.find(t=>t.requires===id);
   if(dep&&Object.keys(c.unlocked).some(k=>SKILLS[k]&&SKILLS[k].tree===dep.id))return`Refund your ${dep.name} skills first.`;
   return null;
 }
-function unlock(id){const c=C(),st=skillState(c,id);if(st.state!=="available")return;c.unlocked[id]={cost:st.cost,at:Date.now()};touch();toast(`Unlocked ${SKILLS[id].name} for ${st.cost} pt${st.cost===1?"":"s"}`);renderAll()}
+function unlock(id){const c=C(),st=skillState(c,id);if(st.state!=="available")return;c.unlocked[id]={cost:st.cost,at:Date.now()};touch();toast(st.cost?`Unlocked ${SKILLS[id].name} for ${st.cost} pt${st.cost===1?"":"s"}`:`Unlocked ${SKILLS[id].name} for free`);renderAll()}
 let refundArm=null;
 function refund(id,btn){
   const c=C(),why=canRefund(c,id);if(why){toast(why);return}
@@ -1437,7 +1498,7 @@ function nodeHTML(c,id){
   else action=`<button class="btn sm unlock" data-unlock="${id}" ${st.state!=="available"?"disabled":""}>Unlock</button>`;
   return`<article class="node" data-state="${st.state}">
     <h4>${esc(s.name)}</h4><p>${esc(s.desc)}</p>
-    <div class="nf"><span class="why">${st.state==="unlocked"?"✓ Unlocked":esc(st.why)}</span><span style="display:flex;gap:8px;align-items:center"><span class="cost">${st.cost} pt${st.cost===1?"":"s"}</span>${action}</span></div>
+    <div class="nf"><span class="why">${st.state==="unlocked"?"✓ Unlocked":esc(st.why)}</span><span style="display:flex;gap:8px;align-items:center"><span class="cost">${st.cost?`${st.cost} pt${st.cost===1?"":"s"}`:"Free"}</span>${action}</span></div>
   </article>`;
 }
 const visibleTrees=c=>TREES.filter(t=>t.roll&&t.roll===c.specialRoll);
@@ -1450,17 +1511,20 @@ function renderTree(){
     return`<button class="tp" style="--tc:var(${t.color})" data-tree="${t.id}" aria-pressed="${state.tree===t.id}"><i></i>${esc(t.name)}<em>${n}</em></button>`}).join("");
   const t=TREE[state.tree]||TREES[0];
   let h=`<div style="--tc:var(${t.color})"><div class="tree-head"><div><span class="eyebrow">Skill tree</span><h2>${esc(t.name)}</h2></div>
-    <div class="rules"><span class="rule">Pick ${t.pick===1?"one":"two"} per grade</span>${t.start?`<span class="rule">Starts at ${GRADES[t.start]}</span>`:""}</div></div>`;
+    <div class="rules"><span class="rule">${t.roll==="vessel-of-sukuna"?"Grows with every finger you eat":t.pick>=50?"Unlock as many as you can afford":`Pick ${t.pick===1?"one":"two"} per grade`}</span>${t.start?`<span class="rule">Starts at ${GRADES[t.start]}</span>`:""}</div></div>`;
   if(t.roll){h+=`<div class="req-lock">Special roll tree. Only sorcerers with the <b>${esc(SPECIAL_ROLLS.find(r=>r.id===t.roll).name)}</b> roll can see it.${t.rollNote?" "+esc(t.rollNote):""}</div>`;
 }
+  if(t.roll==="vessel-of-sukuna"){$("#treeView").innerHTML=h+vesselHTML(c)+"</div>";return}
   if(treeEmpty(t)){h+=`<div class="empty">This tree's skills haven't been added yet. They'll show up here after the next update.</div></div>`;$("#treeView").innerHTML=h;return}
   if(t.requires&&!c.unlocked[t.requires]){h+=`<div class="req-lock">This tree is locked. Unlock <b>${esc(SKILLS[t.requires].name)}</b> in the Cursed Energy tree (${GRADES[SKILLS[t.requires].grade]}) to open it.</div>`}
   for(let g=t.start;g<=6;g++){
+    if(t.roll&&!t.tiers[g]&&!t.bt[g])continue; // special roll trees only show grades that have skills
     if(g>t.start||t.bt[g]){ if(t.bt[g]){const e=c.grade>=g;h+=`${g>t.start?'<div class="spine"></div>':""}<div class="bt ${e?"earned":""}"><span class="eyebrow">${e?"✓ Breakthrough earned":"Grade breakthrough"} · ${GRADES[g]}</span><b>${esc(t.bt[g])}</b></div><div class="spine"></div>`}else if(g>t.start){h+='<div class="spine"></div>'} }
     const tier=t.tiers[g];const picks=picksIn(c,t.id,g);const locked=c.grade<g;
-    h+=`<section class="tier ${locked?"locked":""}"><div class="tier-h"><h3>${GRADES[g]}</h3><div class="tmeta">${tier?`<span class="dots" title="${picks} of ${t.pick} picked">${Array.from({length:t.pick},(_,i)=>`<i class="${i<picks?"on":""}"></i>`).join("")}</span>`:""}<span>${COST[g]} pt${COST[g]===1?"":"s"} each</span></div></div>`;
+    h+=`<section class="tier ${locked?"locked":""}"><div class="tier-h"><h3>${GRADES[g]}</h3><div class="tmeta">${tier&&t.pick<50?`<span class="dots" title="${picks} of ${t.pick} picked">${Array.from({length:t.pick},(_,i)=>`<i class="${i<picks?"on":""}"></i>`).join("")}</span>`:""}<span>${tier&&[...(tier.L||[]),...(tier.R||[])].some(x=>x.cost!=null)?"Costs shown on each skill":`${COST[g]} pt${COST[g]===1?"":"s"} each`}</span></div></div>`;
     if(t.note&&t.note[g])h+=`<div class="rule" style="justify-self:start">${esc(t.note[g])}</div>`;
-    if(tier&&(tier.L.length||tier.R.length)){h+=`<div class="branches"><div class="branch">${tier.L.map(s=>nodeHTML(c,s.id)).join("")}</div><div class="branch">${tier.R.map(s=>nodeHTML(c,s.id)).join("")}</div></div>`}
+    if(tier&&(tier.L.length||tier.R.length)){const bh=(nm,seq)=>nm?`<div class="branch-h">${esc(nm)}${seq?"<small>Unlock in order, top to bottom</small>":""}</div>`:"";
+      h+=`<div class="branches"><div class="branch">${bh(tier.Lname,tier.Lseq)}${tier.L.map(s=>nodeHTML(c,s.id)).join("")}</div>${tier.R.length?`<div class="branch">${bh(tier.Rname,tier.Rseq)}${tier.R.map(s=>nodeHTML(c,s.id)).join("")}</div>`:""}</div>`}
     else h+=`<p class="dhelp" style="margin:0;color:var(--muted);font-size:.88rem">No skills at this grade. Only the breakthrough above.</p>`;
     h+=`</section>`;
   }
@@ -1468,6 +1532,31 @@ function renderTree(){
   h+="</div>";
   $("#treeView").innerHTML=h;
 }
+/* ---- Vessel of Sukuna: fingers ---- */
+const fingersOf=c=>Math.max(0,Math.min(FINGER_MAX,+c.fingers||0));
+function vesselHTML(c){
+  const n=fingersOf(c);const have=(c.inventory||[]).filter(v=>ITEMS[v.item]&&ITEMS[v.item].finger).length;
+  const notch=Array.from({length:FINGER_MAX},(_,i)=>`<i class="${i<n?"on":""}" title="Finger ${i+1}"></i>`).join("");
+  let h=`<section class="vessel-top"><div><span class="eyebrow">Fingers eaten</span><div class="vessel-count"><b>${n}</b><span>/ ${FINGER_MAX}</span></div></div>
+    <div class="vessel-notches">${notch}</div>
+    <div class="vessel-eat"><span>${have?`You have <b>${have}</b> finger${have===1?"":"s"} in your inventory.`:"No fingers in your inventory. Find or buy one to grow stronger."}</span>
+    <button type="button" class="btn primary" id="eatFinger" ${have&&n<FINGER_MAX?"":"disabled"}>${n>=FINGER_MAX?"All 20 eaten":"Eat a finger"}</button></div></section>`;
+  for(const st of VESSEL_STAGES){const ps=VESSEL_POWERS.filter(p=>p.n>=st.from&&p.n<=st.to);const reached=n>=st.from;
+    h+=`<div class="spine"></div><section class="tier ${reached?"":"locked"}"><div class="tier-h"><h3>${st.name}</h3><div class="tmeta"><span>Fingers ${st.from}–${st.to}</span></div></div><div class="vessel-list">`+
+      (ps.length?ps.map(p=>`<article class="node vessel-node" data-state="${n>=p.n?"unlocked":"locked"}"><span class="vfinger">${p.n}</span><div><h4>${esc(p.name)}</h4><p>${esc(p.d)}</p></div><span class="why">${n>=p.n?"✓ Unlocked":`At ${p.n} finger${p.n===1?"":"s"}`}</span></article>`).join(""):"")+
+      (ps.length<st.to-st.from+1?`<p class="dhelp" style="margin:0;color:var(--muted);font-size:.86rem">${ps.length?"More powers in this stage":"The powers for this stage"} haven't been added yet.</p>`:"")+`</div></section>`}
+  return h}
+let fingerArm=false;
+function eatFinger(vid){
+  const c=C();if(c.specialRoll!=="vessel-of-sukuna"){toast("Only the Vessel of Sukuna can eat a finger.");return}
+  const n=fingersOf(c);if(n>=FINGER_MAX){toast("You've already eaten all 20.");return}
+  const v=vid?c.inventory.find(x=>x.id===vid):c.inventory.find(x=>ITEMS[x.item]&&ITEMS[x.item].finger);if(!v){toast("You don't have a finger.");return}
+  c.inventory=c.inventory.filter(x=>x!==v);c.fingers=n+1;const p=VESSEL_POWERS.find(x=>x.n===c.fingers);
+  touch();actLog("finger",{n:c.fingers,power:p?p.name:""});renderAll();
+  toast(p?`Finger ${c.fingers} eaten. Unlocked: ${p.name}!`:`Finger ${c.fingers} of ${FINGER_MAX} eaten.`)}
+$("#treeView").addEventListener("click",e=>{const b=e.target.closest("#eatFinger");if(!b||b.disabled)return;
+  if(!fingerArm){fingerArm=true;b.textContent="Sure? Tap again to eat it";setTimeout(()=>{fingerArm=false;if(b.isConnected)b.textContent="Eat a finger"},3000);return}
+  fingerArm=false;eatFinger()});
 $("#treePick").addEventListener("click",e=>{const b=e.target.closest("[data-tree]");if(!b)return;state.tree=b.dataset.tree;persist();renderTree()});
 $("#treeView").addEventListener("click",e=>{const u=e.target.closest("[data-unlock]");if(u){unlock(u.dataset.unlock);return}const r=e.target.closest("[data-refund]");if(r)refund(r.dataset.refund,r)});
 
@@ -1856,9 +1945,9 @@ function itemHTML(v){
     <h4>${esc(it.n)}</h4>
     <div class="meta">${it.type==="Lore"?"Lore Item":it.type==="Collectible"||it.type==="RP Item"||it.pack?esc(it.type):`${esc(it.type)} · Boost: ${esc(it.boost)}`}</div>
     <p>${esc(it.d)}</p>
-    <div class="eff">${it.pirate?`Use it to give <b>one character of your choice</b> +${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve. Opens them again even if they were confirmed.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
+    <div class="eff">${it.finger?`${C().specialRoll==="vessel-of-sukuna"?`Eat it to raise your finger count (now ${fingersOf(C())} / ${FINGER_MAX}). Your powers are in the Skill Tree tab.`:"Only a character with the Vessel of Sukuna roll can eat it. You can still keep it or swap it."}`:it.pirate?`Use it to give <b>one character of your choice</b> +${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve. Opens them again even if they were confirmed.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
     <div class="meta">Found ${esc(fmtDate(v.date))} · ${esc(v.source)}</div>
-    <div class="acts">${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · pick a character</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
+    <div class="acts">${it.finger&&C().specialRoll==="vessel-of-sukuna"?`<button class="btn sm use" data-ifinger="${v.id}">Eat finger</button>`:""}${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · pick a character</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
   </article>`;
 }
 function armoryHTML(v){
@@ -2006,6 +2095,7 @@ $("#inv").addEventListener("click",e=>{const c=C();const b=e.target.closest("but
   if(b.dataset.iuse){const id=b.dataset.iuse;if(iuseArm!==id){iuseArm=id;const it=ITEMS[(c.inventory.find(x=>x.id===id)||{}).item];b.textContent=`Use on ${it?it.boost.replace(" Proficiency",""):""}?`;setTimeout(()=>{if(iuseArm===id){iuseArm=null;renderLoot()}},3000);return}iuseArm=null;useItem(id);return}
   if(b.dataset.irespin){useRespin(b.dataset.irespin);return}
   if(b.dataset.ipirate){usePirate(b.dataset.ipirate);return}
+  if(b.dataset.ifinger){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Tap again to eat";setTimeout(()=>{if(b.isConnected){b.dataset.arm="";b.textContent="Eat finger"}},3000);return}eatFinger(b.dataset.ifinger);return}
   if(b.dataset.ipack){openPack(b.dataset.ipack);return}
   if(b.dataset.iread){const v=c.inventory.find(x=>x.id===b.dataset.iread);if(!v)return;const it=ITEMS[v.item];if(!Array.isArray(c.lore))c.lore=[];
     const isNew=!c.lore.some(x=>x.item===it.id);if(isNew)c.lore.push({item:it.id,date:today(),source:v.source});
@@ -2331,6 +2421,7 @@ const ACT_TEXT={
   traitRemoved:e=>`removed their CE Trait (${e.trait})`,
   grade:e=>`⚠ changed grade: ${e.from} → ${e.to}`,
   pack:e=>`opened ${e.pack}: ${e.cards}`,
+  finger:e=>`ate Sukuna's Finger #${e.n}${e.power?` → unlocked ${e.power}`:""}`,
   pirate:e=>`🏴‍☠️ WON A PIRATE TOKEN just by opening the app (1 in a million)`,
   pirateUsed:e=>`used a Pirate Token on ${e.on||"a character"} → +${e.n} spins on every Creation Roll`,
   buy:e=>`bought ${e.item} on Jujuzon for ${e.price} (${e.left} left)`,
@@ -2830,7 +2921,8 @@ if(GM_TOOLS){
         <div class="gm-row"><button class="btn sm primary" id="gf-attach">Attach to this character</button><button class="btn sm ghost" id="gf-detach">Remove from this character</button></div></section>
       <section><h4>Creation rolls</h4><div class="gm-row"><select id="gm-pot">${opt([["","Potential: not rolled"],...CREATION.potential.filter(p=>p.id!=="sg").map(p=>[p.id,p.label]),...CREATION.sgTiers.map(t=>["sg:"+t.id,"Special Grade · "+t.label])])}</select><select id="gm-out">${opt([["","Output: not rolled"],...CREATION.energy.map(e=>[e.id,"Output: "+e.label])])}</select><select id="gm-res">${opt([["","Reserve: not rolled"],...CREATION.energy.map(e=>[e.id,"Reserve: "+e.label])])}</select><select id="gm-trait">${opt([["u","Trait: not rolled"],["none","Trait: none"],...CREATION.traits.map(t=>[t.id,"Trait: "+t.label])])}</select><button class="btn sm" id="gm-setcr">Set</button></div><div class="gm-row"><select id="gm-spins">${opt([1,2,3,4,5,6,7].map(n=>[n,`Fate Roll: ${n} spin${n===1?"":"s"}`]))}</select><button class="btn sm" id="gm-setspins">Finish with these spins (all spins unused)</button><button class="btn sm ghost danger" id="gm-clearcr">Reset creation (un-finish)</button></div></section>
       <section><h4>Character</h4><div class="gm-row"><select id="gm-grade">${opt(GRADES.map((g,i)=>[i,g]))}</select><button class="btn sm" id="gm-setgrade">Set grade</button></div>
-        <div class="gm-row"><select id="gm-roll2">${opt([["","No special roll"],...SPECIAL_ROLLS.map(r=>[r.id,r.name])])}</select><button class="btn sm" id="gm-setroll">Set special roll</button></div></section>
+        <div class="gm-row"><select id="gm-roll2">${opt([["","No special roll"],...SPECIAL_ROLLS.map(r=>[r.id,r.name])])}</select><button class="btn sm" id="gm-setroll">Set special roll</button></div>
+        <div class="gm-row"><input type="number" id="gm-fingers" min="0" max="20" step="1" style="width:90px"><button class="btn sm" id="gm-setfingers">Set fingers eaten (Vessel)</button></div></section>
     </div>
     <div class="drow" style="margin-top:14px"><button class="btn" data-close>Close</button></div>`);
     const c=C();
@@ -2865,6 +2957,8 @@ if(GM_TOOLS){
     const done=m=>{touch();fillEditor();renderAll();toast(m)};
     $("#gm-addpts").onclick=()=>{const n=Math.round(+$("#gm-pts").value||0);if(!n)return;C().ledger.push({id:uid(),host:"GM tools",points:n,date:today(),note:"",rolled:true});done(`${n>0?"+":""}${n} points`)};
     $("#gm-yenbal").textContent="Balance "+fmtYen(yenBal(C()));
+    $("#gm-fingers").value=fingersOf(C());
+    $("#gm-setfingers").onclick=()=>{const n=Math.max(0,Math.min(FINGER_MAX,Math.round(+$("#gm-fingers").value||0)));C().fingers=n;touch();renderAll();toast(`Fingers eaten: ${n} / ${FINGER_MAX}`)};
     $("#gm-addyen").onclick=()=>{const n=Math.round(+$("#gm-yen").value||0);if(!n)return;const c0=C();c0.yenBonus=(+c0.yenBonus||0)+n;touch();$("#gm-yenbal").textContent="Balance "+fmtYen(yenBal(c0));toast(`${n>0?"+":""}${fmtYen(n)}`)};
     $("#gm-addhost").onclick=()=>{const n=Math.round(+$("#gm-pts").value||0);if(n<=0){toast("Use a positive number for a host.");return}C().ledger.push({id:uid(),host:"GM test host",points:n,date:today(),note:"",yen:yenFor(C(),n),yenGrade:C().grade});done(`+${n} points and 1 loot roll`)};
     $("#gm-roll").onclick=()=>{$("#dlg").close();setTimeout(()=>gmRoll($("#gm-force")?$("#gm-force").value:"random"),50)};
