@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Catastrophe Codex</title>
+<title>Jujutsu Kaisen: New Hope</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
@@ -11,42 +11,34 @@
 <style>
 /* Layout: sticky top bar with character switcher; two tabs. Sheet = shareable card + editor, diary below. Tree = six grade-banded trees + points ledger aside. */
 :root{
-  --bg:#f2f0f5; --surface:#ffffff; --surface-2:#ebe8f0; --line:#d6d1df; --fg:#17141f; --muted:#655e73;
-  --accent:#5a3fe0; --accent-fg:#ffffff; --danger:#c22a3f; --ok:#16866b;
-  --t-ce:#0e8f80; --t-ct:#1f68cf; --t-phys:#a5701a; --t-spec:#c42a83; --t-bf:#b01f30; --t-ad:#23879a; --t-roll:#8a6a12;
-  --r-0:#7d7887; --r-1:#5c566a; --r-2:#1f8a4c; --r-3:#1f5fd0; --r-4:#7a3fd6; --r-5:#c26a00; --r-6:#d0142c;
+  /* Jujutsu Kaisen: New Hope — colors from the promo art: deep teal paint, crimson, hot pink, acid yellow and cyan splatter. One dark look. */
+  --bg:#0a1519; --surface:#10222a; --surface-2:#163039; --line:#22434e; --fg:#eef6f2; --muted:#8fb2b5;
+  --accent:#ff4f9e; --accent-fg:#0a1519; --danger:#ff2e45; --ok:#c6f03a; --hype:#f4e14a; --cyan:#3fd7e8;
+  --t-ce:#3fd7e8; --t-ct:#5aa9ff; --t-phys:#f4e14a; --t-spec:#ff4f9e; --t-bf:#ff2e45; --t-ad:#7fe6ef; --t-roll:#f4e14a;
+  --r-0:#8a9a9d; --r-1:#d8e4e2; --r-2:#5fd38b; --r-3:#5b9bff; --r-4:#b48bff; --r-5:#ffb347; --r-6:#ff2e45;
   --f-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",Georgia,serif;
   --f-body:"Zen Kaku Gothic New",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --r:10px;
+  color-scheme:dark;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0c0b11; --surface:#15131c; --surface-2:#1d1a27; --line:#2e2a3b; --fg:#ece8f5; --muted:#9b94ad;
-  --accent:#8b7bff; --accent-fg:#0c0b11; --danger:#ff5d70; --ok:#4fd3a8;
-  --t-ce:#3fd0bd; --t-ct:#4fa3ff; --t-phys:#f0c46e; --t-spec:#ff62bb; --t-bf:#ff4d5e; --t-ad:#8fe4ef; --t-roll:#ffd36b;
-  --r-0:#8b8794; --r-1:#d9d4e3; --r-2:#5fd38b; --r-3:#5b9bff; --r-4:#b48bff; --r-5:#ffb347; --r-6:#ff3b4e;
-  color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0c0b11; --surface:#15131c; --surface-2:#1d1a27; --line:#2e2a3b; --fg:#ece8f5; --muted:#9b94ad;
-  --accent:#8b7bff; --accent-fg:#0c0b11; --danger:#ff5d70; --ok:#4fd3a8;
-  --t-ce:#3fd0bd; --t-ct:#4fa3ff; --t-phys:#f0c46e; --t-spec:#ff62bb; --t-bf:#ff4d5e; --t-ad:#8fe4ef; --t-roll:#ffd36b;
-  --r-0:#8b8794; --r-1:#d9d4e3; --r-2:#5fd38b; --r-3:#5b9bff; --r-4:#b48bff; --r-5:#ffb347; --r-6:#ff3b4e;
-  color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 img{max-width:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  background-image:radial-gradient(circle at 8% 4%,rgba(255,46,69,.16),transparent 28%),radial-gradient(circle at 92% 2%,rgba(255,79,158,.14),transparent 26%),radial-gradient(circle at 70% 12%,rgba(244,225,74,.07),transparent 18%),radial-gradient(circle at 30% 14%,rgba(63,215,232,.08),transparent 22%);background-attachment:fixed}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 h1,h2,h3,h4{margin:0;text-wrap:balance}
 .wrap{max-width:1320px;margin:0 auto;padding-inline:16px}
 
 /* top bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:2px solid transparent;border-image:linear-gradient(90deg,var(--danger),var(--accent) 35%,var(--hype) 60%,var(--cyan)) 1}
 .bar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-block:10px}
 .brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
-.brand h1{font-family:var(--f-display);font-weight:800;font-size:1.35rem;letter-spacing:.02em}
-.brand small{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.brand h1{font-family:var(--f-display);font-weight:800;font-size:1.35rem;letter-spacing:.02em;color:#0a1519;-webkit-text-stroke:0;text-shadow:-1px -1px 0 var(--hype),1px -1px 0 var(--hype),-1px 1px 0 var(--hype),1px 1px 0 var(--hype),0 0 14px rgba(244,225,74,.35)}
+.brand h1 em{font-style:normal;color:var(--accent);text-shadow:0 0 14px rgba(255,79,158,.45)}
+.brand small{font-family:var(--f-display);font-size:.82rem;color:var(--hype);letter-spacing:.12em}
 .charpick{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 select,input,textarea{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
 textarea{resize:vertical;width:100%}
@@ -90,17 +82,17 @@ main{padding-block:20px 60px}
 .group-t{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border-top:1px solid var(--line);padding-top:12px}
 
 /* SHARE CARD — fixed palette so the image looks the same in Discord either theme */
-.card{--c-bg:#0e0c14;--c-panel:#17141f;--c-line:#2f2a3d;--c-fg:#f1edf8;--c-muted:#a79fbb;--c-accent:#9a8bff;
+.card{--c-bg:#0a1519;--c-panel:#122830;--c-line:#25485a;--c-fg:#eef6f2;--c-muted:#8fb2b5;--c-accent:#ff4f9e;
   width:100%;max-width:720px;background:var(--c-bg);color:var(--c-fg);border-radius:14px;padding:26px;position:relative;overflow:hidden;font-family:var(--f-body);
   border:1px solid var(--c-line)}
-.card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(154,139,255,.22);border-radius:9px;pointer-events:none}
+.card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,79,158,.22);border-radius:9px;pointer-events:none}
 .card .c-top{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;position:relative}
-.card .c-portrait{width:128px;height:128px;border-radius:10px;object-fit:cover;border:1px solid var(--c-line);background:#1f1b2b;flex:none}
-.card .c-portrait.ph{display:grid;place-items:center;font-family:var(--f-display);font-size:3rem;color:#3a3450}
+.card .c-portrait{width:128px;height:128px;border-radius:10px;object-fit:cover;border:1px solid var(--c-line);background:#163039;flex:none}
+.card .c-portrait.ph{display:grid;place-items:center;font-family:var(--f-display);font-size:3rem;color:#2c5a66}
 .card .c-head{flex:1;min-width:200px}
 .card .c-rp{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--c-muted)}
 .card .c-name{font-family:var(--f-display);font-weight:800;font-size:34px;line-height:1.1;margin:6px 0 8px;overflow-wrap:anywhere}
-.card .c-grade{display:inline-block;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:rgba(154,139,255,.16);color:#c9c0ff;border:1px solid rgba(154,139,255,.4)}
+.card .c-grade{display:inline-block;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:rgba(255,79,158,.14);color:#ffb3d4;border:1px solid rgba(255,79,158,.45)}
 .card .c-sub{color:var(--c-muted);font-size:13px;margin-top:8px}
 .card .c-facts{display:flex;flex-wrap:wrap;gap:1px;background:var(--c-line);border:1px solid var(--c-line);border-radius:8px;overflow:hidden;margin-top:20px;position:relative}
 .card .c-fact{background:var(--c-panel);padding:9px 12px;min-width:0;flex:1 1 170px}
@@ -192,6 +184,11 @@ main{padding-block:20px 60px}
 .pform{display:grid;grid-template-columns:minmax(0,1fr) 80px;gap:8px}
 .pform input{width:100%}
 .pform .full{grid-column:1/-1}
+.pform .p-check{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:9px 11px;cursor:pointer}
+.pform .p-check input{width:18px;height:18px;margin:0;accent-color:var(--danger)}
+.pform .p-check span{font-weight:700}
+.pform .p-check small{grid-column:2;color:var(--muted);font-size:.76rem;line-height:1.35}
+.pform .p-check:has(input:checked){border-color:var(--danger);background:color-mix(in srgb,var(--danger) 10%,var(--surface-2))}
 
 /* PROFICIENCY */
 .prof-list{display:grid;gap:14px}
@@ -373,9 +370,7 @@ button.hcard:hover{transform:translateY(-2px);transition:transform .15s}
 .lore-doc .lore-sub{margin:0;color:var(--muted);font-size:.9rem}
 .lore-doc blockquote{margin:6px 0 0;padding:14px 16px;border-left:3px solid var(--rc);background:var(--surface-2);border-radius:0 8px 8px 0;font-family:var(--f-display);font-size:1.08rem;line-height:1.7;white-space:pre-wrap}
 /* BOARD + PHONE */
-:root{--paper:#fbf6e9;--paper-ink:#2a2418;--paper-muted:#6f6552;--pin:#c42a3f}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#221f19;--paper-ink:#efe6d2;--paper-muted:#a99d84;--pin:#ff5d70}}
-:root[data-theme="dark"]{--paper:#221f19;--paper-ink:#efe6d2;--paper-muted:#a99d84;--pin:#ff5d70}
+:root{--paper:#13262d;--paper-ink:#eef6f2;--paper-muted:#8fb2b5;--pin:#ff2e45}
 .phone-btn{position:relative;display:inline-flex;align-items:center;gap:6px}
 .phone-btn svg{width:15px;height:15px}
 .badge{position:absolute;top:-7px;right:-7px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--danger);color:#fff;font-size:.7rem;font-weight:700;display:grid;place-items:center;line-height:1}
@@ -396,7 +391,7 @@ button.hcard:hover{transform:translateY(-2px);transition:transform .15s}
 .phone-dlg{background:transparent;border:0;padding:0;width:fit-content;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);overflow:visible}
 .phone-dlg::backdrop{background:rgba(5,4,10,.7)}
 .phone{width:min(360px,calc(100vw - 24px));height:min(700px,calc(100vh - 40px));background:#0a0a0c;border-radius:42px;padding:12px;box-shadow:0 0 0 2px #2b2b31,0 30px 60px rgba(0,0,0,.6);position:relative}
-.phone-screen{height:100%;border-radius:32px;overflow:hidden;background:#101016;color:#eceaf2;display:flex;flex-direction:column;font-family:var(--f-body)}
+.phone-screen{height:100%;border-radius:32px;overflow:hidden;background:#0a1519;color:#eef6f2;display:flex;flex-direction:column;font-family:var(--f-body)}
 .phone-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:110px;height:26px;background:#0a0a0c;border-radius:0 0 16px 16px;z-index:2}
 .phone-status{display:flex;justify-content:space-between;padding:10px 28px 4px;font-size:.78rem;font-weight:700;font-variant-numeric:tabular-nums}
 .phone-head{display:flex;align-items:center;gap:8px;padding:14px 18px 10px;border-bottom:1px solid #24232d}
@@ -405,12 +400,12 @@ button.hcard:hover{transform:translateY(-2px);transition:transform .15s}
 .phone-list{flex:1;overflow:auto}
 .ph-item{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;padding:12px 16px;border-bottom:1px solid #1d1c25;cursor:pointer;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:inherit;text-align:left;font:inherit}
 .ph-item:hover{background:#17161f}
-.ph-ico{width:38px;height:38px;border-radius:10px;background:#2a2340;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;color:#c9c0ff}
+.ph-ico{width:38px;height:38px;border-radius:10px;background:#163039;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;color:#ffb3d4}
 .ph-item b{display:flex;justify-content:space-between;gap:8px;font-size:.92rem}
 .ph-item b small{font-weight:400;color:#8d8a99;font-size:.72rem;white-space:nowrap}
 .ph-item span{display:block;color:#a6a3b3;font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ph-ico{position:relative}
-.ph-item .ph-ico{display:grid;color:#c9c0ff;overflow:visible;white-space:normal;font-size:.95rem}
+.ph-item .ph-ico{display:grid;color:#ffb3d4;overflow:visible;white-space:normal;font-size:.95rem}
 .ph-item.unread .ph-ico::after{content:"";position:absolute;top:-3px;right:-3px;width:11px;height:11px;border-radius:50%;background:#9b8cff;border:2px solid #101016}
 .ph-item.unread b{color:#fff}
 .ph-msg{flex:1;overflow:auto;padding:18px;display:grid;gap:10px;align-content:start}
@@ -517,7 +512,7 @@ button.hcard:hover{transform:translateY(-2px);transition:transform .15s}
 .ch-sys{align-self:center;font-size:.72rem;color:#8d8a99;background:#18171f;border-radius:999px;padding:3px 10px;margin:4px 0;text-align:center}
 .ch-row{display:flex;gap:6px;align-items:flex-end;max-width:100%}
 .ch-row.mine{justify-content:flex-end}
-.ch-av{width:28px;height:28px;border-radius:50%;flex:none;object-fit:cover;background:#2a2340;color:#c9c0ff;display:grid;place-items:center;font-size:.68rem;font-weight:700}
+.ch-av{width:28px;height:28px;border-radius:50%;flex:none;object-fit:cover;background:#163039;color:#ffb3d4;display:grid;place-items:center;font-size:.68rem;font-weight:700}
 .ch-av.sm{width:22px;height:22px;font-size:.6rem}
 .ch-bub{position:relative;max-width:76%;background:#1f1e29;border-radius:14px 14px 14px 4px;padding:7px 10px 5px;display:grid;gap:3px;cursor:pointer;min-width:0}
 .ch-row.mine .ch-bub{background:#0f6b45;border-radius:14px 14px 4px 14px}
@@ -624,7 +619,7 @@ dialog img{display:block;max-width:100%;border-radius:8px;border:1px solid var(-
 
 <header class="bar">
   <div class="wrap">
-    <div class="brand"><h1>Catastrophe Codex</h1><small>Jujutsu Kaisen · Catastrophe RP</small></div>
+    <div class="brand"><h1>Jujutsu Kaisen: <em>New Hope</em></h1><small lang="ja">呪術廻戦 · 新しい希望</small></div>
     <div class="charpick">
       <label for="charSel" class="eyebrow">Sorcerer</label>
       <select id="charSel" aria-label="Choose character"></select>
@@ -638,7 +633,6 @@ dialog img{display:block;max-width:100%;border-radius:8px;border:1px solid var(-
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" id="tab-sheet" aria-selected="true" data-tab="sheet">Character Sheet</button>
       <button class="tab" role="tab" id="tab-prof" aria-selected="false" data-tab="prof">Proficiency</button>
-      <button class="tab" role="tab" id="tab-tree" aria-selected="false" data-tab="tree">Skill Tree</button>
       <button class="tab" role="tab" id="tab-loot" aria-selected="false" data-tab="loot">Loot</button>
       <button class="tab" role="tab" id="tab-board" aria-selected="false" data-tab="board">Board</button>
     </div>
@@ -747,6 +741,7 @@ dialog img{display:block;max-width:100%;border-radius:8px;border:1px solid var(-
             <input id="p-pts" type="number" step="1" placeholder="Pts" aria-label="Points">
             <input id="p-date" type="date" class="full" aria-label="Date">
             <input id="p-note" placeholder="Note (optional)" class="full" maxlength="120" aria-label="Note">
+            <label class="full p-check"><input type="checkbox" id="p-finger"> <span>Finger Bearer beaten?</span><small>Only tick this if you beat one. You get a Sukuna's Finger with your loot chests.</small></label>
             <div class="full" id="p-alert-wrap" hidden><select id="p-alert" class="full" aria-label="Linked host event alert" style="width:100%"></select><small class="p-alert-hint">Were you part of a Host event from your phone alerts? Link it and your loot chests from this host roll Rare to Special Grade only.</small></div>
             <button class="btn primary full" type="button" id="p-add">Add points</button>
           </div>
@@ -842,39 +837,12 @@ const TREES=[
 const SPECIAL_ROLLS=[
  /* pick:99 = no limit per grade, buy as many as you can afford.
     Lname/Rname label the two columns. Lseq/Rseq:true = that column is a path, unlocked top to bottom. */
- {id:"copy",name:"Copy",pick:99,start:0,ssg:null,bt:{},tiers:{
-   0:{Lname:"Path 1 · Cursed Technique",Lseq:true,L:[
-       S("Rika Weapon Infusion","Rika lends her cursed energy to your weapon.",6),
-       S("Partial Copy","If Rika consumes a limb, you can copy that technique and use it 1 time.",10),
-       S("Copy","Copy cursed techniques through Rika.",20)],
-     Rname:"Path 2 · Vengeful Spirit",Rseq:true,R:[
-       S("Rika's Tail","Rika can manifest her tail to strike.",5),
-       S("Rika's Hands","Rika can manifest her hands to grab and strike.",10),
-       S("Rika's Head","Rika can manifest her head.",5),
-       S("Partial Manifestation","Call out part of Rika's body to fight beside you.",12),
-       S("True Love","Rika's strongest attack, fired with everything the two of you have.",30),
-       S("Shikigami","Rika fights at your side as a full shikigami.",15)]}}},
- {id:"ten-shadows",name:"Ten Shadows",pick:99,start:0,ssg:null,bt:{},tiers:{
-   0:{Lname:"Shikigami",L:[S("Divine Dogs","Your first shikigami. A pair of dogs that track and fight for you.",0)],R:[]},
-   1:{Lname:"Shikigami",L:[
-       S("Nue","A winged shikigami that flies and strikes with electricity.",2),
-       S("Toad","A shikigami that grabs and pulls targets with its long tongue.",3)],
-     Rname:"Shadows",R:[
-       S("Partial Shadow Manipulation","Stick one limb into the shadows and carry one item in them.",5)]},
-   2:{Lname:"Shikigami",L:[
-       S("Great Serpent","A giant snake that bursts out of the ground to bind and crush.",5),
-       S("Max Elephant","A massive elephant shikigami that floods the area with water.",5)],
-     Rname:"Shadows",R:[
-       S("Weapon Storage","Store up to 5 items in your shadows.",6),
-       S("Shadow Manipulation","Fully hide inside the shadows.",10)]},
-   3:{Lname:"Shikigami",L:[S("Rabbit Escape","Floods the area with rabbits to cover your escape.",3)],R:[]},
-   4:{Lname:"Shikigami",L:[
-       S("Round Deer","A shikigami that heals with reverse cursed energy.",7),
-       S("Piercing Ox","Charges in a straight line and hits harder the further it runs.",4),
-       S("Tiger Funeral","A tiger shikigami that strikes with raw force.",5)],R:[]}}},
- {id:"vessel-of-sukuna",name:"Vessel of Sukuna",pick:1,start:0,tiers:{},bt:{},ssg:null},
- {id:"community",name:"Blood Manipulation",pick:1,start:0,tiers:{},bt:{},ssg:null} // id stays "community" so existing characters keep it
+ {id:"copy",name:"Copy",pick:1,start:0,tiers:{},bt:{},ssg:null},
+ {id:"ten-shadows",name:"Ten Shadows",pick:1,start:0,tiers:{},bt:{},ssg:null},
+ {id:"vessel-of-sukuna",name:"Vessel of Sukuna",pick:1,start:0,tiers:{},bt:{},ssg:null}
 ];
+/* Skill trees are switched off for now (they'll be reworked). Any points spent in them are refunded. */
+const SKILL_TREES_ON=false;
 /* VESSEL OF SUKUNA (edit here): no points. Eating Sukuna's Fingers counts up from 1 to 20,
    and every power at or below that count is unlocked. The count is saved, so each new finger adds 1. */
 const FINGER_MAX=20;
@@ -1344,14 +1312,14 @@ function load(){
 state=load();
 /* Refund skills that no longer exist in the tree (after tree updates). */
 const ITEM_RENAMES={"sorcerer-trading-card-pack":"dragon-ball-card-pack","heian-booster-pack":"dragon-ball-booster-pack","heian-collector-s-box":"dragon-ball-collector-s-box","expired-healing-salve":"scribbled-extension-ideas","healer-s-field-notes":"technique-sparring-log","positive-energy-primer":"extension-theory-notes","reverse-cursed-technique-codex":"maximum-technique-manuscript"};
-function reconcile(){let n=0,pts=0;for(const c of Object.values(state.characters||{}))fixGrade(c);
+function reconcile(){let n=0,pts=0;for(const c of Object.values(state.characters||{})){fixGrade(c);if(c.specialRoll&&!SPECIAL_ROLLS.some(r=>r.id===c.specialRoll))c.specialRoll=""}
   for(const c of Object.values(state.characters)){const cr=c.creation;if(cr&&!cr.finished&&(cr.potential||cr.output||cr.reserve)){cr.finished=true;cr.spins=1;cr.used={potential:cr.potential?1:0,output:cr.output?1:0,reserve:cr.reserve?1:0}}}
   for(const c of Object.values(state.characters)){(c.inventory||[]).forEach(v=>{if(ITEM_RENAMES[v.item])v.item=ITEM_RENAMES[v.item];if(!ITEMS[v.item]&&OLD_HEIAN_CARDS[v.item]!=null)v.item=convertOldCard(v.item)});(c.ledger||[]).forEach(l=>{if(ITEM_RENAMES[l.loot])l.loot=ITEM_RENAMES[l.loot]})}
   for(const c of Object.values(state.characters)){
     for(const id of Object.keys(c.unlocked||{})){if(!SKILLS[id]||!TREE[SKILLS[id].tree].roll){pts+=+c.unlocked[id].cost||0;delete c.unlocked[id];n++}}
     if(!Array.isArray(c.profLog)){c.profLog=[];for(const pid in (c.prof||{})){const lv=+c.prof[pid]||0;if(lv>0)c.profLog.push({id:uid(),prof:pid,xp:xpToLevel(lv,pid),points:0,src:"earlier",date:today(),at:Date.now()})}}
     delete c.prof}
-  if(n){state._refundNote=`${n} skill${n===1?" was":"s were"} removed from the skill tree or moved out of it, so ${pts} point${pts===1?" was":"s were"} refunded.`}
+  if(n){state._refundNote=`The skill trees were taken out for a rework, so ${pts} point${pts===1?" was":"s were"} refunded.`}
 }
 let saveT;
 function persist(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(LS,JSON.stringify(state))}catch(e){toast("Couldn't save in this browser. Use Save / Load to export a file.")}},250)}
@@ -1404,7 +1372,7 @@ function renderChars(){
 }
 function renderBal(){
   const c=C();
-  const tt=$("#tab-tree");if(tt){tt.hidden=!c.specialRoll;if(!c.specialRoll&&state.tab==="tree"&&typeof setTab==="function")setTab("prof")}
+  if(state.tab==="tree"&&typeof setTab==="function")setTab("sheet");
   $("#balPill").innerHTML=`<b>${balance(c)}</b> pts available · ${esc(GRADES[c.grade])}`;
 }
 function renderAll(){if(!Array.isArray(C().inventory))C().inventory=[];renderChars();renderBal();renderCard();renderTree();renderLedger();renderDiary();renderLoot();renderProf();renderCreation()}
@@ -1443,7 +1411,7 @@ function cardHTML(c){
   return`<div class="card">
    <div class="c-top">
      ${c.portrait?`<img class="c-portrait" src="${c.portrait}" alt="">`:`<div class="c-portrait ph">${initial}</div>`}
-     <div class="c-head"><div class="c-rp">Jujutsu Kaisen · Catastrophe</div>
+     <div class="c-head"><div class="c-rp">Jujutsu Kaisen · New Hope</div>
        <div class="c-name">${esc(DISPLAY_NAME(c))}</div>
        <span class="c-grade">${esc(GRADES[c.grade])}</span>
 </div>
@@ -1503,7 +1471,7 @@ function nodeHTML(c,id){
 }
 const visibleTrees=c=>TREES.filter(t=>t.roll&&t.roll===c.specialRoll);
 const treeEmpty=t=>!t.ssg&&!Object.values(t.tiers).some(x=>(x.L||[]).length||(x.R||[]).length);
-function renderTree(){
+function renderTree(){if(!SKILL_TREES_ON){const v=$("#treeView"),p=$("#treePick");if(v)v.innerHTML="";if(p)p.innerHTML="";return}
   const c=C();
   const vt=visibleTrees(c);if(!vt.length){$("#treePick").innerHTML="";$("#treeView").innerHTML="";return}
   if(!vt.some(t=>t.id===state.tree))state.tree=vt[0].id;
@@ -1552,8 +1520,8 @@ function eatFinger(vid){
   const n=fingersOf(c);if(n>=FINGER_MAX){toast("You've already eaten all 20.");return}
   const v=vid?c.inventory.find(x=>x.id===vid):c.inventory.find(x=>ITEMS[x.item]&&ITEMS[x.item].finger);if(!v){toast("You don't have a finger.");return}
   c.inventory=c.inventory.filter(x=>x!==v);c.fingers=n+1;const p=VESSEL_POWERS.find(x=>x.n===c.fingers);
-  touch();actLog("finger",{n:c.fingers,power:p?p.name:""});renderAll();
-  toast(p?`Finger ${c.fingers} eaten. Unlocked: ${p.name}!`:`Finger ${c.fingers} of ${FINGER_MAX} eaten.`)}
+  touch();actLog("finger",{n:c.fingers});renderAll();
+  toast(`Finger ${c.fingers} of ${FINGER_MAX} eaten.`)}
 $("#treeView").addEventListener("click",e=>{const b=e.target.closest("#eatFinger");if(!b||b.disabled)return;
   if(!fingerArm){fingerArm=true;b.textContent="Sure? Tap again to eat it";setTimeout(()=>{fingerArm=false;if(b.isConnected)b.textContent="Eat a finger"},3000);return}
   fingerArm=false;eatFinger()});
@@ -1565,7 +1533,7 @@ function renderLedger(){
   const c=C();$("#pBal").textContent=balance(c);$("#pEarn").textContent=earned(c);$("#pSpent").textContent=spent(c);$("#pCount").textContent=Object.keys(c.unlocked).length+PROFS.reduce((a,p)=>a+unlockedProfSkills(c,p.id).length,0);if($("#tBal"))$("#tBal").textContent=balance(c);
   const rows=[...c.ledger].sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   if(typeof renderAlertPick==="function")renderAlertPick();
-  $("#ledger").innerHTML=rows.length?rows.map(l=>`<div class="lrow"><div class="who">${esc(l.host||"Points")}<small>${esc(fmtDate(l.date))}${l.chests?` · ${l.chests} chest${l.chests===1?"":"s"}`:""}${l.yen?` · +${fmtYen(l.yen)}`:""}${l.alert?` · Host event: ${esc(l.alertTitle||"linked")}`:""}${l.note?" · "+esc(l.note):""}</small></div><span class="pts ${l.points<0?"neg":""}">${l.points>0?"+":""}${l.points}</span><button type="button" class="btn sm ghost" data-del-l="${l.id}" aria-label="Delete entry">✕</button></div>`).join(""):`<p class="dhelp" style="margin:0">No points logged yet. Add what you earned after each hosted event.</p>`;
+  $("#ledger").innerHTML=rows.length?rows.map(l=>`<div class="lrow"><div class="who">${esc(l.host||"Points")}<small>${esc(fmtDate(l.date))}${l.chests?` · ${l.chests} chest${l.chests===1?"":"s"}`:""}${l.yen?` · +${fmtYen(l.yen)}`:""}${l.finger?" · Finger Bearer beaten":""}${l.alert?` · Host event: ${esc(l.alertTitle||"linked")}`:""}${l.note?" · "+esc(l.note):""}</small></div><span class="pts ${l.points<0?"neg":""}">${l.points>0?"+":""}${l.points}</span><button type="button" class="btn sm ghost" data-del-l="${l.id}" aria-label="Delete entry">✕</button></div>`).join(""):`<p class="dhelp" style="margin:0">No points logged yet. Add what you earned after each hosted event.</p>`;
 }
 $("#p-date").value=today();
 /* Host event alerts the current character can still link points to */
@@ -1579,14 +1547,16 @@ function addPoints(){const raw=String($("#p-pts").value).trim();const pts=Math.r
   const c=C();const aid=pts>0?$("#p-alert").value:"";const al=aid?linkableAlerts(c).find(p=>p.id===aid):null;
   const l={id:uid(),host:$("#p-host").value.trim(),points:pts,date:$("#p-date").value||today(),note:$("#p-note").value.trim()};
   if(pts>0){l.yen=yenFor(c,pts);l.yenGrade=c.grade}
+  const fb=pts>0&&$("#p-finger").checked;if(fb){l.finger=true;c.inventory.push({id:uid(),item:"sukuna-s-finger",date:l.date,foundAt:Date.now(),source:`Finger Bearer · ${l.host||"Hosted event"}`,ledger:l.id})}
+  $("#p-finger").checked=false;
   if(al){l.alert=al.id;l.alertTitle=al.title||"Host event"}
   let ch=null;if(pts>0){const f=gmForce("chests");ch=f?CHEST_ROLL.find(x=>x.n===+f)||wpick(CHEST_ROLL):wpick(CHEST_ROLL);l.chests=ch.n;l.opened=0}
   c.ledger.push(l);touch();
   $("#p-host").value="";$("#p-pts").value="";$("#p-note").value="";
-  actLog("points",{pts,host:l.host||"Points",chests:l.chests,alert:l.alertTitle,yen:l.yen?fmtYen(l.yen):"",grade:GRADES[c.grade]});renderAll();
+  actLog("points",{pts,host:l.host||"Points",chests:l.chests,alert:l.alertTitle,yen:l.yen?fmtYen(l.yen):"",grade:GRADES[c.grade],finger:fb});renderAll();
   if(!ch){toast(`${pts} points logged`);return}
   const CH_COL=["--r-2","--r-4","--r-6"];
-  crSpin("Loot chests"+(al?" · Host event":""),CHEST_ROLL.map(x=>({label:`${x.n} chest${x.n===1?"":"s"}`,color:CH_COL[x.n-1]})),{label:`${ch.n} chest${ch.n===1?"":"s"}`,color:CH_COL[ch.n-1],big:ch.n===3,fast:true,sub:`+${pts} points logged · +${fmtYen(l.yen)} to spend on Jujuzon. Open your chest${ch.n===1?"":"s"} in the Loot tab.`},
+  crSpin("Loot chests"+(al?" · Host event":""),CHEST_ROLL.map(x=>({label:`${x.n} chest${x.n===1?"":"s"}`,color:CH_COL[x.n-1]})),{label:`${ch.n} chest${ch.n===1?"":"s"}`,color:CH_COL[ch.n-1],big:ch.n===3,fast:true,sub:`+${pts} points logged · +${fmtYen(l.yen)} to spend on Jujuzon.${fb?" You also got a Sukuna's Finger!":""} Open your chest${ch.n===1?"":"s"} in the Loot tab.`},
     (al?`<p class="spin-note" style="color:var(--r-3)">Linked to ${esc(al.title||"Host event")}: these chests roll Rare to Special Grade only.</p>`:"")+`<button type="button" class="btn primary" id="goLoot" style="justify-self:center">Go to Loot</button>`,
     ()=>{const g=$("#goLoot");if(g)g.onclick=()=>{$("#dlg").close();setTab("loot")}})}
 $("#p-add").addEventListener("click",addPoints);
@@ -1595,7 +1565,7 @@ $("#pForm").addEventListener("submit",e=>{e.preventDefault();addPoints()});
 let delArm=null;
 $("#ledger").addEventListener("click",e=>{const b=e.target.closest("[data-del-l]");if(!b)return;const id=b.dataset.delL;
   if(delArm!==id){delArm=id;b.textContent="Delete?";setTimeout(()=>{if(delArm===id){delArm=null;renderLedger()}},3000);return}
-  delArm=null;const c=C();const gone=c.ledger.find(l=>l.id===id);if(gone)actLog("hostDeleted",{host:gone.host||"Points",pts:gone.points,rolled:chestsOpened(gone)>0});c.ledger=c.ledger.filter(l=>l.id!==id);touch();renderAll()});
+  delArm=null;const c=C();const gone=c.ledger.find(l=>l.id===id);if(gone)actLog("hostDeleted",{host:gone.host||"Points",pts:gone.points,rolled:chestsOpened(gone)>0});if(gone&&gone.finger){const fv=c.inventory.find(v=>v.ledger===id&&ITEMS[v.item]&&ITEMS[v.item].finger);if(fv)c.inventory=c.inventory.filter(v=>v!==fv)}c.ledger=c.ledger.filter(l=>l.id!==id);touch();renderAll()});
 
 /* ===================== DIARY ===================== */
 let editingEntry=null;
@@ -1627,7 +1597,7 @@ $("#entries").addEventListener("click",e=>{
   if(b.dataset.dimg){const el=document.getElementById("e-"+b.dataset.dimg);copyImage(diaryCardEl(c,b.dataset.dimg),`${slug(DISPLAY_NAME(c))}-diary.png`)}
 });
 function diaryCardEl(c,id){const d=c.diary.find(x=>x.id===id);const w=document.createElement("div");
-  w.innerHTML=`<div class="card"><div class="c-rp">${esc(DISPLAY_NAME(c))} · Diary${d.day?" · "+esc(d.day):""}</div><div class="c-name" style="font-size:28px">${esc(d.title||"Untitled entry")}</div><div class="c-sub" style="margin-top:0">${esc(fmtDate(d.date))}</div><div class="c-block"><p style="font-size:15px;line-height:1.6">${esc(d.text)}</p></div><div class="c-foot"><span>Jujutsu Kaisen · Catastrophe</span><span>${esc(GRADES[c.grade])}</span></div></div>`;return w.firstElementChild}
+  w.innerHTML=`<div class="card"><div class="c-rp">${esc(DISPLAY_NAME(c))} · Diary${d.day?" · "+esc(d.day):""}</div><div class="c-name" style="font-size:28px">${esc(d.title||"Untitled entry")}</div><div class="c-sub" style="margin-top:0">${esc(fmtDate(d.date))}</div><div class="c-block"><p style="font-size:15px;line-height:1.6">${esc(d.text)}</p></div><div class="c-foot"><span>Jujutsu Kaisen · New Hope</span><span>${esc(GRADES[c.grade])}</span></div></div>`;return w.firstElementChild}
 
 /* ===================== SHARING ===================== */
 function discordText(c){
@@ -1648,7 +1618,7 @@ function discordText(c){
   {const arm=(c.armory||[]).filter(v=>ITEMS[v.item]).sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);if(arm.length)L.push(`**Armory:** ${arm.map(v=>`${ITEMS[v.item].n} (${RARITIES[ITEMS[v.item].r].name})`).join(", ")}`)}
   {const nt=(c.inventory||[]).filter(v=>ITEMS[v.item]&&ITEMS[v.item].r>=3&&ITEMS[v.item].type!=="Lore"&&!isCard(ITEMS[v.item])&&!ITEMS[v.item].pack).sort((a,b)=>ITEMS[b.item].r-ITEMS[a.item].r);if(nt.length)L.push(`**Notable items:** ${nt.map(v=>`${ITEMS[v.item].n} (${RARITIES[ITEMS[v.item].r].name})`).join(", ")}`)}
   if(c.bio)L.push(`\n## Bio\n${c.bio}`);
-  L.push(`-# ${earned(c)} pts earned · ${balance(c)} unspent · Catastrophe Codex`);
+  L.push(`-# ${earned(c)} pts earned · ${balance(c)} unspent · Jujutsu Kaisen: New Hope`);
   return L.join("\n");
 }
 function copyText(txt){
@@ -1945,7 +1915,7 @@ function itemHTML(v){
     <h4>${esc(it.n)}</h4>
     <div class="meta">${it.type==="Lore"?"Lore Item":it.type==="Collectible"||it.type==="RP Item"||it.pack?esc(it.type):`${esc(it.type)} · Boost: ${esc(it.boost)}`}</div>
     <p>${esc(it.d)}</p>
-    <div class="eff">${it.finger?`${C().specialRoll==="vessel-of-sukuna"?`Eat it to raise your finger count (now ${fingersOf(C())} / ${FINGER_MAX}). Your powers are in the Skill Tree tab.`:"Only a character with the Vessel of Sukuna roll can eat it. You can still keep it or swap it."}`:it.pirate?`Use it to give <b>one character of your choice</b> +${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve. Opens them again even if they were confirmed.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
+    <div class="eff">${it.finger?`${C().specialRoll==="vessel-of-sukuna"?`Eat it to raise your finger count (now ${fingersOf(C())} / ${FINGER_MAX}).`:"Only a character with the Vessel of Sukuna roll can eat it. You can still keep it or swap it."}`:it.pirate?`Use it to give <b>one character of your choice</b> +${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve. Opens them again even if they were confirmed.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
     <div class="meta">Found ${esc(fmtDate(v.date))} · ${esc(v.source)}</div>
     <div class="acts">${it.finger&&C().specialRoll==="vessel-of-sukuna"?`<button class="btn sm use" data-ifinger="${v.id}">Eat finger</button>`:""}${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · pick a character</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
   </article>`;
@@ -2116,8 +2086,8 @@ $("#dlg").addEventListener("close",()=>{if(onClose){onClose();onClose=null}});
 const b64e=s=>btoa(unescape(encodeURIComponent(s)));const b64d=s=>decodeURIComponent(escape(atob(s.trim())));
 function exportChar(c){return JSON.stringify({app:"catastrophe-codex",v:1,character:c})}
 function importData(txt){
-  let o;try{o=JSON.parse(txt)}catch(e){try{o=JSON.parse(b64d(txt))}catch(e2){return"That isn't a Catastrophe Codex save."}}
-  const c=o&&o.character;if(!c||typeof c!=="object"||!c.id)return"That isn't a Catastrophe Codex save.";
+  let o;try{o=JSON.parse(txt)}catch(e){try{o=JSON.parse(b64d(txt))}catch(e2){return"That isn't a Jujutsu Kaisen: New Hope save."}}
+  const c=o&&o.character;if(!c||typeof c!=="object"||!c.id)return"That isn't a Jujutsu Kaisen: New Hope save.";
   fixGrade(c);const b=blankChar();b.ledger=[];const merged=Object.assign(b,c);merged.unlocked=merged.unlocked||{};merged.ledger=Array.isArray(merged.ledger)?merged.ledger:[];merged.diary=Array.isArray(merged.diary)?merged.diary:[];merged.inventory=Array.isArray(merged.inventory)?merged.inventory:[];merged.armory=Array.isArray(merged.armory)?merged.armory:[];merged.lore=Array.isArray(merged.lore)?merged.lore:[];merged.creation=merged.creation&&typeof merged.creation==="object"?merged.creation:{};if(!Array.isArray(merged.profLog)){merged.profLog=[];for(const pid in (merged.prof||{})){const lv=+merged.prof[pid]||0;if(lv>0)merged.profLog.push({id:uid(),prof:pid,xp:xpToLevel(lv,pid),points:0,src:"earlier",date:today(),at:Date.now()})}}delete merged.prof;merged.grade=Math.max(0,Math.min(7,+merged.grade||0));delete merged.example;
   const existed=!!state.characters[merged.id];state.characters[merged.id]=merged;state.activeId=merged.id;persist();actLog("imported",{existed});fillEditor();renderAll();
   return existed?`Updated ${DISPLAY_NAME(merged)} from the save.`:`Loaded ${DISPLAY_NAME(merged)}.`;
@@ -2137,7 +2107,7 @@ $("#savesBtn").addEventListener("click",()=>{
    <div class="group-t" style="color:var(--danger)">Danger zone</div>
    <div class="drow"><button class="btn danger" id="del-char">Delete ${esc(DISPLAY_NAME(c))}</button><button class="btn" data-close>Close</button></div></div>`);
   $("#act-copy").onclick=()=>copyText(activityCode());
-  $("#sv-file").onclick=async()=>{const ok=await saveFile(`${slug(DISPLAY_NAME(c))||"sorcerer"}.catastrophe.json`,exportChar(c));if(!ok)toast("Saving files isn't available here. Use Copy save code instead.")};
+  $("#sv-file").onclick=async()=>{const ok=await saveFile(`${slug(DISPLAY_NAME(c))||"sorcerer"}.newhope.json`,exportChar(c));if(!ok)toast("Saving files isn't available here. Use Copy save code instead.")};
   $("#sv-code").onclick=()=>{const code=b64e(exportChar(c));if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(code).then(()=>toast("Save code copied. Keep it somewhere safe, like a Discord DM to yourself."),()=>textModal(code));else textModal(code)};
   $("#ld-file").onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{const m=importData(t);toast(m);if(!m.startsWith("That"))$("#dlg").close()})};
   $("#ld-go").onclick=()=>{const m=importData($("#ld-code").value);toast(m);if(!m.startsWith("That"))$("#dlg").close()};
@@ -2171,7 +2141,7 @@ $("#charSel").addEventListener("change",e=>{state.activeId=e.target.value;resetD
 function setTab(t){state.tab=t;document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));$("#view-sheet").hidden=t!=="sheet";$("#view-tree").hidden=t!=="tree";$("#view-loot").hidden=t!=="loot";$("#view-prof").hidden=t!=="prof";$("#view-board").hidden=t!=="board";persist()}
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 
-const h=(location.hash||"").slice(1);if(["tree","sheet","loot","prof","board"].includes(h))state.tab=h;
+const h=(location.hash||"").slice(1);if(["sheet","loot","prof","board"].includes(h))state.tab=h;if(state.tab==="tree")state.tab="sheet";
 if(!TREE[state.tree])state.tree="";
 /* ===================== CREATION ROLLS (edit here) =====================
    Flow: fill the required fields → Finish → Fate Roll (how many spins) → Creation Rolls unlock.
@@ -2421,7 +2391,7 @@ const ACT_TEXT={
   traitRemoved:e=>`removed their CE Trait (${e.trait})`,
   grade:e=>`⚠ changed grade: ${e.from} → ${e.to}`,
   pack:e=>`opened ${e.pack}: ${e.cards}`,
-  finger:e=>`ate Sukuna's Finger #${e.n}${e.power?` → unlocked ${e.power}`:""}`,
+  finger:e=>`ate Sukuna's Finger #${e.n}`,
   pirate:e=>`🏴‍☠️ WON A PIRATE TOKEN just by opening the app (1 in a million)`,
   pirateUsed:e=>`used a Pirate Token on ${e.on||"a character"} → +${e.n} spins on every Creation Roll`,
   buy:e=>`bought ${e.item} on Jujuzon for ${e.price} (${e.left} left)`,
@@ -2430,7 +2400,7 @@ const ACT_TEXT={
   swapBad:e=>`tried to redeem an EDITED swap code`,
   basket:e=>`Basket (${e.kind}): ${e.result}`,
   respin:e=>`used ${e.item} → +${e.n} spin${e.n===1?"":"s"} on ${e.kind}${e.noLow?" (no Low)":""}`,
-  points:e=>`logged ${e.pts>0?"+":""}${e.pts} pts for "${e.host}"${e.yen?` (+${e.yen} at ${e.grade})`:""}${e.chests?` → ${e.chests} loot chest${e.chests===1?"":"s"}`:""}${e.alert?` (linked to Host event "${e.alert}")`:""}`,
+  points:e=>`logged ${e.pts>0?"+":""}${e.pts} pts for "${e.host}"${e.finger?" · BEAT A FINGER BEARER (+1 Sukuna's Finger)":""}${e.yen?` (+${e.yen} at ${e.grade})`:""}${e.chests?` → ${e.chests} loot chest${e.chests===1?"":"s"}`:""}${e.alert?` (linked to Host event "${e.alert}")`:""}`,
   hostDeleted:e=>`deleted host entry "${e.host}" (${e.pts} pts)${e.rolled?" after already using its loot roll":""}`,
   imported:e=>`loaded a save of ${e.name}${e.existed?" over the existing character":""}`,
   reset:e=>`browser storage was empty; this log started fresh`,
@@ -2492,12 +2462,13 @@ function renderBoard(){
 }
 /* phone: home screen + apps */
 const WALLPAPERS={
+  newhope:"radial-gradient(circle at 18% 22%,rgba(255,46,69,.55),transparent 32%),radial-gradient(circle at 82% 30%,rgba(255,79,158,.45),transparent 30%),radial-gradient(circle at 30% 78%,rgba(244,225,74,.28),transparent 26%),radial-gradient(circle at 78% 82%,rgba(63,215,232,.30),transparent 30%),linear-gradient(160deg,#10262d 0%,#0a1519 60%,#12303a 100%)",
   night:"linear-gradient(160deg,#141226 0%,#0b0a12 60%,#1d1236 100%)",
   cursed:"radial-gradient(circle at 30% 20%,#5b2bd6 0%,#1a0f3a 45%,#07060c 100%)",
   dawn:"linear-gradient(180deg,#f2a65a 0%,#c2577a 45%,#2b1d4a 100%)",
   blood:"radial-gradient(circle at 70% 25%,#c4162e 0%,#3a0610 45%,#08040a 100%)"
 };
-const WALL_NAMES={night:"Night",cursed:"Cursed",dawn:"Sendai Dawn",blood:"Blood Moon"};
+const WALL_NAMES={newhope:"New Hope",night:"Night",cursed:"Cursed",dawn:"Sendai Dawn",blood:"Blood Moon"};
 const ICONS={
   zon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/><path d="M7 15.5c3 1.6 7 1.6 10 0" stroke="#ff9900"/></svg>',
   alerts:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
@@ -2507,7 +2478,7 @@ const ICONS={
 let phoneView="home";
 const unackedAlerts=()=>{const ack=state.ackAlerts||{},read=state.readAlerts||{};return visiblePosts().filter(p=>p.phone&&!ack[p.id]&&!read[p.id])};
 function ackAll(){if(!state.ackAlerts)state.ackAlerts={};unackedAlerts().forEach(p=>state.ackAlerts[p.id]=Date.now());persist();renderPhoneBadge()}
-function wallStyle(){const w=(C().phone||{}).wallpaper||"night";return w.startsWith("data:")?`background:#000 url(${w}) center/cover no-repeat`:`background:${WALLPAPERS[w]||WALLPAPERS.night}`}
+function wallStyle(){const w=(C().phone||{}).wallpaper||"newhope";return w.startsWith("data:")?`background:#000 url(${w}) center/cover no-repeat`:`background:${WALLPAPERS[w]||WALLPAPERS.night}`}
 function renderPhone(){
   const d=$("#phoneDlg");if(!d||!d.open)return;
   const t=new Date();const clock=t.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
@@ -2533,13 +2504,13 @@ function renderPhone(){
     inner=`<div class="phone-head"><button type="button" data-ph="alerts">‹ Alerts</button><h4 style="text-align:center">${esc(p.from||"Sendai Jujutsu High")}</h4><span style="width:52px"></span></div>
       <div class="ph-msg"><div class="meta">${esc(fmtWhen(p.date))}</div><div class="bubble"><b>${esc(p.title||"")}</b>${p.body?`\n\n${esc(p.body)}`:""}</div>${p.boost&&BOOSTS[p.boost]&&live(p)?`<div class="boostchip">Loot boost: ${esc(BOOSTS[p.boost].label)}${p.until?` until ${esc(fmtWhen(p.until))}`:""}</div>`:""}${p.hostEvent?`<div class="boostchip" style="color:var(--r-3)">Host event · Rare to Special Grade loot</div>${linkableAlerts(C()).some(x=>x.id===p.id)?`<button type="button" class="btn sm primary" data-ph-link="${esc(p.id)}" style="justify-self:start">I was there · log my points</button>`:(C().ledger||[]).some(l=>l.alert===p.id)?`<div class="ph-note" style="margin:0">Your points are linked to this event.</div>`:""}`:""}${p.board?`<button type="button" class="btn sm" data-ph="board" style="justify-self:start">Open on the Bulletin Board</button>`:""}</div>`;
   }else if(phoneView==="settings"){
-    const w=(C().phone||{}).wallpaper||"night";
+    const w=(C().phone||{}).wallpaper||"newhope";
     inner=`${head("Settings")}<div class="ph-settings">
       <div class="ph-sec">Wallpaper</div>
       <div class="ph-wall-prev" style="${wallStyle()}"><span>${clock}</span></div>
       <div class="ph-walls">${Object.keys(WALLPAPERS).map(k=>`<button type="button" class="ph-wall ${w===k?"on":""}" style="background:${WALLPAPERS[k]}" data-ph-wall="${k}" aria-label="${esc(WALL_NAMES[k])}"><small>${esc(WALL_NAMES[k])}</small></button>`).join("")}</div>
       <label class="ph-btn" for="phWallIn">Upload your own image</label><input type="file" id="phWallIn" accept="image/*" hidden>
-      ${w.startsWith("data:")?`<button type="button" class="ph-btn ghost" data-ph-wall="night">Remove custom wallpaper</button>`:""}
+      ${w.startsWith("data:")?`<button type="button" class="ph-btn ghost" data-ph-wall="newhope">Remove custom wallpaper</button>`:""}
       <p class="ph-note">Your wallpaper is saved with this character.</p></div>`;
   }else if(phoneView==="zon"){inner=zonStoreHTML();
   }else if(phoneView==="zon-swaps"){inner=zonSwapsHTML();
