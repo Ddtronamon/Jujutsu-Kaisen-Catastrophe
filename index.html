@@ -1018,6 +1018,7 @@ const LOOT=[
   I("Empty Finger Box","Cursed Object","Special","Empty, sealed and still feared."),
   I("Domain Breaker's Gauntlet","Weapon","Anti-Barrier Proficiency","Built to punch through barrier walls from the outside."),
   I("Simple Domain Sealing Cord","Cursed Object","Anti-Barrier Proficiency","Tied around the wrist, it holds a Simple Domain's shape a little longer."),
+  I("Simple Domain Heirloom","Cursed Object","Simple Domain","A worn family keepsake from an old Simple Domain lineage. Collect 3 and combine them to unlock an Unrestricted Simple Domain."),
   I("Rewound Prayer Beads","Cursed Object","+1 Respin","Count them backwards and the last moment comes undone."),
   I("Unwritten Fate Talisman","Talisman","+1 Respin","Blank paper with a monk's seal. Whatever you write on it is already gone."),
   I("Tohoku Mountain Omamori","Talisman","+1 Respin","Blessed at a shrine no map shows anymore."),
@@ -1385,7 +1386,7 @@ const rgba=(hex,a)=>{const n=parseInt(hex.slice(1),16);return`rgba(${n>>16&255},
 function cardHTML(c){
   const rollName=c.specialRoll?(SPECIAL_ROLLS.find(r=>r.id===c.specialRoll)||{}).name:"";
   const trt=traitOf(c);
-  const facts=[["Grade potential",potLabel(c)],["Special roll",rollName],["Affiliation",c.affiliation],["Clan",c.clan],["Age",c.age],["CE color",c.ceColor],["CE property",c.ceProperty],["Output / Reserve",[c.output,c.reserve].filter(Boolean).join(" / ")],["CE trait",trt?trt.label:""]].filter(f=>f[1]);
+  const facts=[["Grade potential",potLabel(c)],["Special roll",rollName],["Affiliation",c.affiliation],["Clan",c.clan],["Age",c.age],["CE color",c.ceColor],["CE property",c.ceProperty],["Output / Reserve",[c.output,c.reserve].filter(Boolean).join(" / ")],["CE trait",trt?trt.label:""],["Simple Domain",c.unrestrictedSD?"Unrestricted":""]].filter(f=>f[1]);
   const blocks=[];
   if(c.ctName||c.ctDesc)blocks.push(`<div class="c-block"><h4>Cursed technique</h4>${c.ctName?`<div class="c-title">${esc(c.ctName)}</div>`:""}${c.ctDesc?`<p>${esc(c.ctDesc)}</p>`:""}</div>`);
   if(c.extensions)blocks.push(`<div class="c-block"><h4>Extensions / Shikigami</h4><p>${esc(c.extensions)}</p></div>`);
@@ -1604,6 +1605,7 @@ function discordText(c){
   const L=[];L.push(`# ${DISPLAY_NAME(c)}`);
   L.push(`**${GRADES[c.grade]}**${potLabel(c)?` · Potential: ${potLabel(c)}`:""}`);
   {const rn=c.specialRoll?(SPECIAL_ROLLS.find(r=>r.id===c.specialRoll)||{}).name:"";if(rn)L.push(`**Special Roll:** ${rn}`)}
+  if(c.unrestrictedSD)L.push(`**Simple Domain:** Unrestricted (moves with you)`);
   const info=[["Affiliation",c.affiliation],["Clan",c.clan],["Age",c.age]].filter(x=>x[1]).map(x=>`**${x[0]}:** ${x[1]}`);if(info.length)L.push(info.join(" | "));
   if(c.ctName||c.ctDesc){L.push(`\n## Cursed Technique${c.ctName?": "+c.ctName:""}`);if(c.ctDesc)L.push(c.ctDesc)}
   if(c.extensions)L.push(`**Extensions / Shikigami:** ${c.extensions}`);
@@ -1915,9 +1917,9 @@ function itemHTML(v){
     <h4>${esc(it.n)}</h4>
     <div class="meta">${it.type==="Lore"?"Lore Item":it.type==="Collectible"||it.type==="RP Item"||it.pack?esc(it.type):`${esc(it.type)} · Boost: ${esc(it.boost)}`}</div>
     <p>${esc(it.d)}</p>
-    <div class="eff">${it.finger?`${C().specialRoll==="vessel-of-sukuna"?`Eat it to raise your finger count (now ${fingersOf(C())} / ${FINGER_MAX}).`:"Only a character with the Vessel of Sukuna roll can eat it. You can still keep it or swap it."}`:it.pirate?`Use it to give <b>one character of your choice</b> +${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve. Opens them again even if they were confirmed.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
+    <div class="eff">${v.item===HEIRLOOM_ID?(C().unrestrictedSD?"You already unlocked an Unrestricted Simple Domain. Keep it or swap it to someone who needs it.":`Collect ${HEIRLOOM_NEED} and combine them to unlock an <b>Unrestricted Simple Domain</b> (RP: your Simple Domain moves with you). You have <b>${heirloomsOf(C()).length} / ${HEIRLOOM_NEED}</b>.`):it.finger?`${C().specialRoll==="vessel-of-sukuna"?`Eat it to raise your finger count (now ${fingersOf(C())} / ${FINGER_MAX}).`:"Only a character with the Vessel of Sukuna roll can eat it. You can still keep it or swap it."}`:it.pirate?`Use it to give <b>one character of your choice</b> +${PIRATE_SPINS} spins on Grade Potential, CE Output and CE Reserve. Opens them again even if they were confirmed.`:it.pack?`Open it for <b>${it.pack.n} Dragon Ball cards</b>${it.pack.min?`, with at least one ${esc(RARITIES[it.pack.min].tag)} or better`:""}. They go into your Card Binder.`:it.type==="Collectible"?"A collectible. Keep it, show it off or swap it on Jujuzon.":it.type==="RP Item"?"RP only. Use it in roleplay. It has no game effect.":respinOf(it)?`Gives <b>${respinOf(it).n} extra spin${respinOf(it).n===1?"":"s"}</b> on one Creation Roll of your choice${respinOf(it).noLow?". Those spins can never land on the lowest result":""}. Works even after you confirmed it.`:it.type==="Lore"?(C().lore||[]).some(x=>x.item===it.id)?"You've already read this one. Reading it again won't add anything new.":"Read it to learn a piece of the past. It goes into your Lore Journal.":canXP(it)?`Use it for <b>+${itemXP(it)} XP</b> to ${esc(it.boost)}${canStore(it)?", or store it in your Armory for RP":""}.`:canStore(it)?"Too powerful to break down for XP. Store it in your Armory to use it in RP.":"No proficiency yet. Effect to be revealed."}</div>
     <div class="meta">Found ${esc(fmtDate(v.date))} · ${esc(v.source)}</div>
-    <div class="acts">${it.finger&&C().specialRoll==="vessel-of-sukuna"?`<button class="btn sm use" data-ifinger="${v.id}">Eat finger</button>`:""}${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · pick a character</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
+    <div class="acts">${v.item===HEIRLOOM_ID&&!C().unrestrictedSD&&heirloomsOf(C()).length>=HEIRLOOM_NEED?`<button class="btn sm use" data-iheir="1">Combine ${HEIRLOOM_NEED} → Unrestricted Simple Domain</button>`:""}${it.finger&&C().specialRoll==="vessel-of-sukuna"?`<button class="btn sm use" data-ifinger="${v.id}">Eat finger</button>`:""}${it.pirate?`<button class="btn sm use" data-ipirate="${v.id}">Use · pick a character</button>`:""}${it.pack?`<button class="btn sm use" data-ipack="${v.id}">Open pack</button>`:""}${it.type==="Lore"?`<button class="btn sm use" data-iread="${v.id}">Read</button>`:""}${respinOf(it)?`<button class="btn sm use" data-irespin="${v.id}">Use on a Creation Roll</button>`:""}${canStore(it)?`<button class="btn sm use" data-istore="${v.id}">Store in Armory</button>`:""}${canXP(it)?`<button class="btn sm use" data-iuse="${v.id}">Use · +${itemXP(it)} XP</button>`:""}<button class="btn sm" data-icopy="${v.id}">Copy</button><button class="btn sm ghost danger" data-idel="${v.id}">Discard</button></div>
   </article>`;
 }
 function armoryHTML(v){
@@ -2065,6 +2067,7 @@ $("#inv").addEventListener("click",e=>{const c=C();const b=e.target.closest("but
   if(b.dataset.iuse){const id=b.dataset.iuse;if(iuseArm!==id){iuseArm=id;const it=ITEMS[(c.inventory.find(x=>x.id===id)||{}).item];b.textContent=`Use on ${it?it.boost.replace(" Proficiency",""):""}?`;setTimeout(()=>{if(iuseArm===id){iuseArm=null;renderLoot()}},3000);return}iuseArm=null;useItem(id);return}
   if(b.dataset.irespin){useRespin(b.dataset.irespin);return}
   if(b.dataset.ipirate){usePirate(b.dataset.ipirate);return}
+  if(b.dataset.iheir){combineHeirlooms(b);return}
   if(b.dataset.ifinger){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Tap again to eat";setTimeout(()=>{if(b.isConnected){b.dataset.arm="";b.textContent="Eat finger"}},3000);return}eatFinger(b.dataset.ifinger);return}
   if(b.dataset.ipack){openPack(b.dataset.ipack);return}
   if(b.dataset.iread){const v=c.inventory.find(x=>x.id===b.dataset.iread);if(!v)return;const it=ITEMS[v.item];if(!Array.isArray(c.lore))c.lore=[];
@@ -2354,6 +2357,17 @@ function pirateCheck(){
   if(rnd()<PIRATE_CHANCE)setTimeout(()=>pirateWin(false),1300)}
 function pirateWin(test){if(!test)lsSet(PIRATE_WON_KEY,String(Date.now()));lsSet(PIRATE_PENDING_KEY,"1");
   if(!test)actLog("pirate",{});pirateShow(true,()=>setTimeout(pirateChoose,380))}
+/* ---- Simple Domain Heirloom: combine 3 to unlock an Unrestricted Simple Domain (RP only: your Simple Domain moves with you) ---- */
+const HEIRLOOM_ID="simple-domain-heirloom",HEIRLOOM_NEED=3;
+const heirloomsOf=c=>(c.inventory||[]).filter(v=>v.item===HEIRLOOM_ID);
+let heirArm=null;
+function combineHeirlooms(btn){
+  const c=C();if(c.unrestrictedSD){toast("You already have an Unrestricted Simple Domain.");return}
+  const hs=heirloomsOf(c);if(hs.length<HEIRLOOM_NEED){toast(`You need ${HEIRLOOM_NEED} Simple Domain Heirlooms. You have ${hs.length}.`);return}
+  if(heirArm!==c.id){heirArm=c.id;btn.textContent=`Tap again to use ${HEIRLOOM_NEED} heirlooms`;setTimeout(()=>{if(heirArm===c.id){heirArm=null;if(btn.isConnected)renderLoot()}},3000);return}
+  heirArm=null;const used=new Set(hs.slice(0,HEIRLOOM_NEED).map(v=>v.id));c.inventory=c.inventory.filter(v=>!used.has(v.id));c.unrestrictedSD=true;
+  touch();actLog("unrestrictedSD",{});renderAll();
+  openDlg(`<div class="reveal" style="--rc:var(--r-4)"><span class="eyebrow">${HEIRLOOM_NEED} heirlooms combined</span><div class="rbig pop">Unrestricted Simple Domain</div><p>Your Simple Domain is no longer fixed in place. In RP, it moves with you.</p></div><div class="drow" style="justify-content:center;margin-top:10px"><button class="btn primary" data-close>Nice</button></div>`)}
 function useRespin(vid){
   const c=C();const v=c.inventory.find(x=>x.id===vid);if(!v)return;const it=ITEMS[v.item];const rs=respinOf(it);if(!rs)return;
   const cr=c.creation||{};if(!cr.finished){toast("Finish your character first. Then you can use this on a Creation Roll.");return}
@@ -2391,6 +2405,7 @@ const ACT_TEXT={
   traitRemoved:e=>`removed their CE Trait (${e.trait})`,
   grade:e=>`⚠ changed grade: ${e.from} → ${e.to}`,
   pack:e=>`opened ${e.pack}: ${e.cards}`,
+  unrestrictedSD:e=>`combined 3 Simple Domain Heirlooms → unlocked an Unrestricted Simple Domain`,
   finger:e=>`ate Sukuna's Finger #${e.n}`,
   pirate:e=>`🏴‍☠️ WON A PIRATE TOKEN just by opening the app (1 in a million)`,
   pirateUsed:e=>`used a Pirate Token on ${e.on||"a character"} → +${e.n} spins on every Creation Roll`,
