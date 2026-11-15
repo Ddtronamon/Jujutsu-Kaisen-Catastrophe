@@ -192,6 +192,64 @@ main{padding-block:20px 60px}
 
 /* PROFICIENCY */
 .prof-list{display:grid;gap:14px}
+.ptiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:700px){.ptiles{grid-template-columns:repeat(6,minmax(0,1fr))}.ptile{grid-column:span 2}.ptile:nth-child(4),.ptile:nth-child(5){grid-column:span 3}}
+.ptile{display:grid;justify-items:center;gap:6px;padding:14px 8px 12px;border-radius:14px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:center;transition:transform .12s,border-color .15s,box-shadow .2s,background .2s;-webkit-tap-highlight-color:transparent}
+.ptile:hover{border-color:color-mix(in srgb,var(--pc) 55%,var(--line))}
+.ptile:active{transform:scale(.95)}
+.ptile.sel{border-color:var(--pc);background:color-mix(in srgb,var(--pc) 10%,var(--surface));box-shadow:0 0 0 1px var(--pc),0 8px 24px -10px var(--pc)}
+.ptile b{font-size:.86rem;line-height:1.15}
+.ptile small{font-size:.7rem;color:var(--muted);line-height:1.2}
+.ptile.lockd{opacity:.6}
+.pring{--sz:58px;width:var(--sz);height:var(--sz);border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--pc) calc(var(--pct)*1%),color-mix(in srgb,var(--pc) 14%,var(--surface-2)) 0);transition:background .4s}
+.pring>span{width:calc(var(--sz) - 10px);height:calc(var(--sz) - 10px);border-radius:50%;background:var(--surface);display:grid;place-content:center;font-family:var(--f-mono);font-weight:500;font-size:.85rem;line-height:1.1;color:var(--fg)}
+.pring small{display:block;font-size:.62rem;color:var(--muted)}
+.ptile.sel .pring>span{background:color-mix(in srgb,var(--pc) 10%,var(--surface))}
+.pdetail{border:1px solid var(--line);border-top:3px solid var(--pc);border-radius:14px;background:var(--surface);padding:18px;display:grid;gap:14px}
+.pdetail.lvup{animation:lvup 1s ease}
+@keyframes lvup{0%{box-shadow:0 0 0 0 var(--pc)}30%{box-shadow:0 0 0 6px color-mix(in srgb,var(--pc) 45%,transparent),0 0 40px 4px color-mix(in srgb,var(--pc) 40%,transparent)}100%{box-shadow:0 0 0 0 transparent}}
+.pd-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.pd-h h3{font-family:var(--f-display);font-size:1.5rem;margin-top:2px}
+.pd-xp{display:grid;justify-items:end;font-family:var(--f-mono)}.pd-xp b{font-size:1.3rem}.pd-xp small{color:var(--muted);font-size:.68rem}
+.pbar{height:14px;border-radius:99px;background:color-mix(in srgb,var(--pc) 12%,var(--surface-2));overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,color-mix(in srgb,var(--pc) 70%,#fff 0%),var(--pc));box-shadow:0 0 14px color-mix(in srgb,var(--pc) 60%,transparent);transition:width .7s cubic-bezier(.2,.9,.3,1)}
+.pbar-meta{display:flex;justify-content:space-between;gap:10px;font-family:var(--f-mono);font-size:.76rem;color:var(--muted);margin-top:-6px}.pbar-meta b{color:var(--fg)}
+.pnext{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--pc) 8%,transparent);border:1px dashed color-mix(in srgb,var(--pc) 45%,transparent)}
+.pnext span{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pc)}.pnext small{grid-column:2;color:var(--muted);font-size:.76rem}
+.pmuted{margin:0;color:var(--muted);font-size:.84rem}
+.pspend{display:grid;gap:10px;padding:14px;border-radius:12px;background:var(--surface-2)}
+.pspend-top{display:flex;justify-content:space-between;align-items:baseline;font-weight:700}.pspend-top small{font-weight:400;color:var(--muted)}
+.pstep{display:grid;grid-template-columns:52px 1fr 52px;gap:8px}
+.pstep input{text-align:center;font-family:var(--f-mono);font-size:1.3rem;padding:8px;height:52px}
+.pstep-b{height:52px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font-size:1.5rem;cursor:pointer;transition:transform .1s,background .15s}
+.pstep-b:active{transform:scale(.92);background:color-mix(in srgb,var(--pc) 20%,var(--surface))}
+.pstep-b:disabled{opacity:.35;cursor:not-allowed}
+.pchips{display:flex;gap:8px;flex-wrap:wrap}
+.pchip{flex:1;min-width:48px;padding:8px 0;border-radius:99px;border:1px solid var(--line);background:transparent;color:var(--fg);font-family:var(--f-mono);cursor:pointer;transition:transform .1s,background .15s,border-color .15s}
+.pchip:active{transform:scale(.93)}
+.pchip.on{background:var(--pc);border-color:var(--pc);color:#0a1519}
+.pchip:disabled{opacity:.35;cursor:not-allowed}
+.pgo{width:100%;padding:14px;font-size:1.02rem;border-radius:12px;transition:transform .1s}
+.pgo:active{transform:scale(.97)}
+.pgrades{display:grid;gap:8px}
+.pgrade{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.pgrade.cur{border-color:color-mix(in srgb,var(--pc) 50%,var(--line))}
+.pgrade summary{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 14px;cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
+.pgrade summary::-webkit-details-marker{display:none}
+.pgrade summary:active{background:var(--surface-2)}
+.pg-name{font-weight:700}
+.pg-pips{display:flex;gap:4px}.pg-pips i{width:16px;height:7px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line)}.pg-pips i.on{background:var(--pc);border-color:var(--pc)}.pg-pips i.cap{opacity:.3}
+.pg-count{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);min-width:44px;text-align:right}
+.pgrade.capd summary{opacity:.6}
+.pg-body{display:grid;gap:4px;padding:0 14px 12px}
+.pskill2{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:8px 0;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.pskill2 b{font-size:.92rem}.pskill2 p{margin:2px 0 0;color:var(--muted);font-size:.82rem}
+.pdot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-mono);font-size:.68rem;border:1.5px solid var(--line);color:var(--muted)}
+.pskill2.on .pdot{background:var(--pc);border-color:var(--pc);color:#0a1519;font-size:.85rem}
+.pskill2.next .pdot{border-color:var(--pc);color:var(--pc);box-shadow:0 0 0 3px color-mix(in srgb,var(--pc) 20%,transparent)}
+.pskill2.off b,.pskill2.capped b{color:var(--muted);font-weight:500}
+.pd-foot{display:grid;gap:8px;justify-items:start}
+@media (prefers-reduced-motion:reduce){.pbar i,.ptile,.pring{transition:none}.pdetail.lvup{animation:none}}
 .prof{border:1px solid var(--line);border-left:4px solid var(--pc);border-radius:10px;background:var(--surface);padding:16px 18px;display:grid;gap:12px;min-width:0}
 .prof-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .prof-h h3{font-family:var(--f-display);font-weight:800;font-size:1.25rem}
@@ -211,7 +269,7 @@ main{padding-block:20px 60px}
 .unl b{color:var(--fg);font-weight:500}
 
 .prof-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:24px;align-items:start}
-@media (max-width:980px){.prof-layout{grid-template-columns:minmax(0,1fr)}.prof-layout .aside{order:-1}}
+@media (max-width:980px){.prof-layout{grid-template-columns:minmax(0,1fr)}}
 .xptotal{font-family:var(--f-mono);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .xpbar{height:8px;border-radius:4px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
 .xpbar i{display:block;height:100%;background:var(--pc)}
@@ -229,7 +287,7 @@ main{padding-block:20px 60px}
 .pskill.on b,.pskill.on .lvtag{color:var(--pc)}
 .pskill.off{opacity:.5}
 .pskill.next{opacity:1}
-.pskill .nextpill{font-style:normal;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pc);border:1px solid var(--pc);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+.pskill .nextpill,.pskill2 .nextpill{font-style:normal;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pc);border:1px solid var(--pc);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
 .prof.locked .track,.prof.locked .pskills{opacity:.55}
 .pip.cap{border-style:dashed;opacity:.35}
 .pskill.capped{opacity:.4}
@@ -282,6 +340,11 @@ main{padding-block:20px 60px}
 .pirate-pick small{color:var(--muted);font-size:.78rem}
 .pirate-pick.armed small{color:#ffd75a}
 .pirate-pick:disabled{opacity:.5;cursor:not-allowed}
+.zauto{display:grid;gap:6px;border:1px dashed var(--line);border-radius:10px;padding:10px 12px;background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.zauto-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.zauto-row label{display:flex;gap:6px;align-items:center;font-size:.85rem;color:var(--muted)}
+.zauto-row input[type=number]{width:70px}
+.zauto-row .zcheck input{width:auto}
 .vessel-top{display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;border-top:3px solid var(--r-6)}
 .vessel-count{display:flex;align-items:baseline;gap:6px;font-family:var(--f-display)}
 .vessel-count b{font-size:2.6rem;line-height:1;color:var(--r-6)}
@@ -723,8 +786,7 @@ dialog img{display:block;max-width:100%;border-radius:8px;border:1px solid var(-
   <section id="view-prof" role="tabpanel" aria-labelledby="tab-prof" hidden>
     <div class="prof-layout">
       <div style="min-width:0">
-        <div class="section-h"><h2>Proficiency</h2><span class="eyebrow">4 levels per grade</span></div>
-        <p class="dhelp" style="margin:-4px 0 16px;color:var(--muted);max-width:70ch">Spend points or use loot items to earn XP. XP fills your levels, and levels unlock skills. Items give much more XP than points, but only to the proficiency they belong to.</p>
+        <div class="section-h"><h2>Proficiency</h2><span class="eyebrow">Tap one to train it</span></div>
         <div class="prof-list" id="profList"></div>
       </div>
       <aside class="aside">
@@ -910,15 +972,16 @@ const LOOT=[
   I("Splintered Tonfa","Weapon","Combat Proficiency","Held together with tape."),
   I("Dull Kama","Weapon","Combat Proficiency","A farming sickle someone sharpened once."),
   I("Cracked Nunchaku","Weapon","Combat Proficiency","The chain is fine. The handles are not."),
-  I("Torn Diary Page","Lore","Lore","A page from a child's diary.","Grandfather says there used to be more of us. Before the war, he says, a sorcerer could go a whole year without seeing a curse. I don't believe him."),
-  I("Faded Newspaper Clipping","Lore","Lore","Yellowed and brittle.","SENDAI, 1951. A private school opened its doors this spring on the city's northern edge. Officials declined to say what is taught there."),
-  I("Dojo Closing Flyer","Lore","Lore","Taped to a lamppost, half torn off.","Kurokawa Training Hall will close at the end of the month. Our funding has been withdrawn. Thank you to every student since 1962. Spring, 2008."),
-  I("Cafeteria Notice","Lore","Lore","Pinned up in the Sendai dining hall.","Due to budget changes, second helpings are suspended until further notice. The kitchen apologizes. This is the fourth cut this year."),
-  I("Unsent Postcard","Lore","Lore","Addressed to a training center in Akita.","Sensei, I wrote three times and nobody answered. Is the center still open? My little brother can see them now too. Where should he go?"),
-  I("Missing Poster","Lore","Lore","Faded by rain at a Sendai bus stop.","MISSING: Haruto, age 9. Last seen walking home from a \"school interview.\" His family says no school ever called them."),
-  I("Crumpled Mission Slip","Lore","Lore","Someone balled it up and threw it away.","Grade 4 curse, abandoned shrine. Note from the assistant manager: third one this month. They used to be rare out here.")],
+  I("Sendai Welcome Leaflet","Lore","Lore","Folded into every new student's dorm room.","Four schools, one promise. Saitama, Tokyo, Sendai and Kyoto have trained sorcerers for nearly five hundred years. Welcome to the family."),
+  I("Memorial Plaque Rubbing","Lore","Lore","Pencil on rice paper, taken from a wall at Kyoto.","HIROSHIMA JUJUTSU SCHOOL. NAGASAKI JUJUTSU SCHOOL. Closed 1945. Their students are remembered here."),
+  I("Birthday Card","Lore","Lore","Signed by a whole class. Dated July 2007.","Happy birthday Todoya!! Don't let Gojo eat the whole cake this year. See you at the briefing on the 17th. Sensei says it's a big one."),
+  I("School Lunch Menu","Lore","Lore","Sendai cafeteria, week of July 16, 2007.","Mon: curry. Tue: curry. Wed: grilled fish. Thu: curry. Fri: SPECIAL! Party for our guest. (She asked for strawberry cake.)"),
+  I("Sendai Plaza Tourist Map","Lore","Lore","Printed in 2008. A corner is circled in pen.","Next to the circle, in a child's handwriting: \"Still closed. Mom says don't go near it. Mom says it smells like the hospital.\""),
+  I("Physical Therapy Flyer","Lore","Lore","Pinned up in the Sendai infirmary.","Relearning to walk? You are not alone. Physical therapy for sorcerers, every weekday. Opened September 2007 because so many of you needed it."),
+  I("Child's Drawing","Lore","Lore","Crayon on the back of a ferry menu.","A tall boy with a bubble around him. The rain is going around the bubble. Underneath: \"THE MAN NOTHING CAN TOUCH. OKINAWA. HE DIDN'T SMILE.\""),
+  I("Lost and Found Slip","Lore","Lore","From the Sendai front office, 2007.","Item: one hair clip, pink, strawberry shape. Found in Classroom 2-A on July 22. Owner: (left blank). Nobody came for it.")],
  /* Grade 3 · Common */
- [I("Jujutsu High Training Manual","Manual","Cursed Energy Proficiency","Standard issue at all three schools."),
+ [I("Jujutsu High Training Manual","Manual","Cursed Energy Proficiency","Standard issue at all four schools."),
   I("Warding Tag","Talisman","Barrier Proficiency","Keeps weak curses from noticing you, briefly."),
   I("Cursed Iron Baton","Weapon","Combat Proficiency","A Grade 4 cursed tool. Heavier than it looks."),
   I("Basic Veil Chant","Scroll","Barrier Proficiency","The first chant every sorcerer learns."),
@@ -939,14 +1002,14 @@ const LOOT=[
   I("Weighted Chain","Weapon","Combat Proficiency","A short chain with a weight on one end."),
   I("Throwing Shuriken Set","Weapon","Combat Proficiency","Twelve stars. You'll lose most of them."),
   I("Iron Tessen","Weapon","Combat Proficiency","A folding war fan with iron ribs."),
-  I("Sendai Orientation Pamphlet","Lore","Lore","Handed to every new student.","Welcome to Sendai Jujutsu High, one of the three schools of Japan. Tokyo, Kyoto and Sendai stand together. Questions about the closed schools should not be raised during orientation."),
-  I("Old Class Photo","Lore","Lore","Forty students in front of a school gate.","On the back, in pen: \"Saitama. Last class.\""),
-  I("Transfer Slip","Lore","Lore","A stamped form for a student changing schools.","Transferred from Morioka Training Center (CLOSED) to Sendai Jujutsu High. Note from the clerk: eleven students were sent. Four arrived. The rest are listed as \"withdrawn by family.\""),
-  I("Teacher's Grocery List","Lore","Lore","Written on the back of an old council letter.","On the front, half of a typed line shows through: \"...the reallocation will continue gradually, so as not to draw attention...\" On the back: rice, eggs, bandages (a lot)."),
-  I("Graduation Program, 2006","Lore","Lore","From the Hiroshima school's last full class.","Sixty-two graduates. Closing speech by a council representative: \"Fewer Hands, Steadier Hands.\" Someone has drawn a small question mark next to the title."),
-  I("Condolence Letter","Lore","Lore","A printed form letter from the council.","We regret to inform you that your child died bravely in the line of duty. In the margin, in his mother's hand: \"He was eleven. He never went on a mission. He never even started school.\""),
-  I("Unused Student ID","Lore","Lore","A blank ID card with a name already printed.","The photo slot is empty. Two stamps on the back, both dated the same day: ENROLLED, then DECEASED. The school has no record of him ever arriving."),
-  I("Clan Crest Patch","Lore","Lore","Three crests stitched side by side.","Gojo, Kamo and Zen'in. Someone has carefully cut the Zen'in crest loose with scissors.")],
+  I("Bounty Flyer","Lore","Lore","Torn off a wall in a Sendai back alley.","WANTED: GOJO. $2,000,000, paid in yen. No questions asked. Bring proof. Printed on cheap paper, and there were hundreds of them."),
+  I("Skyscraper Fire Clipping","Lore","Lore","Sendai Evening News, July 22, 2007.","A fire broke out on the upper floors of a downtown high-rise last night. Witnesses report people in white robes on the roof. Police have declined to comment."),
+  I("The Damned Pamphlet","Lore","Lore","Black ink on white paper. Handed out at train stations.","The age of the Vessel is ending. The old order is rotting from the top down. Come and be damned with us, and be free."),
+  I("Okinawa Ferry Ticket","Lore","Lore","One group ticket, stamped July 24, 2007.","On the back, in pencil: \"He still hasn't turned it off. Three days now. He sleeps sitting up. Nobody can touch him, not even us.\""),
+  I("Truce Declaration","Lore","Lore","A copy. The original is kept at Kyoto.","By agreement of the Gojo, Kamo and Zen'in clans, signed August 2007: no clan shall act to bring another clan to extinction. Enough have died."),
+  I("Lesson Plan, 2008","Lore","Lore","A teacher's notebook from Tokyo.","Day one: how to stand with cursed energy. Day two: how to walk with it. Half my class is new. Half my class is twelve. We are starting over."),
+  I("Aoba Academy Brochure","Lore","Lore","Glossy. Found in a family's mailbox, 2009.","A new school for gifted children who see what others can't. Full scholarship. Room and board. There is no need to contact Jujutsu High."),
+  I("Hospital Visitor Log","Lore","Lore","Sendai General, August 2007.","Room 4. Visitors every day: Todoya, Gojo, Ryo. Nurse's note: \"Patient keeps asking the same thing. Who was the man with no cursed energy, and why couldn't I feel him coming?\"")],
  /* Semi-Grade 2 · Uncommon */
  [I("Notes on Cursed Energy Flow","Manual","Cursed Energy Proficiency","A teacher's handwritten lecture notes."),
   I("Reinforced Tanto","Weapon","Combat Proficiency","Takes cursed energy well for its size."),
@@ -967,14 +1030,14 @@ const LOOT=[
   I("Rope Dart","Weapon","Combat Proficiency","A blade on a long cord. Hard to learn, harder to dodge."),
   I("Cursed Tonfa","Weapon","Combat Proficiency","Every block sends a jolt back up the attacker's arm."),
   I("Old Service Revolver","Weapon","Combat Proficiency","Six rounds. Loaded with cursed bullets, they hurt curses too."),
-  I("Veteran's Letter","Lore","Lore","Written by a sorcerer who fought in the war years.","We were never meant to be this many. The war made the curses, and the curses made us. When it ended, we stayed, because the curses did."),
-  I("Council Seating Chart","Lore","Lore","A diagram of a meeting room.","Six seats. Two for the Gojo. Two for the Kamo. Two for the Zen'in. Equal on paper. Someone has written underneath: \"Equal until one pair stops voting.\""),
-  I("Council Attendance Sheet","Lore","Lore","Budget sessions, 2008 to 2012.","Every session has the same note beside the two Gojo seats: \"Excused. Minutes to follow.\" No minutes are attached. Not once."),
-  I("List of Closed Centers","Lore","Lore","Handwritten and folded many times.","Morioka, 2008. Akita, 2009. Niigata, 2009. Kanazawa, 2011. Hiroshima, 2013. Nagasaki, 2013. Saitama, 2016. Underneath: \"Never all at once. Always one or two a year. Somebody is counting. So am I.\""),
-  I("Recruiter's Logbook","Lore","Lore","Kept by a scout who finds children with cursed sight.","Year one: 41 children found, 39 enrolled. Year five: 38 found, 12 enrolled. New instruction from above: \"Do not approach families outside the three cities.\" Why would we turn them away?"),
-  I("Mismatched Mission Log","Lore","Lore","Two pages stapled together that should match.","Council death report: Second-year Aoi Kuroda, killed on a Grade 1 mission on June 3rd. School mission log for June 3rd: no missions assigned. Her dorm room was still packed for summer break."),
-  I("Hospital Intake Sheet","Lore","Lore","From a clinic that quietly treats sorcerers.","Six intakes this year marked \"mission casualty.\" Four were under fourteen. Cause of death left blank on all six. Note at the bottom: \"Collected by council staff before examination.\""),
-  I("Closure Notice","Lore","Lore","An official letter on school paper.","By decision of the council, the Hiroshima and Nagasaki schools will close at the end of the term. Students are to transfer to Tokyo, Kyoto or Sendai. Retiring staff will not be replaced.")],
+  I("Briefing Notes","Lore","Lore","Written by Sendai's head teacher, July 17, 2007.","Escort mission. One girl, fifteen. Destination: Tengen, who needs a new Vessel before the evolution. Tell no one, not even your families. This has always stayed quiet. It has to stay quiet."),
+  I("The Vessel's List","Lore","Lore","Written in a schoolgirl's handwriting.","Before I go: 1. Eat lunch with the class. 2. Strawberry cake. 3. Ride a ferry. 4. See the ocean, the real one. 5. Don't cry in front of them. Number 5 has been crossed out."),
+  I("Day Three Field Notes","Lore","Lore","Hastily written, smudged by rain.","Found her in a warehouse by the port. She's alive. Gojo hasn't dropped Infinity since the skyrise. He won't eat in front of us. Every curse user in Sendai wants his head."),
+  I("Plaza Evacuation Order","Lore","Lore","City notice, August 2007.","Sendai Plaza is closed due to a gas leak. Residents report a sound \"like a thousand voices\" and a smell like rotting meat. Do not return until further notice."),
+  I("Stand-Down Order","Lore","Lore","Sent to every student at Jujutsu High.","All sorcerers are to stay on school grounds and take no side in the clan dispute. Underneath, in a different pen: \"They let a curse loose in the plaza. We're going. — Sendai\""),
+  I("Missing Poster, 2010","Lore","Lore","A boy's school photo, faded by rain.","MISSING: Daichi, age 12. Last seen leaving for his first week at Aoba Academy. The family has called the school forty times. The number has been disconnected."),
+  I("Higher Table Results, 2009","Lore","Lore","A single page, stamped and filed.","Kamo: three seats. Gojo: three seats. Zen'in: none. A landslide. The new members were sworn in privately. Nobody at the schools recognized a single face."),
+  I("Supervisor Obituaries","Lore","Lore","Three short notices, December 2011.","Three supervisors were killed during routine missions this week. The Higher Table has named no suspect. The families were told not to hold public funerals.")],
  /* Grade 2 · Rare */
  [I("Kyoto Archive Scroll","Scroll","Cursed Technique Proficiency","Taken from the Kyoto school's restricted shelves."),
   I("Cursed Chain","Weapon","Combat Proficiency","A Grade 2 cursed tool that never quite stops moving."),
@@ -998,13 +1061,14 @@ const LOOT=[
   I("Twin Cursed Kama","Weapon","Combat Proficiency","A pair of sickles that always seem to know where the other is."),
   I("Cursed Pistol","Weapon","Combat Proficiency","Fires cursed rounds. Popular with sorcerers who can't punch."),
   I("Cursed Kanabo","Weapon","Combat Proficiency","A spiked iron club. Subtle, it is not."),
-  I("Translated Telegram","Lore","Lore","A wartime telegram, translated into Japanese.","TO WASHINGTON. THEY SAY THERE ARE THINGS IN THE CITIES THAT MOST OF US CANNOT SEE. SOME OF THEIR PEOPLE CAN. THEY ARE ASKING FOR HELP TRAINING THEM. RECOMMEND WE AGREE."),
-  I("Kamo Pamphlet","Lore","Lore","Handed out to students in 2007.","A sorcerer should not bleed for a council that will not pay for their bandages. The Kamo stand for free care for every sorcerer, and fair treatment for all."),
-  I("Redacted Memo","Lore","Lore","Most of it has been blacked out.","...the target figure for 2020 remains [REDACTED] active sorcerers. Progress is ahead of schedule. Under no circumstances should this memo reach the [REDACTED] seats."),
-  I("Uprising Risk Study","Lore","Lore","A council report. The cover is torn off.","Conclusion: a rebellion led by one exceptional sorcerer cannot succeed without numbers behind them. Recommendation: make sure there are no numbers."),
-  I("Consulting Receipt","Lore","Lore","No company name. Paid in cash.","Paid in full to \"the Advisor.\" Service: population management, phase three. Approved by four of six seats."),
-  I("Search Party Notes","Lore","Lore","Kept by a teacher who went looking.","Three students reported dead in Iwate. No bodies returned. We searched the mission site for two days and found no curse residue at all. Whatever happened to them, it didn't happen there."),
-  I("Zen'in Declaration","Lore","Lore","A printed statement with the Zen'in seal.","Jujutsu belongs to those born for it. The Zen'in will build a regiment worthy of the name, and the rest may step aside.")],
+  I("Umeo's Contract","Lore","Lore","A Zen'in work order, unsigned.","Hire: Umeo Zen'in. Heavenly Restriction. Zero cursed energy. Cannot be sensed. Price: whatever he asks. Target: the Vessel. Secondary target: anyone who stands in front of her."),
+  I("Sentencing Record","Lore","Lore","Higher Table case file, August 2007.","Defendant: Agato Reo, member of the Table. Charge: leading a cult and leaking the Vessel's route. Verdict: guilty. Sentence: pardoned by vote. Note: all Zen'in seats voted together."),
+  I("Incident at the Stands","Lore","Lore","Security report from the Higher Table chamber.","The argument over the pardon lasted nine minutes. Three of the six seats did not leave the room alive. All three were Gojo or Kamo. The clans declared war that night."),
+  I("Recovery Report, January 2010","Lore","Lore","Five sorcerers sent to inspect a school in Fukushima.","No bodies. No residuals. No fight. Their five phones were later found in a single box at the post office, addressed to nobody, postage paid in cash."),
+  I("School Inspection Note","Lore","Lore","An inspector's report on Aoba Academy.","The address is an empty office floor. No desks. No beds. No students. The lease is paid every month, on time, from an account belonging to a member of the Higher Table."),
+  I("Walking Day Roll Call","Lore","Lore","Taken the evening of August 7, 2007.","Official sorcerers still able to fight: two teachers at Tokyo. Sendai's head teacher. Todoya. Saiki. Ryo. Gojo. That is the whole list. That is all of us."),
+  I("Parma Tower Report","Lore","Lore","Day seven of the One Week War.","The Gojo clan joins the Kamo at noon, giving the Gojo heir full authority to act. The final battle is fought in the penthouse plaza of Parma Tower, a Zen'in property. By evening there is very little left of either."),
+  I("Saiki's Field Diary","Lore","Lore","A cheap notebook, filled to the last page.","I keep dreaming about Day Five. I didn't even feel him. One second I was standing, then I was on the floor. If someone with no cursed energy can do that to us, what else can't we see?")],
  /* Semi-Grade 1 · Elite */
  [I("Sendai Founders' Journal","Manual","Cursed Energy Proficiency","Written by one of the first sorcerers after the war."),
   I("Domain Theory Fragment","Scroll","Barrier Proficiency","A torn page describing how a domain closes."),
@@ -1027,13 +1091,14 @@ const LOOT=[
   I("Serpent Chain","Weapon","Combat Proficiency","A cursed chain that coils back on its own."),
   I("Cursed Crossbow","Weapon","Combat Proficiency","Each bolt carries the user's cursed energy."),
   I("Grade 1 Cursed Scythe","Weapon","Combat Proficiency","Reaps curses like wheat."),
-  I("Field Report, 2007","Lore","Lore","Written by a teacher during the clan war.","Students have started choosing sides. Most wear Kamo colors. The Gojo boy came in under his own clan's banner this morning. By evening, he had changed it."),
-  I("Unsigned Confession","Lore","Lore","No name, no date.","The Zen'in didn't lose because they were weak. They lost because the Gojo followed their heir to the Kamo side, and we were left standing alone."),
-  I("Envoy Incident Report, 2007","Lore","Lore","About the death that started the clan war.","An envoy was found dead outside the Zen'in estate. The council ruled it a Zen'in technique. Investigator's note, crossed out but readable: \"The residuals are wrong. Too clean. Like someone wanted them to be read.\""),
-  I("Burned Letter Fragment","Lore","Lore","Only the middle survived the fire.","...let the Zen'in and the rest bleed each other dry. When it ends, they will thank us for the peace, and no one will think to count how many are left..."),
-  I("Advisor's Calling Card","Lore","Lore","Plain white card stock. One word on the front.","ADVISOR. On the back there is a perfect red circle, no bigger than a fingertip. It isn't ink. It's still slightly tacky to the touch."),
-  I("Sealed Autopsy","Lore","Lore","The council seal has been broken and pressed shut again.","The wounds are precise. No curse made them. Every body recovered this year is missing the same amount of blood, almost to the drop."),
-  I("Birth Record","Lore","Lore","From a Zen'in household, two years after the war.","One child. A note in the margin, in a different hand: \"The shadows answered on the first night. The first in sixty years.\"")],
+  I("Naruho's Meeting Notes","Lore","Lore","Zen'in head of clan, June 2007.","Present: myself, Agato Reo, and a guest who would not give his name. If the Vessel never arrives, Tengen fails. If Tengen fails, the Table falls. When it falls, someone must hold it together. That will be us."),
+  I("Leaked Route Memo","Lore","Lore","Found in the Zen'in headquarters after the war.","The full escort route for July 21 to 25, hour by hour. It is a Higher Table document. The routing stamp at the bottom belongs to the office of Agato Reo."),
+  I("Gojo Medical Report","Lore","Lore","Jujutsu High infirmary, July 25, 2007.","Patient was declared dead at the scene. Forty minutes later the patient walked into the infirmary on his own. The wound is gone. The patient is laughing and will not stop."),
+  I("Gojo's Statement","Lore","Lore","Given to the Higher Table, July 26, 2007.","Umeo said one thing before he died: \"You were supposed to stay down.\" Not \"I thought you were dead.\" Supposed to. Like someone told him I would."),
+  I("Saiki's Files","Lore","Lore","A folder taken during a solo mission, 2011.","Names, ages and dates. Children who enrolled at schools that don't exist. Next to each one, a single word: \"taken\" or \"processed.\" There are dozens. The first entry is from 2009."),
+  I("Unsent Letter to Todoya","Lore","Lore","Saiki's handwriting, December 2011.","You both looked at me like I was the one who'd lost it. Like the war broke me. I counted them, Todoya. Every one. You just didn't want to count."),
+  I("Execution Order","Lore","Lore","Higher Table, sealed, December 2011.","The sorcerer Saiki has killed three supervisors and is now classified as a curse user. Todoya and Gojo are ordered to locate and eliminate him. No report is needed, only confirmation."),
+  I("Supervisor Pay Stubs","Lore","Lore","Three envelopes, all from the same week.","Each of the three supervisors Saiki killed was paid twice that month. Once by Jujutsu High. Once by an account split between the Zen'in and the Kamo. The memo line reads: \"recruitment.\"")],
  /* Grade 1 · Legendary */
  [I("Heian Domain Scroll","Scroll","Barrier Proficiency","A thousand years old, and the barrier theory still holds."),
   I("Gojo Clan Archive Notes","Manual","Cursed Energy Proficiency","Studies on cursed energy efficiency, stamped with the Gojo crest."),
@@ -1053,13 +1118,14 @@ const LOOT=[
   I("Chain of Binding Vows","Weapon","Combat Proficiency","Grows stronger the more rules its wielder follows."),
   I("Demon Fist Gauntlets","Weapon","Combat Proficiency","Every punch lands twice."),
   I("Sendai Founders' Revolver","Weapon","Combat Proficiency","Carried by the school's first teacher. Still loaded."),
-  I("Heian Fragment","Lore","Lore","A strip of paper older than any school.","He outlived the clans that hunted him. When there was no one left worth fighting, he cut himself into twenty pieces, and waited."),
-  I("Sealed Council Minutes","Lore","Lore","Stamped CONFIDENTIAL. Dated 2018.","The Zen'in offer their Ten Shadows heir to Jujutsu High as proof of peace. Motion accepted. Teachers are instructed to watch the child closely. The council does not trust gifts."),
-  I("Letter in Red Wax","Lore","Lore","The seal carries a crest you've seen on a school pamphlet.","The war did in one year what forty years of policy could not. Keep the Gojo heir close and grateful. He must keep believing we are the gentle ones. Fewer hands, steadier hands. There is no name, only a red thumbprint."),
-  I("Blood-Signed Contract","Lore","Lore","Signed in blood, not ink.","Between the Advisor and the council, four seats of six. Terms: the schools close slowly. The war ends quickly. The Advisor's family takes no losses. Where a name should be, the blood still moves when you touch the page."),
-  I("Clan Casualty Roll, 2007","Lore","Lore","A clan's private record of the war.","Zen'in dead: listed by the hundred. Gojo dead: thirty-one. Kamo dead: the column is empty. Beside it, in a shaking hand: \"Not one of ours. How is that possible?\""),
-  I("Ledger of the Unlisted","Lore","Lore","Pages of children's names no school ever enrolled.","Beside each name: a date, a city and one word. Most say \"taken.\" A few say \"kept.\" The title on the first page reads: \"Fewer hands.\""),
-  I("Cursed Finger Ledger","Lore","Lore","Twenty entries in old ink.","Most are marked \"sealed\" or \"location unknown.\" The last line is in fresh ink: \"Something is waking them.\"")],
+  I("Struck Transcript","Lore","Lore","Higher Table minutes, February 2007. One name is cut out with a blade.","The Damned was not Agato's idea. It was suggested by a sorcerer whose name has been removed. His reason, word for word: \"Let them all chase Tengen's girl. Our Vessel is reaching the age, and his physical abilities have proven a success.\" In the margin, in pencil: \"Not the girl. Then who?\""),
+  I("Appointment Ledger, 2009","Lore","Lore","The oath book of the new Higher Table.","Six new members, three Kamo and three Gojo. Each oath has a line for a sponsor. All six lines hold the same thing: a perfect red circle, no bigger than a fingertip."),
+  I("Search Mission Report","Lore","Lore","Todoya and Gojo to the Higher Table, January 2012.","Target not located. Recommend the search be closed. Stapled behind it, in Todoya's handwriting: \"We found him. We let him go. If anyone ever reads this, burn it.\""),
+  I("The Reborn Manifesto","Lore","Lore","Spray-painted on the wall of a closed school, 2016.","The Table killed our friends in 2007 and our children after. We are not curse users. We are what the Table made. We are the Reborn, and we are coming to tear the Table down."),
+  I("Problem Child File","Lore","Lore","Taken from the Reborn, early 2017.","Subject: a child. Unregistered. Bound to a Special Grade vengeful spirit that no school has detected. Saiki's note in the margin: \"This is the one. This is how we bring it all down.\""),
+  I("Disappearance Count, 2009 to 2014","Lore","Lore","A single sheet. No letterhead.","Children enrolled at fake schools: 63. Sorcerers lost looking for them: 11. Returned alive: 0. At the bottom, a typed line: \"Phase complete. Begin the next.\""),
+  I("Burned Order","Lore","Lore","Only the middle of the page survived the fire.","...let the Zen'in buy the seats, let them break the Vessel, let the clans bleed each other until only the children are left. Then the children belong to whoever opens the doors..."),
+  I("Okinawa Postcard","Lore","Lore","Never sent. Written on the morning of July 25, 2007.","Dear class, the ocean is so much bigger than I thought. Thank you for number 4. Gojo finally smiled today. I think tomorrow will be okay. — your Vessel")],
  /* Special Grade */
  [I("Inverted Spear of Heaven","Weapon","Combat Proficiency","Cancels any cursed technique it touches."),
   I("Playful Cloud","Weapon","Combat Proficiency","A three-section staff with no technique, only raw power."),
@@ -1313,7 +1379,13 @@ function load(){
 state=load();
 /* Refund skills that no longer exist in the tree (after tree updates). */
 const ITEM_RENAMES={"sorcerer-trading-card-pack":"dragon-ball-card-pack","heian-booster-pack":"dragon-ball-booster-pack","heian-collector-s-box":"dragon-ball-collector-s-box","expired-healing-salve":"scribbled-extension-ideas","healer-s-field-notes":"technique-sparring-log","positive-energy-primer":"extension-theory-notes","reverse-cursed-technique-codex":"maximum-technique-manuscript"};
-function reconcile(){let n=0,pts=0;for(const c of Object.values(state.characters||{})){fixGrade(c);if(c.specialRoll&&!SPECIAL_ROLLS.some(r=>r.id===c.specialRoll))c.specialRoll=""}
+const OLD_LORE={"torn-diary-page": 0, "faded-newspaper-clipping": 0, "dojo-closing-flyer": 0, "cafeteria-notice": 0, "unsent-postcard": 0, "missing-poster": 0, "crumpled-mission-slip": 0, "sendai-orientation-pamphlet": 1, "old-class-photo": 1, "transfer-slip": 1, "teacher-s-grocery-list": 1, "graduation-program-2006": 1, "condolence-letter": 1, "unused-student-id": 1, "clan-crest-patch": 1, "veteran-s-letter": 2, "council-seating-chart": 2, "council-attendance-sheet": 2, "list-of-closed-centers": 2, "recruiter-s-logbook": 2, "mismatched-mission-log": 2, "hospital-intake-sheet": 2, "closure-notice": 2, "translated-telegram": 3, "kamo-pamphlet": 3, "redacted-memo": 3, "uprising-risk-study": 3, "consulting-receipt": 3, "search-party-notes": 3, "zen-in-declaration": 3, "field-report-2007": 4, "unsigned-confession": 4, "envoy-incident-report-2007": 4, "burned-letter-fragment": 4, "advisor-s-calling-card": 4, "sealed-autopsy": 4, "birth-record": 4, "heian-fragment": 5, "sealed-council-minutes": 5, "letter-in-red-wax": 5, "blood-signed-contract": 5, "clan-casualty-roll-2007": 5, "ledger-of-the-unlisted": 5, "cursed-finger-ledger": 5};
+function migrateLore(c){const pool={};Object.values(ITEMS).forEach(i=>{if(i.type==="Lore")(pool[i.r]=pool[i.r]||[]).push(i.id)});const pick=r=>{const l=pool[r]||pool[0];return l[Math.floor(rnd()*l.length)]};let n=0;
+  ["inventory","armory"].forEach(k=>(c[k]||[]).forEach(v=>{if(OLD_LORE[v.item]!=null&&!ITEMS[v.item]){v.item=pick(OLD_LORE[v.item]);n++}}));
+  (c.ledger||[]).forEach(l=>{if(l.loot&&OLD_LORE[l.loot]!=null&&!ITEMS[l.loot])l.loot=pick(OLD_LORE[l.loot])});
+  if(Array.isArray(c.lore)){const have=new Set(c.lore.filter(x=>ITEMS[x.item]).map(x=>x.item));c.lore=c.lore.map(x=>{if(ITEMS[x.item])return x;const r=OLD_LORE[x.item];if(r==null)return null;const free=(pool[r]||[]).filter(id=>!have.has(id));if(!free.length)return null;const id=free[Math.floor(rnd()*free.length)];have.add(id);n++;return Object.assign({},x,{item:id})}).filter(Boolean)}
+  return n}
+function reconcile(){let n=0,pts=0;let loreN=0;for(const c of Object.values(state.characters||{}))loreN+=migrateLore(c);if(loreN)state._loreNote=true;for(const c of Object.values(state.characters||{})){fixGrade(c);if(c.specialRoll&&!SPECIAL_ROLLS.some(r=>r.id===c.specialRoll))c.specialRoll=""}
   for(const c of Object.values(state.characters)){const cr=c.creation;if(cr&&!cr.finished&&(cr.potential||cr.output||cr.reserve)){cr.finished=true;cr.spins=1;cr.used={potential:cr.potential?1:0,output:cr.output?1:0,reserve:cr.reserve?1:0}}}
   for(const c of Object.values(state.characters)){(c.inventory||[]).forEach(v=>{if(ITEM_RENAMES[v.item])v.item=ITEM_RENAMES[v.item];if(!ITEMS[v.item]&&OLD_HEIAN_CARDS[v.item]!=null)v.item=convertOldCard(v.item)});(c.ledger||[]).forEach(l=>{if(ITEM_RENAMES[l.loot])l.loot=ITEM_RENAMES[l.loot]})}
   for(const c of Object.values(state.characters)){
@@ -1836,37 +1908,73 @@ function spendPoints(prof){
   if(use>balance(c)){toast(`You only have ${balance(c)} point${balance(c)===1?"":"s"}.`);return}
   addXP(prof,Math.min(use*POINT_XP,room),{points:use,src:"points"});
 }
+/* ---- Proficiency view: pick one proficiency, then train it ---- */
+const PROF_SHORTNAME={ce:"Cursed Energy",ct:"Technique",barrier:"Barrier",anti:"Anti-Barrier",combat:"Combat"};
+let profSpend={},profLast={};
+function profSel(c){let id=state.profSel;if(!PROF_BY_ID[id])id=PROFS[0].id;return id}
+function profTileHTML(c,p,sel){
+  const open=profOpen(c,p.id),xp=profXP(c,p.id),info=levelInfo(xp,p.id),cap=capLv(c,p.id),v=Math.min(info.lv,cap),r=profRank(v,p.id);
+  const done=v>=cap;const pct=!open?0:done?100:Math.round(info.into/info.need*100);
+  const nextS=open?(PROF_SKILLS[p.id]||[]).find(s=>skillLv(s,p.id)===v+1&&v+1<=cap):null;
+  return`<button type="button" class="ptile ${sel?"sel":""} ${open?"":"lockd"}" data-psel="${p.id}" style="--pc:var(${p.color});--pct:${pct}" aria-pressed="${sel}">
+    <span class="pring"><span>${!open?"🔒":r?`${PROF_SHORT[r.g]}<small>Lv ${r.l}</small>`:"—"}</span></span>
+    <b>${esc(PROF_SHORTNAME[p.id]||p.name)}</b><small>${!open?"Locked":done&&cap>=maxLv(p.id)?"Maxed":done?"At your limit":`${info.need-info.into} XP to next`}</small></button>`}
 function renderProf(){
-  const c=C();if(!c.profLog)c.profLog=[];const bal=balance(c);
-  $("#profList").innerHTML=PROFS.map(p=>{
-    const open=profOpen(c,p.id),st0=pStart(p.id);
-    const xp=profXP(c,p.id),info=levelInfo(xp,p.id),cap=capLv(c,p.id),v=Math.min(info.lv,cap),r=profRank(v,p.id),capped=v>=cap&&cap<maxLv(p.id),maxed=v>=maxLv(p.id)||capped;
-    const potName=(crFind(CREATION.potential,(c.creation||{}).potential)||{}).label;
-    const grades=PROF_GRADES.map((g,gi)=>gi).filter(gi=>gi>=st0);
-    const track=grades.map(gi=>`<div class="tg ${r&&r.g===gi?"cur":""}"><div class="tg-pips">${Array.from({length:PROF_LEVELS},(_,li)=>`<i class="pip ${(gi-st0)*PROF_LEVELS+li+1<=v?"on":(gi-st0)*PROF_LEVELS+li+1>cap?"cap":""}" title="${esc(PROF_GRADES[gi])} · Level ${li+1}${(gi-st0)*PROF_LEVELS+li+1>cap?" · needs a higher Grade Potential":""}"></i>`).join("")}</div><span>${PROF_SHORT[gi]}</span></div>`).join("");
-    const nr=profRank(v+1,p.id);
-    const skills=PROF_SKILLS[p.id]||[];const nextSkill=open?skills.find(s=>skillLv(s,p.id)>v&&skillLv(s,p.id)<=cap):null;
-    const skillHTML=skills.length?`<div class="pskills">${skills.map(s=>{const st=open&&skillLv(s,p.id)<=v?"on":skillLv(s,p.id)>cap?"capped":s===nextSkill?"next":"off";return`<div class="pskill ${st}"><span class="lvtag">${lvTag(s)}</span><div><b>${st==="on"?"✓ ":st==="capped"?"🔒 ":""}${esc(s[2])}${st==="next"?`<em class="nextpill">Next</em>`:""}${st==="capped"?`<em class="cappill">Needs ${esc(needPotential(s[0]))} Potential</em>`:""}</b>${s[3]?`<span>${esc(s[3])}</span>`:""}</div></div>`}).join("")}</div>`:`<div class="unl">Skills for this proficiency are coming soon.</div>`;
-    const log=c.profLog.filter(e=>e.prof===p.id).sort((a,b)=>(b.at||0)-(a.at||0));
-    const logHTML=log.length?`<details class="xplog"><summary>XP history (${log.length})</summary>${log.map(e=>`<div class="lrow"><div class="who">${e.src==="item"&&ITEMS[e.item]?esc(ITEMS[e.item].n):e.src==="points"?`${e.points} point${e.points===1?"":"s"}`:e.src==="gm"?"GM tools":"Earlier progress"}<small>${esc(fmtDate(e.date))}</small></div><span class="pts">+${e.xp} XP</span><button type="button" class="btn sm ghost" data-xundo="${e.id}" aria-label="Undo">Undo</button></div>`).join("")}<p class="dhelp" style="margin:6px 0 0;font-size:.78rem;color:var(--muted)">Undo gives back the points or the item.</p></details>`:"";
-    return`<article class="prof ${open?"":"locked"}" style="--pc:var(${p.color})">
-      <div class="prof-h"><div><h3>${open?"":"🔒 "}${esc(p.name)}</h3><div class="prof-rank ${r&&open?"":"none"}">${open?esc(profLabel(v,p.id)):"Locked"}</div></div><div class="xptotal">${xp} XP</div></div>
-      ${p.note?`<p class="pnote">${esc(p.note)}</p>`:""}
-      ${cap<maxLv(p.id)?`<p class="pnote">${potName?`Your ${esc(potName)} Potential lets this reach`:"Until you roll your Grade Potential, this stops at"} <b>${esc(PROF_GRADES[capGrade(c)])}</b>.</p>`:""}
-      ${open?"":`<div class="req-lock" style="margin:0;border-color:var(--pc)">${reqText(p.id)}</div>`}
-      ${open?`<div><div class="xpbar"><i style="width:${maxed?100:Math.round(info.into/info.need*100)}%"></i></div>
-        <div class="xpmeta">${capped?`Limit reached: your ${potName?esc(potName)+" ":""}Potential caps this at ${esc(PROF_GRADES[capGrade(c)])}.`:maxed?"Maxed out":`${info.into} / ${info.need} XP to ${esc(PROF_GRADES[nr.g])} · Level ${nr.l}`}</div></div>`:""}
-      <div class="track" style="grid-template-columns:repeat(${grades.length},minmax(0,1fr))">${track}</div>
-      ${log.length?`<div class="undo-row"><button type="button" class="btn sm" data-xundo="${log[0].id}">↶ Undo last: ${log[0].src==="item"&&ITEMS[log[0].item]?esc(ITEMS[log[0].item].n):log[0].src==="points"?`${log[0].points} pt${log[0].points===1?"":"s"}`:"earlier progress"} (+${log[0].xp} XP)</button></div>`:""}
-      ${maxed||!open?"":`<div class="spend"><label for="sp-${p.id}">Spend points</label><input type="number" min="1" step="1" id="sp-${p.id}" value="1" inputmode="numeric"><span class="conv" id="cv-${p.id}">= ${POINT_XP} XP</span><button type="button" class="btn sm primary" data-spend="${p.id}" ${bal<1?"disabled":""}>Spend</button></div>`}
-      ${skillHTML}
-      ${logHTML}
-    </article>`}).join("");
+  const c=C();if(!c.profLog)c.profLog=[];const bal=balance(c);const pid=profSel(c);const p=PROF_BY_ID[pid];
+  const tiles=`<div class="ptiles">${PROFS.map(x=>profTileHTML(c,x,x.id===pid)).join("")}</div>`;
+  const open=profOpen(c,pid),st0=pStart(pid),xp=profXP(c,pid),info=levelInfo(xp,pid),cap=capLv(c,pid),v=Math.min(info.lv,cap),r=profRank(v,pid);
+  const capped=v>=cap&&cap<maxLv(pid),maxed=v>=maxLv(pid)||capped,nr=profRank(v+1,pid);
+  const potName=(crFind(CREATION.potential,(c.creation||{}).potential)||{}).label;
+  const pct=maxed?100:Math.round(info.into/info.need*100);const prevPct=profLast[pid]&&profLast[pid].lv===v?profLast[pid].pct:(profLast[pid]&&profLast[pid].lv<v?0:pct);const lvUp=profLast[pid]&&profLast[pid].lv<v;
+  profLast[pid]={lv:v,pct};
+  const skills=PROF_SKILLS[pid]||[];const nextSkill=open?skills.find(s=>skillLv(s,pid)>v&&skillLv(s,pid)<=cap):null;
+  const xpToNext=nextSkill?xpToLevel(skillLv(nextSkill,pid),pid)-xp:0;
+  // spend
+  const room=Math.max(0,capXP(c,pid)-xp),maxPts=Math.min(bal,Math.ceil(room/POINT_XP));let n=Math.max(1,Math.min(profSpend[pid]||1,Math.max(1,maxPts)));profSpend[pid]=n;
+  const after=Math.min(levelInfo(xp+Math.min(n*POINT_XP,room),pid).lv,cap);const afterR=profRank(after,pid);
+  const spend=maxed||!open?"":`<div class="pspend">
+      <div class="pspend-top"><span>Spend points</span><small>You have <b>${bal}</b></small></div>
+      <div class="pstep"><button type="button" class="pstep-b" data-pstep="-1" aria-label="One less" ${n<=1?"disabled":""}>−</button>
+        <input type="number" id="sp-${pid}" min="1" step="1" value="${n}" inputmode="numeric" aria-label="Points to spend">
+        <button type="button" class="pstep-b" data-pstep="1" aria-label="One more" ${n>=maxPts?"disabled":""}>+</button></div>
+      <div class="pchips">${[1,5,10].map(k=>`<button type="button" class="pchip ${n===k?"on":""}" data-pset="${k}" ${k>maxPts&&k!==1?"disabled":""}>${k}</button>`).join("")}<button type="button" class="pchip ${n===maxPts&&maxPts>1?"on":""}" data-pset="${maxPts}" ${maxPts<1?"disabled":""}>Max</button></div>
+      <button type="button" class="btn primary pgo" data-spend="${pid}" ${bal<1?"disabled":""}>+${Math.min(n*POINT_XP,room)} XP${after>v&&afterR?` · reach ${PROF_SHORT[afterR.g]} Lv ${afterR.l}`:""}</button>
+      ${bal<1?`<small class="pmuted">No points left. Log a host or use an item from your Loot tab.</small>`:""}</div>`;
+  // skills by grade
+  const grades=PROF_GRADES.map((g,gi)=>gi).filter(gi=>gi>=st0);
+  const curG=r?r.g:st0;
+  const gradeHTML=grades.map(gi=>{const list=skills.filter(s=>s[0]===gi);const lvFrom=(gi-st0)*PROF_LEVELS;const gCap=lvFrom+1>cap;
+    const gDone=Math.max(0,Math.min(PROF_LEVELS,v-lvFrom));const have=list.filter(s=>open&&skillLv(s,pid)<=v).length;
+    const pips=Array.from({length:PROF_LEVELS},(_,li)=>`<i class="${li<gDone?"on":lvFrom+li+1>cap?"cap":""}"></i>`).join("");
+    const rows=list.length?list.map(s=>{const L=skillLv(s,pid);const st=!open?"off":L<=v?"on":L>cap?"capped":s===nextSkill?"next":"off";
+      return`<div class="pskill2 ${st}"><span class="pdot">${st==="on"?"✓":st==="capped"?"🔒":`L${s[1]}`}</span><div><b>${esc(s[2])}${st==="next"?`<em class="nextpill">Next</em>`:""}</b>${s[3]?`<p>${esc(s[3])}</p>`:""}</div></div>`}).join(""):`<p class="pmuted" style="margin:4px 0">No skills at this grade. Its levels still count.</p>`;
+    return`<details class="pgrade ${gCap?"capd":""} ${gi===curG?"cur":""}" ${gi===curG&&open?"open":""}><summary><span class="pg-name">${esc(PROF_GRADES[gi])}</span><span class="pg-pips">${pips}</span><span class="pg-count">${gCap?`🔒 Needs ${esc(needPotential(gi)||PROF_GRADES[gi])} Potential`:list.length?`${have} / ${list.length}`:"—"}</span></summary><div class="pg-body">${rows}</div></details>`}).join("");
+  const log=c.profLog.filter(e=>e.prof===pid).sort((a,b)=>(b.at||0)-(a.at||0));
+  const logHTML=log.length?`<details class="xplog"><summary>XP history (${log.length})</summary>${log.map(e=>`<div class="lrow"><div class="who">${e.src==="item"&&ITEMS[e.item]?esc(ITEMS[e.item].n):e.src==="points"?`${e.points} point${e.points===1?"":"s"}`:e.src==="gm"?"GM tools":"Earlier progress"}<small>${esc(fmtDate(e.date))}</small></div><span class="pts">+${e.xp} XP</span></div>`).join("")}</details>`:"";
+  const detail=`<article class="pdetail ${open?"":"locked"} ${lvUp?"lvup":""}" style="--pc:var(${p.color})">
+    <div class="pd-h"><div><span class="eyebrow" style="color:var(--pc)">${esc(p.name)}</span><h3>${open?esc(profLabel(v,pid)):"Locked"}</h3></div><div class="pd-xp"><b>${xp}</b><small>total XP</small></div></div>
+    ${!open?`<div class="req-lock" style="margin:0;border-color:var(--pc)">${reqText(pid)}</div>`:`
+    <div class="pbar"><i style="width:${prevPct}%" data-to="${pct}"></i></div>
+    <div class="pbar-meta"><span>${capped?`Limit reached · your ${potName?esc(potName)+" ":""}Potential stops here`:maxed?"Maxed out":`<b>${info.into}</b> / ${info.need} XP`}</span><span>${maxed?"":`next: ${esc(PROF_SHORT[nr.g])} Lv ${nr.l}`}</span></div>
+    ${nextSkill?`<div class="pnext"><span>Next skill</span><b>${esc(nextSkill[2])}</b><small>${xpToNext} XP away · ${esc(PROF_GRADES[nextSkill[0]])} Lv ${nextSkill[1]}</small></div>`:""}`}
+    ${p.note?`<p class="pmuted">${esc(p.note)}</p>`:""}
+    ${cap<maxLv(pid)&&open?`<p class="pmuted">${potName?`Your ${esc(potName)} Potential lets this reach`:"Until you roll your Grade Potential, this stops at"} <b>${esc(PROF_GRADES[capGrade(c)])}</b>.</p>`:""}
+    ${spend}
+    <div class="pgrades">${gradeHTML}</div>
+    <div class="pd-foot">${log.length?`<button type="button" class="btn sm ghost" data-xundo="${log[0].id}">↶ Undo last (+${log[0].xp} XP)</button>`:""}${logHTML}</div>
+  </article>`;
+  $("#profList").innerHTML=tiles+detail;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{const bar=$("#profList .pbar i");if(bar)bar.style.width=bar.dataset.to+"%"}));
 }
-$("#profList").addEventListener("input",e=>{const m=e.target.id&&e.target.id.match(/^sp-(.+)$/);if(m){const n=Math.max(0,Math.round(Number(e.target.value)||0));const cv=document.getElementById("cv-"+m[1]);if(cv)cv.textContent=`= ${n*POINT_XP} XP`}});
-$("#profList").addEventListener("keydown",e=>{const m=e.target.id&&e.target.id.match(/^sp-(.+)$/);if(m&&e.key==="Enter"){e.preventDefault();spendPoints(m[1])}});
+$("#profList").addEventListener("input",e=>{const m=e.target.id&&e.target.id.match(/^sp-(.+)$/);if(m){profSpend[m[1]]=Math.max(1,Math.round(Number(e.target.value)||1))}});
+$("#profList").addEventListener("change",e=>{const m=e.target.id&&e.target.id.match(/^sp-(.+)$/);if(m)renderProf()});
+$("#profList").addEventListener("keydown",e=>{const m=e.target.id&&e.target.id.match(/^sp-(.+)$/);if(m&&e.key==="Enter"){e.preventDefault();profSpend[m[1]]=Math.max(1,Math.round(Number(e.target.value)||1));spendPoints(m[1])}});
 $("#profList").addEventListener("click",e=>{
-  const s=e.target.closest("[data-spend]");if(s){spendPoints(s.dataset.spend);return}
+  const t=e.target.closest("[data-psel]");if(t){state.profSel=t.dataset.psel;persist();renderProf();return}
+  const pid=profSel(C());
+  const st=e.target.closest("[data-pstep]");if(st){profSpend[pid]=Math.max(1,(profSpend[pid]||1)+(+st.dataset.pstep));renderProf();return}
+  const ps=e.target.closest("[data-pset]");if(ps){profSpend[pid]=Math.max(1,+ps.dataset.pset);renderProf();return}
+  const s=e.target.closest("[data-spend]");if(s){const inp=document.getElementById("sp-"+s.dataset.spend);if(inp)inp.value=profSpend[s.dataset.spend]||1;spendPoints(s.dataset.spend);return}
   const u=e.target.closest("[data-xundo]");if(u){const id=u.dataset.xundo;
     const c=C();const en=c.profLog.find(x=>x.id===id);if(!en)return;
     c.profLog=c.profLog.filter(x=>x.id!==id);
@@ -2091,7 +2199,7 @@ function exportChar(c){return JSON.stringify({app:"catastrophe-codex",v:1,charac
 function importData(txt){
   let o;try{o=JSON.parse(txt)}catch(e){try{o=JSON.parse(b64d(txt))}catch(e2){return"That isn't a Jujutsu Kaisen: New Hope save."}}
   const c=o&&o.character;if(!c||typeof c!=="object"||!c.id)return"That isn't a Jujutsu Kaisen: New Hope save.";
-  fixGrade(c);const b=blankChar();b.ledger=[];const merged=Object.assign(b,c);merged.unlocked=merged.unlocked||{};merged.ledger=Array.isArray(merged.ledger)?merged.ledger:[];merged.diary=Array.isArray(merged.diary)?merged.diary:[];merged.inventory=Array.isArray(merged.inventory)?merged.inventory:[];merged.armory=Array.isArray(merged.armory)?merged.armory:[];merged.lore=Array.isArray(merged.lore)?merged.lore:[];merged.creation=merged.creation&&typeof merged.creation==="object"?merged.creation:{};if(!Array.isArray(merged.profLog)){merged.profLog=[];for(const pid in (merged.prof||{})){const lv=+merged.prof[pid]||0;if(lv>0)merged.profLog.push({id:uid(),prof:pid,xp:xpToLevel(lv,pid),points:0,src:"earlier",date:today(),at:Date.now()})}}delete merged.prof;merged.grade=Math.max(0,Math.min(7,+merged.grade||0));delete merged.example;
+  fixGrade(c);const b=blankChar();b.ledger=[];const merged=Object.assign(b,c);merged.unlocked=merged.unlocked||{};merged.ledger=Array.isArray(merged.ledger)?merged.ledger:[];merged.diary=Array.isArray(merged.diary)?merged.diary:[];merged.inventory=Array.isArray(merged.inventory)?merged.inventory:[];merged.armory=Array.isArray(merged.armory)?merged.armory:[];merged.lore=Array.isArray(merged.lore)?merged.lore:[];migrateLore(merged);merged.creation=merged.creation&&typeof merged.creation==="object"?merged.creation:{};if(!Array.isArray(merged.profLog)){merged.profLog=[];for(const pid in (merged.prof||{})){const lv=+merged.prof[pid]||0;if(lv>0)merged.profLog.push({id:uid(),prof:pid,xp:xpToLevel(lv,pid),points:0,src:"earlier",date:today(),at:Date.now()})}}delete merged.prof;merged.grade=Math.max(0,Math.min(7,+merged.grade||0));delete merged.example;
   const existed=!!state.characters[merged.id];state.characters[merged.id]=merged;state.activeId=merged.id;persist();actLog("imported",{existed});fillEditor();renderAll();
   return existed?`Updated ${DISPLAY_NAME(merged)} from the save.`:`Loaded ${DISPLAY_NAME(merged)}.`;
 }
@@ -3025,10 +3133,42 @@ if(GM_TOOLS){
   /* ---- GM: Jujuzon store ---- */
   let zEdit=null;
   const zItemOpts=sel=>`<optgroup label="Off Chance (shop only)">${OFF_CHANCE.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)} · ${esc(it.type)} · ${esc(RARITIES[it.r].tag)}</option>`).join("")}</optgroup>`+LOOT.map((list,ri)=>`<optgroup label="${esc(rarFull(ri))}">${list.map(it=>`<option value="${it.id}" ${sel===it.id?"selected":""}>${esc(it.n)}</option>`).join("")}</optgroup>`).join("");
+  /* ---- Auto restock (edit prices here) ----
+     Prices follow what an item is worth: XP items by their XP (1 XP = ¥25,000), spin items by how many spins,
+     packs by size, everything else by rarity. ±15% random, rounded, and never below AUTO_MIN_PRICE. */
+  const AUTO_MIN_PRICE=500000;
+  const AUTO_RARITY_PRICE=[500000,750000,1500000,3500000,8000000,18000000,60000000]; // Trash … Special Grade
+  const AUTO_XP_YEN=25000, AUTO_SPIN_PRICE={1:5000000,2:12000000,3:45000000};
+  const AUTO_STOCK=[0,0,0,3,2,1,1]; // per character, by rarity (0 = no limit)
+  const AUTO_W=[6,8,7,5,3,1.5,0.4]; // how often each rarity gets picked
+  function autoPrice(it){let p;const rs=respinOf(it);
+    if(it.pack)p=it.pack.min>=4?15000000:it.pack.min>=3?4000000:750000;
+    else if(rs)p=AUTO_SPIN_PRICE[rs.n]||rs.n*4000000;
+    else if(it.id===HEIRLOOM_ID)p=12000000;
+    else if(isWeapon(it))p=it.r===6?45000000:Math.round(itemXP(it)*AUTO_XP_YEN*1.3);
+    else if(canXP(it))p=itemXP(it)*AUTO_XP_YEN;
+    else p=AUTO_RARITY_PRICE[it.r];
+    p*=0.85+rnd()*0.3;const step=p>=1000000?100000:50000;return Math.max(AUTO_MIN_PRICE,Math.round(p/step)*step)}
+  function autoPools(){const all=[...LOOT.flat(),...OFF_CHANCE].filter(it=>!isCard(it)&&!it.finger&&it.type!=="Lore"&&(canXP(it)||canStore(it)||respinOf(it)||it.pack||it.id===HEIRLOOM_ID||it.type==="RP Item"||it.type==="Collectible"));
+    return{xp:all.filter(it=>canXP(it)&&!isWeapon(it)&&!respinOf(it)),weapon:all.filter(it=>isWeapon(it)&&canStore(it)),pack:all.filter(it=>it.pack),spin:all.filter(it=>respinOf(it)),fun:all.filter(it=>it.type==="RP Item"||it.type==="Collectible"),any:all}}
+  const wpickItem=(list,taken)=>{const l=list.filter(it=>!taken.has(it.id));if(!l.length)return null;const t=l.reduce((a,it)=>a+AUTO_W[it.r],0);let x=rnd()*t;for(const it of l){x-=AUTO_W[it.r];if(x<0)return it}return l[l.length-1]};
+  function autoRestock(n,days,keep){
+    const P=autoPools(),picks=[];const taken=new Set(keep?(state.gmBoard.shop||[]).filter(x=>!x.auto).map(x=>x.item):[]); // never list the same item twice
+    const plan=["pack","spin","xp","xp","weapon","fun","fun","weapon"];while(plan.length<n)plan.push("any");
+    for(const k of plan.slice(0,n)){const it=wpickItem(P[k],taken)||wpickItem(P.any,taken);if(it){taken.add(it.id);picks.push(it)}}
+    let until="";if(days>0){const d=new Date(Date.now()+days*864e5);const z=v=>String(v).padStart(2,"0");until=`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`}
+    const rows=picks.map(it=>({id:uid(),item:it.id,price:autoPrice(it),stock:respinOf(it)?1:AUTO_STOCK[it.r],tag:it.r>=5?"Limited":"",until,auto:true}));
+    if(rows.length){const d=rows[Math.floor(rnd()*rows.length)];d.price=Math.max(AUTO_MIN_PRICE,Math.round(d.price*0.75/50000)*50000);d.tag="Deal of the day"}
+    const shop=state.gmBoard.shop||[];state.gmBoard.shop=(keep?shop.filter(x=>!x.auto):[]).concat(rows);return rows.length}
   function zonGMHTML(){
     const shop=state.gmBoard.shop||[];const e=zEdit?shop.find(x=>x.id===zEdit):null;const d=e||{};
     return`<div class="group-t" style="color:var(--danger)">Jujuzon store (${shop.length})</div>
       <p class="dhelp" style="margin:0;color:var(--muted);font-size:.85rem">Players buy these with Yen in the Jujuzon app on their phone. Stock is how many each character can buy. Leave it empty for no limit. It goes out with board.json like your posts.</p>
+      <div class="zauto"><b>Auto restock</b><span class="dhelp" style="margin:0;color:var(--muted);font-size:.82rem">Picks a mix of items (XP items, weapons, a card pack, spin items, RP items and collectibles) and prices them by what they're worth. Press it again for a new roll. You can still edit or remove any listing after.</span>
+        <div class="zauto-row"><label>Listings <input type="number" id="za-n" min="3" max="16" value="8"></label>
+          <label>Lasts <select id="za-days"><option value="0">No end</option><option value="1">1 day</option><option value="3">3 days</option><option value="7" selected>7 days</option><option value="14">14 days</option></select></label>
+          <label class="zcheck"><input type="checkbox" id="za-keep" checked> Keep my own listings</label>
+          <button type="button" class="btn primary" id="zg-auto">Auto restock</button></div></div>
       <div class="fgrid">
         <div class="field full"><label for="zg-item">Item</label><select id="zg-item">${zItemOpts(d.item)}</select></div>
         <div class="field"><label for="zg-price">Price (Yen)</label><input id="zg-price" type="number" min="0" step="1000" value="${esc(d.price??"")}" placeholder="2000000"></div>
@@ -3037,13 +3177,16 @@ if(GM_TOOLS){
         <div class="field"><label for="zg-until">Ends (optional)</label><input id="zg-until" type="datetime-local" value="${esc(d.until||"")}"></div>
       </div>
       <div class="drow"><button type="button" class="btn primary" id="zg-save">${e?"Save listing":"Add to store"}</button>${e?`<button type="button" class="btn ghost" id="zg-cancel">Cancel</button>`:""}</div>
-      <div class="gm-posts">${shop.length?shop.map(x=>{const it=ITEMS[x.item];return`<div class="lrow"><div class="who">${esc(it?it.n:x.item)}<small>${fmtYen(x.price)} · ${+x.stock>0?`${x.stock} per character`:"no limit"}${x.tag?` · ${esc(x.tag)}`:""}${x.until?` · ends ${esc(fmtWhen(x.until))}`:""}${shopLive(x)?"":" · ended"}</small></div><button type="button" class="btn sm" data-zgedit="${esc(x.id)}">Edit</button><button type="button" class="btn sm ghost danger" data-zgdel="${esc(x.id)}">Remove</button></div>`}).join(""):`<p class="dhelp" style="margin:0;color:var(--muted)">Nothing in the store yet.</p>`}</div>`}
+      <div class="gm-posts">${shop.length?shop.map(x=>{const it=ITEMS[x.item];return`<div class="lrow"><div class="who">${esc(it?it.n:x.item)}<small>${fmtYen(x.price)} · ${+x.stock>0?`${x.stock} per character`:"no limit"}${x.tag?` · ${esc(x.tag)}`:""}${x.until?` · ends ${esc(fmtWhen(x.until))}`:""}${shopLive(x)?"":" · ended"}${x.auto?" · auto":""}</small></div><button type="button" class="btn sm" data-zgedit="${esc(x.id)}">Edit</button><button type="button" class="btn sm ghost danger" data-zgdel="${esc(x.id)}">Remove</button></div>`}).join(""):`<p class="dhelp" style="margin:0;color:var(--muted)">Nothing in the store yet.</p>`}</div>`}
   $("#gmBoard").addEventListener("click",ev=>{const t=ev.target;const shop=state.gmBoard.shop=state.gmBoard.shop||[];
     if(t.id==="zg-save"){const price=Math.round(+$("#zg-price").value);if(!(price>=0)||$("#zg-price").value===""){toast("Set a price in Yen.");return}
       const data={item:$("#zg-item").value,price,stock:Math.max(0,Math.round(+$("#zg-stock").value||0)),tag:$("#zg-tag").value.trim(),until:$("#zg-until").value||""};
       if(zEdit){Object.assign(shop.find(x=>x.id===zEdit),data);toast("Listing saved")}else{shop.push({id:uid(),...data});toast("Added to the store preview. Publish board.json for players.")}
       zEdit=null;gmSaveBoard()}
     if(t.id==="zg-cancel"){zEdit=null;renderGMBoard()}
+    if(t.id==="zg-auto"){const n=Math.max(3,Math.min(16,Math.round(+$("#za-n").value||8)));const days=+$("#za-days").value||0;const keep=$("#za-keep").checked;
+      const made=autoRestock(n,days,keep);zEdit=null;gmSaveBoard();toast(`Restocked ${made} listings${keep?" (your own listings kept)":""}. Check them, then publish board.json.`)}
+    if(t.dataset.zgedit){const x=shop.find(y=>y.id===t.dataset.zgedit);if(x)delete x.auto}
     if(t.dataset.zgedit){zEdit=t.dataset.zgedit;renderGMBoard();$("#zg-item").scrollIntoView({behavior:"smooth",block:"center"})}
     if(t.dataset.zgdel){if(t.textContent!=="Sure?"){t.textContent="Sure?";setTimeout(()=>{if(t.isConnected)t.textContent="Remove"},3000);return}state.gmBoard.shop=shop.filter(x=>x.id!==t.dataset.zgdel);gmSaveBoard();toast("Removed from the store")}
   });
@@ -3066,6 +3209,7 @@ if(GM_TOOLS){
 }
 
 reconcile();fillEditor();renderAll();setTab(state.tab||"sheet");renderBoard();fetchBoard();setTimeout(notify,900);pirateCheck();
+if(state._loreNote){delete state._loreNote;persist();setTimeout(()=>toast("The lore has been rewritten. Your old lore pages were swapped for new ones of the same rarity."),1400)}
 if(state._refundNote){const note=state._refundNote;setTimeout(()=>toast(note),600);delete state._refundNote;persist()}
 </script>
 
