@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11T22:59:35.969Z",
+  "updated": "2026-11-15T01:10:48.634Z",
   "posts": [
     {
       "id": "t0bn945t8llc",
@@ -27,5 +27,22 @@
       "hostEvent": false
     }
   ],
-  "shop": []
+  "shop": [
+    {
+      "id": "ifjyrunizx9v",
+      "item": "dragon-ball-card-pack",
+      "price": 10000,
+      "stock": 0,
+      "tag": "",
+      "until": ""
+    },
+    {
+      "id": "uabysgty0f6i",
+      "item": "iphone-16-pro",
+      "price": 400500,
+      "stock": 1,
+      "tag": "",
+      "until": ""
+    }
+  ]
 }
